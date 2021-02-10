@@ -1,1 +1,1 @@
-webpack --watch
+webpack --env=integration --watch
