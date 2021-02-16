@@ -1,0 +1,25 @@
+$breakpoints: (
+    xs: 0,
+    sm: 576px,
+    md: 768px,
+    lg: 992px,
+    xl: 1200px,
+    xxl: 1400px
+);
+
+@mixin for-breakpoint($breakpoint) {
+    $i : map-get($breakpoints, $breakpoint);
+    @media (min-width: #{$i}) {
+        @content;
+    }
+}
+
+@each $k, $v in $breakpoints {
+    @media (min-width: #{$v}) {
+        @for $i from 1 through 12 {
+            .col-#{$k}-#{$i} {
+                width: ( $i / 12) * 100%;
+            }
+        }
+    }
+}
