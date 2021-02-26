@@ -1,2 +1,8 @@
 twig:
     default_path: '%kernel.project_dir%/templates'
+    globals:
+      university_city: 'Limoges'
+      link_more: 'Lire la suite'
+      show_more: 'Voir plus de'
+      reply_to: 'Répondre à'
+      in_reply_to: 'en réponse à'
