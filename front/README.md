@@ -5,6 +5,6 @@
 
 - Il est aussi possible de lancer webpack directement via le fichier ```start-serve.bat```, qui est configuré de base sur le mode ```integration```.
 
-- L'initialisation peut prendre 1 à 2 minutes. Une fois lancé, webpack compilera les sources SCSS et JS du dossier dev automatiquement en CSS et JS dans le dossier ```espace-social/public/dist``` du projet Symfony.
+- L'initialisation peut prendre 1 à 2 minutes. Une fois lancé, webpack compilera les sources SCSS et JS du dossier dev automatiquement en CSS et JS dans le dossier ```back/public/static``` du projet Symfony.
 
 - Chaque modification de fichier SCSS ou JS dans le projet front entraîne une compilation automatique par webpack et donc une mise à jour des fichiers de sortie dans le projet Symfony. (c'est magique !)
