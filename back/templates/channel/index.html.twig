@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}RapidPostChannel index{% endblock %}
+
+{% block body %}
+    <h1>RapidPostChannel index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Logo</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th>Type</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for rapid_post_channel in rapid_post_channels %}
+            <tr>
+                <td>{{ rapid_post_channel.id }}</td>
+                <td>{{ rapid_post_channel.name }}</td>
+                <td>{{ rapid_post_channel.description }}</td>
+                <td>{{ rapid_post_channel.logo }}</td>
+                <td>{{ rapid_post_channel.createdAt ? rapid_post_channel.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ rapid_post_channel.updatedAt ? rapid_post_channel.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ rapid_post_channel.type }}</td>
+                <td>
+                    <a href="{{ path('channel_show', {'id': rapid_post_channel.id}) }}">show</a>
+                    <a href="{{ path('channel_edit', {'id': rapid_post_channel.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('channel_new') }}">Create new</a>
+{% endblock %}

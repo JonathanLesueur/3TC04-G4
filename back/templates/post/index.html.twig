@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}RapidPost index{% endblock %}
+
+{% block body %}
+    <h1>RapidPost index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Content</th>
+                <th>CreatedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for rapid_post in rapid_posts %}
+            <tr>
+                <td>{{ rapid_post.id }}</td>
+                <td>{{ rapid_post.title }}</td>
+                <td>{{ rapid_post.content }}</td>
+                <td>{{ rapid_post.createdAt ? rapid_post.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('post_show', {'id': rapid_post.id}) }}">show</a>
+                    <a href="{{ path('post_edit', {'id': rapid_post.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('post_new') }}">Create new</a>
+{% endblock %}
