@@ -8,6 +8,8 @@
         {% block javascripts %}{% endblock %}
     </head>
     <body>
+        {% include('header.html.twig') %}
         {% block body %}{% endblock %}
+        {% include('footer.html.twig') %}
     </body>
 </html>
