@@ -1,0 +1,26 @@
+.register-login-container {
+    width: 100%;
+    padding: 36px;
+}
+
+.main-container {
+    width: 100%;
+}
+
+@include for-breakpoint(lg) {
+    .register-login-container {
+        width: 100%;
+        max-width:850px;
+        margin: auto auto;
+    }
+
+}
+
+@include for-breakpoint(xl) {
+
+    .main-container {
+        width: 100%;
+        max-width: 1220px;
+        margin: auto auto;
+    }
+}
