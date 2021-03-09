@@ -9,9 +9,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/channel")
+ * @IsGranted("ROLE_USER")
  */
 class ChannelController extends AbstractController
 {
@@ -28,13 +31,34 @@ class ChannelController extends AbstractController
     /**
      * @Route("/new", name="channel_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, SluggerInterface $slugger): Response
     {
         $rapidPostChannel = new RapidPostChannel();
         $form = $this->createForm(RapidPostChannelType::class, $rapidPostChannel);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $pictureFile = $form->get('picture')->getData();
+            if($pictureFile) {
+                $originalFileName = pathinfo($pictureFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFileName = $slugger->slug($originalFileName);
+                $newFileName = $safeFileName.'-'.uniqid().'.'.$pictureFile->guessExtension();
+
+
+                try {
+                    $pictureFile->move(
+                        $this->getParameter('upload_channel_directory'),
+                        $newFileName
+                    );
+                } catch(FileException $e) {
+
+                }
+
+                $rapidPostChannel->setLogo($newFileName);
+            }
+
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($rapidPostChannel);
             $entityManager->flush();
