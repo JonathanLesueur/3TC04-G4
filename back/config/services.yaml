@@ -6,6 +6,7 @@
 parameters:
     upload_blog_directory: '%kernel.project_dir%/public/uploads/blog'
     upload_avatar_directory: '%kernel.project_dir%/public/uploads/avatars'
+    upload_channel_directory: '%kernel.project_dir%/public/uploads/channels'
 services:
     # default configuration for services in *this* file
     _defaults:
