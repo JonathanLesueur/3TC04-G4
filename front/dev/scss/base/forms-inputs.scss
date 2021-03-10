@@ -44,5 +44,37 @@ form {
                 margin-left: 10px;
             }
         }
+
+        .button-block {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            margin-top: 25px;
+            button, a {
+                flex: 1;
+                height: 40px;
+                font-family: 'Roboto Light', sans-serif;
+                font-size: 18px;
+                text-align: center;
+                border: none;
+                text-decoration: none;
+                text-transform: uppercase;
+                cursor: pointer;
+                line-height: 40px;
+            }
+            .submit {
+                background-color: color(bgMainColor);
+                color: color(textWhite);
+            }
+            a {
+                background-color: color(bgGrey);
+                color: color(textGreyDark);
+            }
+            @include for-breakpoint(md) {
+                button, a {
+                    font-size: 24px;
+                }
+            }
+        }
     }
 }

@@ -1,3 +1,4 @@
+</main>
 <footer class="main-footer">
     Réalisé avec <span class="coeur"></span> par les étudiants de <span class="cvtic"></span> - 2021
 </footer>

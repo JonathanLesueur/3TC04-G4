@@ -7,7 +7,7 @@
                     <label for="">Adresse email</label>
                     <div class="input-box">
                         <div class="input-logo"><svg class="user"><use xlink:href="#user"></use></svg></div>
-                        <input class="form-input" type="text" name="" id=""/>
+                        <input class="form-input" type="email" name="" id=""/>
                     </div>
                 </div>
             </div>
@@ -20,7 +20,12 @@
                     </div>
                 </div>
             </div>
-            
+            <div class="form-line">
+                <div class="button-block">
+                    <button class="submit" id="" name="" type="submit">Se connecter</button>
+                    <a href="#">S'inscrire</a>
+                </div>
+            </div>
         </form>
     </div>
 </div>
