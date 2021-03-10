@@ -19,7 +19,17 @@
                 </div>
             </div>
             <div class="center-content">
-
+                <div class="search-box">
+                    <label class="input-group">
+                        <form action="" method="POST">
+                            <input type="text" name="" id="">
+                            <button type="submit" name="" id=""><svg class="search"><use xlink:href="#loupe"></use></svg></button>
+                        </form>
+                    </label>
+                    <div class="result-group hidden">
+                    
+                    </div>
+                </div>
             </div>
             <div class="right-content">
                 <div class="user-box">
@@ -36,6 +46,29 @@
             </div>
         </div>
         <nav class="nav-menu hidden">
-
+            <div class="menu-item">
+                <a href="#">
+                    <svg class="help"><use xlink:href="#help"></use></svg>
+                    <span>Texte de test</span>
+                </a>
+            </div>
+            <div class="menu-item">
+                <a href="#">
+                    <svg class="help"><use xlink:href="#help"></use></svg>
+                    <span>Texte de test</span>
+                </a>
+            </div>
+            <div class="menu-item">
+                <a href="#">
+                    <svg class="help"><use xlink:href="#help"></use></svg>
+                    <span>Texte de test</span>
+                </a>
+            </div>
+            <div class="menu-item">
+                <a href="#">
+                    <svg class="help"><use xlink:href="#help"></use></svg>
+                    <span>Texte de test</span>
+                </a>
+            </div>
         </nav>
     </header>
