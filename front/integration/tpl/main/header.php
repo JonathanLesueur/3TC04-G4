@@ -3,13 +3,12 @@
     <head>
         <title>Titre</title>
         <link rel="stylesheet" href="./static/css/style.css"/>
-        <script src="./static/js/script.js"></script>
     </head>
     <body>
     <header class="main-header">
         <div class="main-bar">
             <div class="left-content">
-                <div class="burger-button">
+                <div id="burger-button" class="burger-button">
                     <svg class="burger-menu"><use xlink:href="#burger-menu"></use></svg>
                 </div>
                 <div class="logo-container">
@@ -45,7 +44,7 @@
                 </div>
             </div>
         </div>
-        <nav class="nav-menu hidden">
+        <nav id="nav-menu" class="nav-menu">
             <div class="menu-item">
                 <a href="#">
                     <svg class="help"><use xlink:href="#help"></use></svg>
