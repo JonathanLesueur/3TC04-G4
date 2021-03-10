@@ -45,17 +45,25 @@ module.exports = {
                 ]
             },
             {
-                test: /\.(png|jpe?g|gif|svg)$/i,
+                test: /\.(png|jpe?g|gif)$/i,
                 use: [
                     {
                         loader: 'file-loader',
                         options: {
                             name: '[name].[ext]',
-                            outputPath: 'imgs/icons/',
-                            publicPath: '../imgs/icons'
+                            outputPath: 'imgs/',
+                            publicPath: '../imgs'
                         }
                     },
                 ],
+            },
+            {
+                test: /\.svg$/i, // your icons directory
+                loader: 'svg-sprite-loader',
+                options: {
+                  extract: true,
+                  spriteFilename: './imgs/sprite.svg', // this is the destination of your sprite sheet
+                }
             }
         ]
     },

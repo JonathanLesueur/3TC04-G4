@@ -1,0 +1,29 @@
+.main-footer {
+    width: 100%;
+    height: 43px;
+    display: block;
+    line-height: 43px;
+    font-size: 14px;
+    color: color(textGreyLight);
+    text-align: center;
+    background-color: color(bgWhite);
+}
+
+span {
+    display: inline-block;
+    vertical-align: middle;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+
+    &.coeur {
+        background-image: url('../imgs/coeur.png');
+        width: 15px;
+        height: 15px;
+    }
+    &.cvtic {
+        background-image: url('../imgs/cvtic.png');
+        width: 35px;
+        height: 28px;
+    }
+}

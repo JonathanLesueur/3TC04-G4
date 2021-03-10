@@ -18,7 +18,7 @@ $breakpoints: (
     @media (min-width: #{$v}) {
         @for $i from 1 through 12 {
             .col-#{$k}-#{$i} {
-                width: ( $i / 12) * 100%;
+                width: ( $i / 12) * 99.2%;
             }
         }
     }
