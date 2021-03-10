@@ -1,0 +1,32 @@
+.login-header {
+    width: 100%;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.login-box {
+    form {
+        width: 95%;
+    }
+}
+
+@include for-breakpoint(md) {
+    .login-header {
+        margin-top: 44px;
+    }
+}
+
+@include for-breakpoint(xl) {
+    .login-header {
+        margin-top: 84px;
+    }
+}
+
+@include for-breakpoint(xl) {
+    .login-box {
+        form {
+            width: 70%;
+            margin: auto auto;
+        }
+    }
+}

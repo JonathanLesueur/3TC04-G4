@@ -1,0 +1,48 @@
+form {
+    .form-line {
+        display: flex;
+        flex-direction: row;
+        margin: 12.5px 0;
+        .group-block {
+            width: 100%;
+            label {
+                display: block;
+                padding-left: 52px;
+                font-size: 13px;
+                color: color(textGreyDark);
+                font-family: 'Roboto Light', sans-serif;
+                margin-bottom: 10px;
+            }
+            .input-box {
+                display: flex;
+                flex-direction: row;
+                .input-logo {
+                    width: 50px;
+                    text-align: center;
+                    background-color: color(bgGreyBold);
+                    svg {
+                        width: 30px;
+                        height: 30px;
+                        margin: 10px;
+                        fill: color(bgWhite);
+                    }
+                }
+                .input-logo, input {
+                    display: inline-block;
+                    height: 50px;
+                }
+                input {
+                    background-color: color(bgGrey);
+                    border: none;
+                    margin: 0;
+                    padding: 0px 5px;
+                    width: 100%;
+                }
+            }
+
+            &:not(:first-of-type) {
+                margin-left: 10px;
+            }
+        }
+    }
+}
