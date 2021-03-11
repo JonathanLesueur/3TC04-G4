@@ -15,3 +15,15 @@ $colors: (
 @function color($name) {
     @return map-get($colors, $name);
 }
+
+@each $k, $v in $colors {
+    .bg-#{$k} {
+        background-color: $v;
+    }
+    .color-#{$k} {
+        color: $v;
+    }
+    .fill-#{$k} {
+        fill: $v;
+    }
+}

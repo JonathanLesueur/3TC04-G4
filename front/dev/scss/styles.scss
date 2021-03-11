@@ -5,10 +5,13 @@
 @import "base/containers.scss";
 @import "base/titles.scss";
 @import "base/forms-inputs.scss";
+@import "base/buttons.scss";
 
-
+@import "components/nav-menu.scss";
 @import "components/header.scss";
 @import "components/footer.scss";
 
 
 @import "components/login-page.scss";
+@import "components/home-bloc-asso.scss";
+@import "components/blog-feed.scss";

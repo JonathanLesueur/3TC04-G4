@@ -1,10 +1,21 @@
 $breakpoints: (
-    xs: 0,
-    sm: 576px,
-    md: 768px,
-    lg: 992px,
-    xl: 1200px,
-    xxl: 1400px
+xs: 0,
+sm: 576px,
+md: 768px,
+lg: 992px,
+xl: 1200px,
+xxl: 1400px
+);
+
+$MPvalues: (
+0: 0px,
+5: 5px,
+10: 10px,
+15: 15px,
+20: 20px,
+25: 25px,
+30: 30px,
+auto: auto
 );
 
 @mixin for-breakpoint($breakpoint) {
@@ -19,6 +30,54 @@ $breakpoints: (
         @for $i from 1 through 12 {
             .col-#{$k}-#{$i} {
                 width: ( $i / 12) * 99.2%;
+                border-radius: 7px;
+                overflow: hidden;
+            }
+        }
+        // Classes pour les marges et padding
+        @each $kmp, $vmp in $MPvalues {
+            .#{$k}-my-#{$kmp} {
+                margin-top:#{$vmp};
+                margin-bottom:#{$vmp};
+            }
+            .#{$k}-mx-#{$kmp} {
+                margin-left:#{$vmp};
+                margin-right:#{$vmp};
+            }
+            
+            .#{$k}-mt-#{$kmp} {
+                margin-top:#{$vmp};
+            }
+            .#{$k}-mr-#{$kmp} {
+                margin-right:#{$vmp};
+            }
+            .#{$k}-mb-#{$kmp} {
+                margin-bottom:#{$vmp};
+            }
+            .#{$k}-ml-#{$kmp} {
+                margin-left:#{$vmp};
+            }
+            
+            .#{$k}-py-#{$kmp} {
+                padding-top:#{$vmp};
+                padding-bottom:#{$vmp};
+            }
+            .#{$k}-px-#{$kmp} {
+                padding-left:#{$vmp};
+                padding-right:#{$vmp};
+            }
+            
+            .#{$k}-pt-#{$kmp} {
+                padding-top:#{$vmp};
+            }
+            .#{$k}-pr-#{$kmp} {
+                padding-right:#{$vmp};
+            }
+            .#{$k}-pb-#{$kmp} {
+                padding-bottom:#{$vmp};
+            }
+            .#{$k}-pl-#{$kmp} {
+                padding-left:#{$vmp};
             }
         }
     }

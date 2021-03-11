@@ -53,7 +53,7 @@
             justify-content: center;
             .search-box {
                 position: relative;
-                
+                display: none;
                 .input-group {
                     display: block;
                     form {
@@ -97,13 +97,62 @@
                     z-index: 9;
                 }
             }
+            @include for-breakpoint(md) {
+                .search-box {
+                    display: initial;
+                }
+            }
         }
         .right-content {
             display: flex;
             flex-direction: row;
+            .user-box {
+                display: flex;
+                a {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    width: max-content;
+                    height: 100%;
+                    margin-right: 15px;
+                    .user-avatar {
+                        background-color: color(bgGreyBold);
+                        border-radius: 50%;
+                        width: 40px;
+                        height: 40px;
+                        margin-right: 5px;
+                        position: relative;
+                        svg {
+                            fill: color(bgWhite);
+                            height: 35px;
+                            width: 35px;
+                            position: absolute;
+                            bottom: 0;
+                            left: 50%;
+                            transform: translate(-50%, 0);
+                        }
+                        overflow: hidden;
+                        img {
+                            position: absolute;
+                            right: 50%;
+                            top: 50%;
+                            transform: translate(-50%, -50%);
+                        }
+                    }
+                    .user-name {
+                        span {
+                            font-size: 18px;
+                            color: color(textGreyLight);
+                        }
+                    }
+                }
+                
+            }
             .help-zone {
                 display: flex;
                 align-items: center;
+                border-left: 2px solid #D9D8D8;
+                padding: 0px 0px 0px 15px;
                 a {
                     display: block;
                 }
@@ -113,54 +162,6 @@
                     height: 32px;
                 }
             }
-        }
-    }
-    .nav-menu {
-        position: fixed;
-        width: 100%;
-        background-color: color(bgWhite);
-        height: 100vh;
-        top: 0px;
-        z-index: 8;
-        flex-direction: column;
-        justify-content: flex-start;
-        padding-top: 105px;
-        display: none;
-        &.active {
-            display: block;
-        }
-        .menu-item {
-            width: 100%;
-            display: flex;
-            margin: 11px 0;
-            a {
-                display: flex;
-                flex-direction: row;
-                width: 100%;
-                height: 37px;
-                text-decoration: none;
-                padding-left: 46px;
-                align-items: center;
-                &:hover, &.active {
-                    background-color: color(bgGrey);
-                }
-                svg, span {
-                    display: inline-block;
-                    vertical-align: middle;
-                }
-                
-                svg {
-                    width: 30px;
-                    height: 30px;
-                    margin-right: 10px;
-                }
-                span {
-                    font-family: 'Roboto Medium', sans-serif;
-                    color: color(textGreyDark);
-                    font-size: 18px;
-                }
-            }
-            
         }
     }
     @include for-breakpoint(md) {
