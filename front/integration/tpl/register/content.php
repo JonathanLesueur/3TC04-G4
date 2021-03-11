@@ -13,6 +13,7 @@
                 <div class="group-block">
                     <label for="">Nom</label>
                     <div class="input-box">
+                        <div class="input-logo"><svg class="user"><use xlink:href="#user"></use></svg></div>
                         <input class="form-input" type="text" name="" id=""/>
                     </div>
                 </div>

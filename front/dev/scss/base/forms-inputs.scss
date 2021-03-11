@@ -1,7 +1,7 @@
 form {
     .form-line {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         margin: 12.5px 0;
         .group-block {
             width: 100%;
@@ -39,10 +39,6 @@ form {
                     width: 100%;
                 }
             }
-
-            &:not(:first-of-type) {
-                margin-left: 10px;
-            }
         }
 
         .button-block {
@@ -73,6 +69,18 @@ form {
             @include for-breakpoint(md) {
                 button, a {
                     font-size: 24px;
+                }
+            }
+        }
+    }
+
+    @include for-breakpoint(md) {
+        .form-line {
+            flex-direction: row;
+
+            .group-block {
+                &:not(:first-of-type) {
+                    margin-left: 10px;
                 }
             }
         }
