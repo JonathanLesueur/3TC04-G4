@@ -1,25 +1,82 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Inscription {{global_name}}{% endblock %}
+{% block header %}{% include 'header_guest.html.twig' %}{% endblock %}
 
 {% block body %}
-    {% for flashError in app.flashes('verify_email_error') %}
+<div class="register-login-container">
+    <h1 class="thin-dark-title-big">Inscription</h1>
+    <div class="login-box">
+        {{ form_start(registrationForm) }}
+        {% for flashError in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flashError }}</div>
-    {% endfor %}
+        {% endfor %}
+        <div class="form-line">
+            <div class="group-block">
+                <label for="registration_form_firstname">Prénom</label>
+                <div class="input-box">
+                    <div class="input-logo"><svg class="user"><use xlink:href="#user"></use></svg></div>
+                    {{ form_widget(registrationForm.firstname, {'attr': {'class': 'form-input'}}) }}
+                </div>
+            </div>
+            <div class="group-block">
+                <label for="registration_form_lastname">Nom</label>
+                <div class="input-box">
+                    <div class="input-logo"><svg class="user"><use xlink:href="#user"></use></svg></div>
+                    {{ form_widget(registrationForm.lastname, {'attr': {'class': 'form-input'}}) }}
+                </div>
+            </div>
+        </div>
+        <div class="form-line">
+            <div class="group-block">
+                <label for="registration_form_plainPassword">Mot de passe</label>
+                <div class="input-box">
+                    <div class="input-logo"><svg class="padlock"><use xlink:href="#padlock"></use></svg></div>
+                    {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-input'}}) }}
+                </div>
+            </div>
+        </div>
+        <div class="form-line">
+            <div class="group-block">
+                <label for="registration_form_email">Email</label>
+                <div class="input-box">
+                    <div class="input-logo"><svg class="email"><use xlink:href="#email"></use></svg></div>
+                    {{ form_widget(registrationForm.email, {'attr': {'class': 'form-input'}}) }}
+                </div>
+            </div>
+        </div>
+        <div class="form-line">
+            <div class="group-block">
+                <label for="registration_form_university">Faculté</label>
+                <div class="input-box">
+                    <div class="input-logo"><svg class="mortar"><use xlink:href="#mortar"></use></svg></div>
+                    {{ form_widget(registrationForm.university, {'attr': {'class': 'form-input'}}) }}
+                </div>
+            </div>
+        </div>
+        <div class="form-line">
+            <div class="group-block">
+                <label for="registration_form_formation">Formation</label>
+                <div class="input-box">
+                    <div class="input-logo"><svg class="certificat"><use xlink:href="#certificat"></use></svg></div>
+                    {{ form_widget(registrationForm.formation, {'attr': {'class': 'form-input'}}) }}
+                </div>
+            </div>
+        </div>
+        <div class="form-line">
+            <div class="group-block">
+                <div class="input-box">
+                    <label>{{ form_widget(registrationForm.agreeTerms)}} Je confirme ma volonté d'inscription</label>
+                </div>
+            </div>
+        </div>
 
-    <h1>Register</h1>
-
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
-        {{ form_row(registrationForm.firstname) }}
-        {{ form_row(registrationForm.lastname) }}
-        {{ form_row(registrationForm.university) }}
-        {{ form_row(registrationForm.formation) }}
-
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+        <div class="form-line">
+            <div class="button-block">
+                <button class="submit" type="submit">S'inscrire</button>
+            </div>
+        </div>
+        {{ form_end(registrationForm) }}
+    </div>
+</div>
 {% endblock %}

@@ -21,6 +21,34 @@
                     </div>
                 <?php endfor; ?>
                 </div>
+                <div class="bloc-more">
+                    <a href="#" class="button orange"><span>Voir plus d'actualités associatives</span></a>
+                </div>
+            </section>
+            <section class="bloc-thematiques xs-px-10 xs-py-10">
+                <h2 class="bloc-title">Thématiques récentes</h2>
+                <div class="thematiques-feed">
+                    <?php for($i = 0; $i < 6; $i++): ?>
+                    <div class="thematique-item col-xs-12 col-md-6">
+                        <a href="#">
+                            <div class="identity">
+                                <div class="logo"><svg class="hash-tag"><use xlink:href="#hash-tag"></use></svg></div>
+                                <span class="name">Thématique</span>
+                            </div>
+                            <div class="postcount">
+                                <svg class="rapidpost"><use xlink:href="#rapidpost"></use></svg>
+                                <span class="count">452</span>
+                            </div>
+                            <div class="more">
+                                <svg class="chevron-right"><use xlink:href="#chevron-right"></use></svg>
+                            </div>
+                        </a>
+                    </div>
+                    <?php endfor; ?>
+                </div>
+                <div class="bloc-more xs-mt-10">
+                    <a href="#" class="button orange"><span>Voir plus de thématiques</span></a>
+                </div>
             </section>
             <section class="bloc-blog xs-px-10 xs-py-10">
                 <h2 class="bloc-title">Articles récents</h2>
@@ -56,6 +84,9 @@
                         </div>
                     </div>
                     <?php endfor; ?>
+                </div>
+                <div class="bloc-more">
+                    <a href="#" class="button orange"><span>Voir plus d'articles</span></a>
                 </div>
             </section>
         </div>

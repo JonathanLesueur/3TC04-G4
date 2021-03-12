@@ -1,0 +1,91 @@
+.thematiques-feed {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
+    .thematique-item {
+        border-radius: 0px;
+        border-bottom: 1px solid color(bgSecondColor);
+        a {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            .identity {
+                width: 40%;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                .logo {
+                    position: relative;
+                    background-color: color(bgSecondColor);
+                    overflow: hidden;
+                    height: 60px;
+                    width: 60px;
+                    border: 50%;
+                    margin-right: 10px;
+                    text-align: center;
+                    img {
+                        position: absolute;
+                        width: 130%;
+                        height: auto;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                    }
+                    svg {
+                        margin-top:15px;
+                        height: 30px;
+                        width: 30px;
+                        fill: color(bgWhite);
+                    }
+                }
+                .name {
+                    color: color(textGreyDark);
+                    font-family: 'Roboto Medium', sans-serif;
+                    font-size: 18px;
+                }
+            }
+        }
+        .postcount {
+            width: 30%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            svg {
+                width: 40px;
+                height: 40px;
+                fill: color(bgMainColor);
+            }
+            .count {
+                color: color(bgMainColor);
+            }
+        }
+        .more {
+            width: 30%;
+            text-align: center;
+            svg {
+                width:40px;
+                height: 60px;
+                fill: color(bgMainColor);
+                transition: margin-left .3s ease;
+            }
+        }
+
+        &:hover {
+            .more {
+                svg {
+                    margin-left: 15px;
+                    transition: margin-left .3s ease;
+                }
+            }
+        }
+    }
+}
+
+@include for-breakpoint(md) {
+    .thematiques-feed {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+}

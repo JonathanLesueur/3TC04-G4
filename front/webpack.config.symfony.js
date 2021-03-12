@@ -62,7 +62,7 @@ module.exports = {
                 loader: 'svg-sprite-loader',
                 options: {
                   extract: true,
-                  spriteFilename: './imgs/sprite.svg', // this is the destination of your sprite sheet
+                  spriteFilename: '../../templates/sprite.svg', // this is the destination of your sprite sheet
                 }
             }
         ]

@@ -53,4 +53,7 @@ a.button, button.button {
             fill: color(bgWhite);
         }
     }
+    &:hover {
+        opacity: 0.95;
+    }
 }
