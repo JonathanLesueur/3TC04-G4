@@ -16,14 +16,14 @@
                 <label for="registration_form_firstname">Prénom</label>
                 <div class="input-box">
                     <div class="input-logo"><svg class="user"><use xlink:href="#user"></use></svg></div>
-                    {{ form_widget(registrationForm.firstname, {'attr': {'class': 'form-input'}}) }}
+                    {{ form_widget(registrationForm.firstname) }}
                 </div>
             </div>
             <div class="group-block">
                 <label for="registration_form_lastname">Nom</label>
                 <div class="input-box">
                     <div class="input-logo"><svg class="user"><use xlink:href="#user"></use></svg></div>
-                    {{ form_widget(registrationForm.lastname, {'attr': {'class': 'form-input'}}) }}
+                    {{ form_widget(registrationForm.lastname) }}
                 </div>
             </div>
         </div>
@@ -32,7 +32,7 @@
                 <label for="registration_form_plainPassword">Mot de passe</label>
                 <div class="input-box">
                     <div class="input-logo"><svg class="padlock"><use xlink:href="#padlock"></use></svg></div>
-                    {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-input'}}) }}
+                    {{ form_widget(registrationForm.plainPassword) }}
                 </div>
             </div>
         </div>
@@ -41,7 +41,7 @@
                 <label for="registration_form_email">Email</label>
                 <div class="input-box">
                     <div class="input-logo"><svg class="email"><use xlink:href="#email"></use></svg></div>
-                    {{ form_widget(registrationForm.email, {'attr': {'class': 'form-input'}}) }}
+                    {{ form_widget(registrationForm.email) }}
                 </div>
             </div>
         </div>
@@ -50,7 +50,7 @@
                 <label for="registration_form_university">Faculté</label>
                 <div class="input-box">
                     <div class="input-logo"><svg class="mortar"><use xlink:href="#mortar"></use></svg></div>
-                    {{ form_widget(registrationForm.university, {'attr': {'class': 'form-input'}}) }}
+                    {{ form_widget(registrationForm.university) }}
                 </div>
             </div>
         </div>
@@ -59,7 +59,7 @@
                 <label for="registration_form_formation">Formation</label>
                 <div class="input-box">
                     <div class="input-logo"><svg class="certificat"><use xlink:href="#certificat"></use></svg></div>
-                    {{ form_widget(registrationForm.formation, {'attr': {'class': 'form-input'}}) }}
+                    {{ form_widget(registrationForm.formation) }}
                 </div>
             </div>
         </div>
