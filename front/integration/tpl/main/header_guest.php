@@ -2,7 +2,7 @@
 <html lang="fr">
     <head>
         <title>Titre</title>
-        <link rel="stylesheet" href="{{asset('/css/style.css')}}"/>
+        <link rel="stylesheet" href="./static/css/style.css"/>
     </head>
     <body>
     <header class="login-header">

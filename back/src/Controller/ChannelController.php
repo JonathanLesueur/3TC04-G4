@@ -13,13 +13,12 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
- * @Route("/channel")
  * @IsGranted("ROLE_USER")
  */
 class ChannelController extends AbstractController
 {
     /**
-     * @Route("/", name="channels_index", methods={"GET"})
+     * @Route("/channels", name="channels_index", methods={"GET"})
      */
     public function index(RapidPostChannelRepository $rapidPostChannelRepository): Response
     {
@@ -29,7 +28,7 @@ class ChannelController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="channel_new", methods={"GET","POST"})
+     * @Route("/channel/new", name="channel_new", methods={"GET","POST"})
      */
     public function new(Request $request, SluggerInterface $slugger): Response
     {
@@ -38,8 +37,8 @@ class ChannelController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-            $pictureFile = $form->get('picture')->getData();
+            $rapidPostChannel->setType('manual');
+            $pictureFile = $form->get('logo')->getData();
             if($pictureFile) {
                 $originalFileName = pathinfo($pictureFile->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFileName = $slugger->slug($originalFileName);
@@ -63,7 +62,7 @@ class ChannelController extends AbstractController
             $entityManager->persist($rapidPostChannel);
             $entityManager->flush();
 
-            return $this->redirectToRoute('rapid_post_channel_index');
+            return $this->redirectToRoute('channels_index');
         }
 
         return $this->render('channel/new.html.twig', [
@@ -73,7 +72,7 @@ class ChannelController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="channel_show", methods={"GET"})
+     * @Route("/channel/{id}", name="channel_show", methods={"GET"})
      */
     public function show(RapidPostChannel $rapidPostChannel): Response
     {
@@ -83,7 +82,8 @@ class ChannelController extends AbstractController
     }
 
     /**
-     * @Route("/edit/{id}", name="channel_edit", methods={"GET","POST"})
+     * @Route("/channel/edit/{id}", name="channel_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function edit(Request $request, RapidPostChannel $rapidPostChannel): Response
     {
@@ -103,7 +103,8 @@ class ChannelController extends AbstractController
     }
 
     /**
-     * @Route("/delete/{id}", name="channel_delete", methods={"DELETE"})
+     * @Route("/channel/delete/{id}", name="channel_delete", methods={"DELETE"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function delete(Request $request, RapidPostChannel $rapidPostChannel): Response
     {

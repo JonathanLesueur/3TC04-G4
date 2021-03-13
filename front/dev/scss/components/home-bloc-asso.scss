@@ -35,19 +35,24 @@
                     text-align: left;
                     width: 100%;
                     padding: 5px;
-                    h3, p {
-                        display: block;
-                    }
                     h3 {
+                        display: block;
                         color: color(textWhite);
                         font-family: 'Roboto Medium', sans-serif;
                         font-size: 16px;
                     }
                     p {
+                        display: none;
                         font-family: 'Roboto Light', sans-serif;
                         margin-top: 5px;
                         font-size: 14px;
                         color: color(textWhite);
+                    }
+
+                    @include for-breakpoint(md) {
+                        p {
+                            display: block;
+                        }
                     }
                 }
             }

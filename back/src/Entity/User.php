@@ -104,6 +104,11 @@ class User implements UserInterface
      */
     private $likes;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Association::class, mappedBy="admins")
+     */
+    private $associations;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -114,6 +119,7 @@ class User implements UserInterface
         $this->offers = new ArrayCollection();
         $this->offerComments = new ArrayCollection();
         $this->likes = new ArrayCollection();
+        $this->associations = new ArrayCollection();
     }
 
     public function __toString()
@@ -436,6 +442,33 @@ class User implements UserInterface
             if ($like->getAuthor() === $this) {
                 $like->setAuthor(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Association[]
+     */
+    public function getAssociations(): Collection
+    {
+        return $this->associations;
+    }
+
+    public function addAssociation(Association $association): self
+    {
+        if (!$this->associations->contains($association)) {
+            $this->associations[] = $association;
+            $association->addAdmin($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAssociation(Association $association): self
+    {
+        if ($this->associations->removeElement($association)) {
+            $association->removeAdmin($this);
         }
 
         return $this;

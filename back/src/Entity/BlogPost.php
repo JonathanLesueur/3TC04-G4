@@ -65,6 +65,11 @@ class BlogPost
      */
     private $likes;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Association::class, inversedBy="blogPosts")
+     */
+    private $association;
+
     public function __construct()
     {
         $this->blogPostComments = new ArrayCollection();
@@ -217,6 +222,18 @@ class BlogPost
         if ($this->likes->removeElement($like)) {
             $like->removeBlogpost($this);
         }
+
+        return $this;
+    }
+
+    public function getAssociation(): ?Association
+    {
+        return $this->association;
+    }
+
+    public function setAssociation(?Association $association): self
+    {
+        $this->association = $association;
 
         return $this;
     }

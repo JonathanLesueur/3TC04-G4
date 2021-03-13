@@ -1,29 +1,29 @@
 <div class="menu-item">
-    <a href="#">
+    <a href="{{ url('channels_index') }}">
         <svg class="rapidpost"><use xlink:href="#rapidpost"></use></svg>
         <span>Liste des Salons</span>
     </a>
 </div>
 <div class="menu-item">
-    <a href="#">
+    <a href="{{ url('blog_index') }}">
         <svg class="blogpost"><use xlink:href="#blogpost"></use></svg>
         <span>Activité des Blogs</span>
     </a>
 </div>
 <div class="menu-item">
-    <a href="#">
+    <a href="{{ url('market_index') }}">
         <svg class="market"><use xlink:href="#market"></use></svg>
         <span>Place du marché</span>
     </a>
 </div>
 <div class="menu-item">
-    <a href="#">
+    <a href="{{ url('associations_index') }}">
         <svg class="association"><use xlink:href="#association"></use></svg>
         <span>Assos'actu</span>
     </a>
 </div>
 <div class="menu-item">
-    <a href="#">
+    <a href="{{ path('user_profile', {'id': app.user.id }) }}">
         <svg class="user"><use xlink:href="#user"></use></svg>
         <span>Mon profil</span>
     </a>

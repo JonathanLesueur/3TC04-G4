@@ -1,0 +1,99 @@
+.profilHeader-box {
+    position: relative;
+    width: 100%;
+    height: 170px;
+    .background {
+        position: absolute;
+        z-index: 1;
+        background-image: url('../imgs/bg-profil.jpg');
+        background-position: center center;
+        height: 100%;
+        width: 100%;
+    }
+    .content {
+        position: absolute;
+        z-index: 2;
+        width: 100%;
+        bottom: 0px;
+        .details {
+            height: 45px;
+            border-top: 2px solid color(bgMainColor);
+            background-color: rgba(color(bgWhite), 0.85);
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            width: 100%;
+            padding-left: 115px;
+            .name {
+                font-family: 'Roboto Bold', sans-serif;
+                color: color(bgMainColor);
+                font-size: 18px;
+                text-transform: uppercase;
+                &::after {
+                    content: '|';
+                    display: inline-block;
+                    vertical-align: middle;
+                    font-family: 'Roboto Bold', sans-serif;
+                    color: color(textGreyDark);
+                    font-size: 24px;
+                    margin: 0px 5px;
+                }
+            }
+            .formation {
+                color: color(textGreyDark);
+                font-size: 12px;
+                text-transform: uppercase;
+            }
+        }
+        .avatar-box {
+            position: absolute;
+            left: 15px;
+            bottom: 15px;
+            z-index: 3;
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background-color: color(bgSecondColor);
+            border: 4px solid color(bgMainColor);
+            overflow: hidden;
+            svg {
+                width: 90%;
+                height: 90%;
+                position: absolute;
+                bottom: -5px;
+                left: 50%;
+                transform: translateX(-50%);
+                fill: color(bgWhite);
+            }
+            img {
+                width: 120%;
+                height: 120%;
+                position: absolute;
+                top: 50%;
+                left: 5%;
+                transform: translate(-50%, -50%);
+            }
+        }
+        @include for-breakpoint(md) {
+            .details {
+                padding-left: 175px;
+                .name {
+                    font-size: 24px;
+                }
+                .formation {
+                    font-size: 18px;
+                }
+            }
+            .avatar-box {
+                width: 170px;
+                height: 170px;
+            }
+        }
+    } 
+}
+
+@include for-breakpoint(md) {
+    .profilHeader-box {
+        height: 300px;
+    }
+}

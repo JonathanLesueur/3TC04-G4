@@ -29,7 +29,7 @@
                     height: 25px;
                 }
                 width: 66px;
-                border-right: 2px solid color(bgGreyBold);
+                border-right: 2px solid #D9D8D8;
                 margin-right: 20px;
             }
             .logo-container {
@@ -108,6 +108,7 @@
             flex-direction: row;
             .user-box {
                 display: flex;
+                position: relative;
                 a {
                     display: flex;
                     flex-direction: row;
@@ -146,7 +147,37 @@
                         }
                     }
                 }
-                
+                &:hover {
+                    .user-menu {
+                        display: flex;
+                        flex-direction: column;
+                    }
+                }
+                .user-menu {
+                    position: absolute;
+                    top: 55px;
+                    right: 0px;
+                    display: none;
+                    width: 250px;
+                    background-color: color(bgWhite);
+                    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15);
+                    height: auto;
+                    .item {
+                        width: 100%;
+                        height: auto;
+                        text-align: left;
+                        span {
+                            display:block;
+                            padding: 10px 15px;
+                            text-decoration: none;
+                            font-size: 16px;
+                            color: color(textGreyDark);
+                        }
+                        &:hover {
+                            background-color: color(bgSecondColor);
+                        }
+                    }
+                }
             }
             .help-zone {
                 display: flex;

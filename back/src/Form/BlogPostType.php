@@ -59,9 +59,10 @@ class BlogPostType extends AbstractType
                 ]
             ])
             ->add('source', TextType::class, [
+                'required' => false,
                 'constraints' => [
                     new Length([
-                        'min' => 10,
+                        'min' => 0,
                         'max' => 255,
                         'minMessage' => 'Veuillez indiquer une source d\'au moins 10 caractères.'
                         ])

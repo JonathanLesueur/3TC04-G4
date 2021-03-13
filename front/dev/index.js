@@ -1,4 +1,7 @@
-import "./js/main.js";
+import "./js/ajax.js";
+import "./js/burger-menu.js";
+import "./js/tabs.js";
+
 import "./scss/styles.scss";
 
 function requireAll(r) {

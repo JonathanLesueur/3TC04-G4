@@ -28,9 +28,13 @@
                     <a href="#">
                         <div class="user-avatar"><svg class="user"><use xlink:href="#user"></use></svg></div>
                         <div class="user-name">
-                            <span>Prénom</span>
+                            <span>{{ app.user.firstname }}</span>
                         </div>
                     </a>
+                    <div class="user-menu">
+                        <a href="{{ path('user_profile', {'id': app.user.id }) }}" class="item"><span>Mon profil</span></a>
+                        <a href="{{ url('app_logout') }}" class="item"><span>Déconnexion</span></a>
+                    </div>
                 </div>
                 <div class="help-zone">
                     <a href="#">

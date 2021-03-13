@@ -19,7 +19,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class UserController extends AbstractController
 {
     /**
-     * @Route("/users", name="user_index", methods={"GET"})
+     * @Route("/profils", name="user_index", methods={"GET"})
      */
     public function index(UserRepository $userRepository): Response
     {
@@ -96,7 +96,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("profil/{id}/s", name="user_profile", methods={"GET"})
+     * @Route("profil/{id}", name="user_profile", methods={"GET"})
      */
     public function show(User $user): Response
     {
