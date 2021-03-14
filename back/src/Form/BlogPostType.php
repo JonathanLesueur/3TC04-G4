@@ -45,6 +45,7 @@ class BlogPostType extends AbstractType
                 ]
             ])
             ->add('picture', FileType::class, [
+                'mapped' => false,
                 'required' => false,
                 'data_class' => null,
                 'constraints' => [

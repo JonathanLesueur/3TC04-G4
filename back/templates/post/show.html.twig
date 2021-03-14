@@ -25,7 +25,7 @@
                 {% endfor %}
             </div>
             <div class="content">
-                <div class="text"> {{ post.content }}</div>
+                <div class="text"> {{ post.content|raw }}</div>
                 <div class="author">
                     <a href="{{ path('user_profile', {'id': post.author.id }) }}">
                         <div class="avatar">

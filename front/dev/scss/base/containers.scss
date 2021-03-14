@@ -45,6 +45,11 @@ body {
         font-size: 16px;
     }
 }
+
+.tox-tinymce {
+    width: 100%;
+}
+
 @include for-breakpoint(lg) {
     .home-aside {
         display: initial;

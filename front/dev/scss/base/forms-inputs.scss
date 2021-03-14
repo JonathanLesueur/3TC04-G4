@@ -42,7 +42,7 @@ form {
                     height: 150px;
                     padding: 5px;
                 }
-                textarea + .input-logo {
+                textarea + .input-logo, .tox-tinymce + .input-logo {
                     height: inherit;
                     display: flex;
                     flex-direction: column;

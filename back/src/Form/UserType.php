@@ -47,6 +47,7 @@ class UserType extends AbstractType
                 ]
             ])
             ->add('avatar', FileType::class, [
+                'mapped' => false,
                 'required' => false,
                 'data_class' => null,
                 'constraints' => [

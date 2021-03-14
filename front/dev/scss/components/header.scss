@@ -9,7 +9,7 @@
         justify-content: space-between;
         padding: 0px 25px;
         position: relative;
-        z-index: 9;
+        z-index: 99;
         box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15);
         background-color: color(headerBackground);
         .left-content {
@@ -196,6 +196,9 @@
                 }
             }
         }
+    }
+    .nav-menu {
+        z-index: 98;
     }
     @include for-breakpoint(md) {
         .nav-menu {

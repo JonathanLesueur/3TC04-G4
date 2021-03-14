@@ -17,12 +17,9 @@ class RapidPostResponseType extends AbstractType
     {
         $builder
             ->add('title', TextType::class, [
-                'required' => true,
+                'required' => false,
                 'constraints' => [
-                    new NotBlank([
-                        'message' => 'Veuillez indiquer un titre à votre message.'
-                    ]),
-                    new Length(['min' => 10, 'max' => 255, 'minMessage' => 'Veuillez indiquer un titre d\'au moins 10 caractères.'])
+                    new Length(['max' => 255, 'maxMessage' => 'Votre titre doit contenir moins de 255 caractères.'])
                 ]
             ])
             ->add('content', TextareaType::class, [
@@ -31,7 +28,7 @@ class RapidPostResponseType extends AbstractType
                     new NotBlank([
                         'message' => 'Veuillez spécifier un contenu.'
                     ]),
-                    new Length(['min' => 20, 'max' => 700, 'minMessage' => 'Veuillez indiquer un contenu d\'au moins 100 caractères.'])
+                    new Length(['min' => 100, 'max' => 700, 'minMessage' => 'Veuillez indiquer un contenu d\'au moins 100 caractères.'])
                 ]
             ])
         ;
