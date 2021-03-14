@@ -1,39 +1,25 @@
-{% extends 'base.html.twig' %}
+{% extends 'aside-right.html.twig' %}
+{% block title %}Messages récents {{global_name}}{% endblock %}
 
-{% block title %}RapidPost index{% endblock %}
+{% block headerblock %}{% endblock %}
 
-{% block body %}
-    <h1>RapidPost index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Content</th>
-                <th>CreatedAt</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for rapid_post in rapid_posts %}
-            <tr>
-                <td>{{ rapid_post.id }}</td>
-                <td>{{ rapid_post.title }}</td>
-                <td>{{ rapid_post.content }}</td>
-                <td>{{ rapid_post.createdAt ? rapid_post.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('post_show', {'id': rapid_post.id}) }}">show</a>
-                    <a href="{{ path('post_edit', {'id': rapid_post.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('post_new') }}">Create new</a>
+{% block content %} 
+<div class="col-xs-12">
+    <div class="xs-py-15 xs-px-15">
+        <h1 class="bloc-title">Récents messages rapides</h1>
+        {% include "post/post_list.html.twig" %}
+    </div>
+</div>
 {% endblock %}
+
+
+{% block aside %}
+    <div class=" xs-py-10 xs-px-10">
+        <a href="{{ url('post_new') }}" class="button orange">
+            <svg class="plume"><use xlink:href="#plume"></use></svg>
+            <span>Nouveau message</span>
+        </a>
+    </div>
+{% endblock %}
+

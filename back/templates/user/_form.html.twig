@@ -1,4 +1,41 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+<div class="form-line">
+    <div class="group-block">
+        <label for="user_firstname">Prénom</label>
+        <div class="input-box">
+            <div class="input-logo"><svg class="user"><use xlink:href="#user"></use></svg></div>
+            {{ form_widget(form.firstname) }}
+        </div>
+    </div>
+    <div class="group-block">
+        <label for="user_lastname">Nom</label>
+        <div class="input-box">
+            <div class="input-logo"><svg class="user"><use xlink:href="#user"></use></svg></div>
+            {{ form_widget(form.lastname) }}
+        </div>
+    </div>
+</div>
+<div class="form-line">
+    <div class="group-block">
+        <label for="user_formation">Formation</label>
+        <div class="input-box">
+            <div class="input-logo"><svg class="certificat"><use xlink:href="#certificat"></use></svg></div>
+            {{ form_widget(form.formation) }}
+        </div>
+    </div>
+</div>
+<div class="form-line">
+    <div class="group-block">
+        <label for="user_avatar">Avatar</label>
+        <div class="input-box">
+            <div class="input-logo"><svg class="user"><use xlink:href="#user"></use></svg></div>
+            {{ form_widget(form.avatar) }}
+        </div>
+    </div>
+</div>
+<div class="form-line">
+    <div class="button-block">
+        <button class="submit" type="submit">Valider les changements</button>
+    </div>
+</div>
 {{ form_end(form) }}

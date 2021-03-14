@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\RapidPostChannel;
+use App\Entity\RapidPost;
 use App\Form\RapidPostChannelType;
+use App\Form\RapidPostTypeWithoutChannel;
 use App\Repository\RapidPostChannelRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -74,10 +76,10 @@ class ChannelController extends AbstractController
     /**
      * @Route("/channel/{id}", name="channel_show", methods={"GET"})
      */
-    public function show(RapidPostChannel $rapidPostChannel): Response
+    public function show(RapidPostChannel $channel): Response
     {
         return $this->render('channel/show.html.twig', [
-            'rapid_post_channel' => $rapidPostChannel,
+            'channel' => $channel
         ]);
     }
 
@@ -115,5 +117,35 @@ class ChannelController extends AbstractController
         }
 
         return $this->redirectToRoute('channels_index');
+    }
+
+    /**
+     * @Route("/channel/new/{id}", name="channel_new_post", methods={"GET","POST"})
+     */
+    public function newPost(Request $request, RapidPostChannel $channel): Response
+    {
+        $rapidPost = new RapidPost();
+        $form = $this->createForm(RapidPostTypeWithoutChannel::class, $rapidPost);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $entityManager = $this->getDoctrine()->getManager();
+
+            $rapidPost->setAuthor($this->getUser());
+
+            $rapidPost->addChannel($channel);
+
+            $entityManager->persist($rapidPost);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('post_show', array('id' => $channel->getId()));
+        }
+
+        return $this->render('channel/newPost.html.twig', [
+            'rapid_post' => $rapidPost,
+            'channel' => $channel,
+            'form' => $form->createView(),
+        ]);
     }
 }

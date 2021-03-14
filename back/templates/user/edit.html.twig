@@ -1,11 +1,42 @@
-{% extends 'base.html.twig' %}
+{% extends 'aside-right.html.twig' %}
+{% block title %}Édition du profil {{global_name}}{% endblock %}
 
-{% block title %}Edit User{% endblock %}
+{% block headerblock %}
+<section class="col-xs-12 col-md-12 shadow max-size xs-mb-20">
+    <div class="profilHeader-box">
+        <div class="content">
+            <div class="avatar-box">
+                {% if user.avatar == true %}
+                    <img src="{{ asset('/uploads/avatars/' ~ user.avatar) }}"/>
+                {% else %}
+                    <svg class="user"><use xlink:href="#user"></use></svg>
+                {% endif %}
+            </div>
+            <div class="details">
+                <h1 class="name">{{ user.firstname ~ ' ' ~ user.lastname }}</h1>
+                <h2 class="formation">{{ user.formation }}</h2>
+            </div>
+        </div>
+        <div class="background"></div>
+    </div>
+</section>
+{% endblock %}
 
-{% block body %}
-    <h1>Edit User</h1>
+{% block content %}
+        <div class="col-xs-12">
+            <div class="xs-py-15 xs-px-15">
+                <h1 class="bloc-title">Edition du profil</h1>
+                {% include "user/_form.html.twig" %}
+            </div>
+        </div>
+{% endblock %}
 
-    {{ include('user/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('user_index') }}">back to list</a>
+{% block aside %}
+        <div class=" xs-py-10 xs-px-10">
+            <a href="{{ url('user_profile_default') }}" class="button orange">
+                <svg class="back"><use xlink:href="#back"></use></svg>
+                <span>Retour au profil</span>
+            </a>
+        </div>
 {% endblock %}

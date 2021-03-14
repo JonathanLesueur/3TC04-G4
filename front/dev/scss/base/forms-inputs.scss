@@ -31,12 +31,22 @@ form {
                     display: inline-block;
                     height: 50px;
                 }
-                input {
+                input, textarea {
                     background-color: color(bgGrey);
                     border: none;
                     margin: 0;
                     padding: 0px 5px;
                     width: 100%;
+                }
+                textarea {
+                    height: 150px;
+                    padding: 5px;
+                }
+                textarea + .input-logo {
+                    height: inherit;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
                 }
             }
         }

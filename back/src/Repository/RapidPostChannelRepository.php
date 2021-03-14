@@ -47,4 +47,13 @@ class RapidPostChannelRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function searchWithName($name)
+    {
+        return $this->createQueryBuilder('r')
+        ->andWhere('r.name LIKE :name')
+        ->setParameter('name', '%'.$name.'%')
+        ->getQuery()
+        ->getOneOrNullResult();
+    }
 }

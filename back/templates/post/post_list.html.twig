@@ -1,0 +1,46 @@
+<div class="posts-list">
+    {% for post in posts %}
+    <div class="post-item">
+        <div class="info-bar">
+            <div class="main-info">
+                <a href="{{ path('user_profile', {'id': post.author.id}) }}" class="user-box">
+                    <div class="user-avatar">
+                        {% if post.author.avatar == true %}
+                            <img src="{{ asset('/uploads/avatars/' ~ post.author.avatar) }}"/>
+                        {% else %}
+                            <svg class="user"><use xlink:href="#user"></use></svg>
+                        {% endif %}
+                    </div>
+                    <span class="user-name">{{ post.author.firstname ~ ' ' ~ post.author.lastname }}</span>
+                </a>
+                {% if post.initialPost != '' %}
+                    <a href="{{ path('post_show', {'id': post.initialPost.id}) }}" class="reply-at"><svg class="back"><use xlink:href="#back"></use></svg> <span>en réponse à <strong>{{ post.initialPost.author.firstname ~ ' ' ~ post.initialPost.author.lastname }}</strong></span></a>
+                {% endif %}
+            </div>
+            <div class="thematiques">
+                {% for key, channel in post.channels %}
+                    {% if key <= 3 %}
+                        <a href="{{ path('channel_show', {'id': channel.id}) }}">{{ channel.name|lower }}</a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="content">
+            {% if post.title %}
+                <div class="title">{{ post.title }}</div>
+            {% endif %}
+            <div class="text"> {{ post.content }}</div>
+        </div>
+        <div class="post-more">
+            <div class="actions">
+                <a href="{{ path('post_show', {'id': post.id}) }}">Voir la discussion</a>
+                <a href="{{ path('post_rep', {'id': post.id}) }}">Répondre</a>
+            </div>
+            <div class="stats">
+                    <div class="comments"><svg class="comment"><use xlink:href="#comment"></use></svg><span>{{ post.rapidPosts|length }}</span></div>
+                    <div class="likes"><svg class="like"><use xlink:href="#like"></use></svg><span>{{ post.likes|length }}</span></div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>

@@ -6,6 +6,15 @@
     margin-bottom: 25px;
 }
 
+.main-title {
+    font-size: 24px;
+    text-transform: uppercase;
+    color: color(bgMainColor);
+    width: 100%;
+    border-bottom: 2px solid color(bgMainColor);
+    margin-bottom: 15px;
+}
+
 .bloc-title {
     font-size: 18px;
     text-transform: uppercase;

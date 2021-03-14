@@ -1,5 +1,5 @@
 {% extends 'aside-right.html.twig' %}
-{% block title %}Nouveau message rapide {{global_name}}{% endblock %}
+{% block title %}Nouvelle discussion dans : {{ channel.name }} {{global_name}}{% endblock %}
 
 {% block headerblock %}{% endblock %}
 
@@ -7,8 +7,8 @@
 {% block content %} 
 <div class="col-xs-12">
     <div class="xs-py-15 xs-px-15">
-        <h1 class="bloc-title">Nouveau message rapide</h1>
-        {% include "post/_form.html.twig" %}
+        <h1 class="bloc-title">Nouvelle discussion dans : {{ channel.name }}</h1>
+        {% include "channel/_formNewPost.html.twig" %}
     </div>
 </div>
 {% endblock %}
@@ -16,7 +16,7 @@
 
 {% block aside %}
     <div class=" xs-py-10 xs-px-10">
-        <a href="{{ url('posts_index') }}" class="button orange">
+        <a href="{{ path('channel_show', {'id': channel.id}) }}" class="button orange">
             <svg class="back"><use xlink:href="#back"></use></svg>
             <span>Retour</span>
         </a>

@@ -1,0 +1,24 @@
+{% for response in post.rapidPosts %}
+    <div class="post-item">
+        <div class="info-bar">
+            <div class="main-info">
+                <a href="{{ path('user_profile', {'id': response.author.id}) }}" class="user-box">
+                    <div class="user-avatar">
+                        {% if post.author.avatar == true %}
+                            <img src="{{ asset('/uploads/avatars/' ~ response.author.avatar) }}"/>
+                        {% else %}
+                            <svg class="user"><use xlink:href="#user"></use></svg>
+                        {% endif %}
+                    </div>
+                    <span class="user-name">{{ response.author.firstname ~ ' ' ~ response.author.lastname }}</span>
+                </a>
+            </div>
+        </div>
+        <div class="content">
+            {% if post.title %}
+                <div class="title">{{ post.title }}</div>
+            {% endif %}
+            <div class="text"> {{ post.content }}</div>
+        </div>
+    </div>
+    {% endfor %}

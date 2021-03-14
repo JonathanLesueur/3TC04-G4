@@ -1,0 +1,163 @@
+.posts-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    .post-item {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        margin-bottom: 10px;
+
+        &:after {
+            content: '';
+            height: 1px;
+            width: 70%;
+            margin: auto auto;
+            display:block;
+            background-color: color(bgGrey);
+        }
+        .info-bar, .content, .post-more {
+            width: 100%;
+        }
+        .info-bar {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 5px;
+            .main-info {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                .user-box {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    align-content: center;
+                    justify-content: flex-start;
+                    .user-avatar {
+                        background-color: color(bgGreyBold);
+                        border-radius: 50%;
+                        width: 30px;
+                        height: 30px;
+                        margin-right: 5px;
+                        position: relative;
+                        svg {
+                            fill: color(bgWhite);
+                            height: 25px;
+                            width: 25px;
+                            position: absolute;
+                            bottom: 0;
+                            left: 50%;
+                            transform: translate(-50%, 0);
+                        }
+                        overflow: hidden;
+                        img {
+                            position: absolute;
+                            left: 50%;
+                            top: 50%;
+                            transform: translate(-50%, -50%);
+                            width: 100%;
+                            height: 100%;
+                        }
+                    }
+                    .user-name {
+                        
+                        font-size: 16px;
+                        color: color(textGreyDark);
+                        
+                    }
+                }
+                .reply-at {
+                    padding-left: 25px;
+                    svg, span {
+                        display: inline-block;
+                        vertical-align: middle;
+                    }
+                    svg {
+                        width: 20px;
+                        height: 20px;
+                        fill: color(bgSecondColor);
+                    }
+                    span {
+                        font-size: 12px;
+                        color: color(textGreyLight);
+                    }
+                    
+                }
+            }
+            .thematiques {
+                display: flex;
+                a {
+                    position: relative;
+                    font-size: 12px;
+                    color: color(textGreyDark);
+                    font-size: italic;
+                    margin: 0px 5px;
+                }
+                border-bottom: 1px solid color(bgMainColor);
+                
+            }
+            @include for-breakpoint(md) {
+                .main-info {
+                    flex-direction: row;
+                }
+            }
+        }
+        .content {
+            padding: 10px;
+            border-radius: 7px;
+            border-left: 3px solid color(bgMainColor);
+            background-color: color(bgGrey);
+            margin-bottom: 5px;
+            .title {
+                font-family: 'Roboto Bold', sans-serif;
+                font-size: 14px;
+                color: color(textGreyDark);
+                line-height: 16px;
+                margin-bottom: 5px;
+            }
+            .text {
+                font-size: 14px;
+                color: color(textGreyDark);
+                line-height: 17px;
+            }
+        }
+        .post-more {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            margin-bottom: 5px;
+            .actions {
+                a{
+                    color: color(bgMainColor);
+                    font-size: 14px;
+                    text-transform: uppercase;
+                    margin-left: 10px;
+                }
+            }
+            .stats {
+                margin-left: 10px;
+                .comments, .likes {
+                    display: inline-block;
+                    margin-right: 5px;
+                    svg {
+                        width: 15px;
+                        height: 15px;
+                        fill: color(bgSecondColor);
+                        display: inline-block;
+                        vertical-align: middle;
+                        margin-right: 5px;
+                    }
+                    span {
+                        display:inline-block;
+                        vertical-align: middle;
+                        font-size: 18px;
+                        color: color(textGreyLight);
+                    }
+                }
+            }
+            
+        }
+    }
+}

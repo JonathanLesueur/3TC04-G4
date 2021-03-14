@@ -28,7 +28,7 @@ class AssociationController extends AbstractController
 
 
     /**
-     * @Route("/new", name="association_new", methods={"GET","POST"})
+     * @Route("/association/new", name="association_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
@@ -61,7 +61,7 @@ class AssociationController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="association_edit", methods={"GET","POST"})
+     * @Route("/association/{id}/edit", name="association_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Association $association): Response
     {
@@ -81,7 +81,7 @@ class AssociationController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="association_delete", methods={"DELETE"})
+     * @Route("/association/delete/{id}", name="association_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Association $association): Response
     {

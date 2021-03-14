@@ -29,7 +29,11 @@
             <div class="author-box">
                 <a href="{{ path('blog_posts_user', {'id': post.author.id}) }}">
                     <div class="avatar">
-                        <svg class="user"><use xlink:href="#user"></use></svg>
+                        {% if post.author.avatar == true %}
+                            <img src="{{ asset('/uploads/avatars/' ~ post.author.avatar) }}"/>
+                        {% else %}
+                            <svg class="user"><use xlink:href="#user"></use></svg>
+                        {% endif %}
                     </div>
                     <span class="name">{{ post.author.firstname }} {{ post.author.lastname }}</span>
                     <span class="publications">{{ post.author.blogPosts|length }} publications</span>

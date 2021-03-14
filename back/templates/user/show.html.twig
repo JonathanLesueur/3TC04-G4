@@ -1,52 +1,85 @@
-{% extends 'base.html.twig' %}
+{% extends 'aside-right.html.twig' %}
+{% block title %}Profil de {{ user.firstname }} {{ user.lastname }} {{global_name}}{% endblock %}
 
-{% block title %}User{% endblock %}
+{% block headerblock %}
+<section class="col-xs-12 col-md-12 shadow max-size xs-mb-20">
+    <div class="profilHeader-box">
+        <div class="content">
+            <div class="avatar-box">
+                {% if user.avatar == true %}
+                    <img src="{{ asset('/uploads/avatars/' ~ user.avatar) }}"/>
+                {% else %}
+                    <svg class="user"><use xlink:href="#user"></use></svg>
+                {% endif %}
+            </div>
+            <div class="details">
+                <h1 class="name">{{ user.firstname ~ ' ' ~ user.lastname }}</h1>
+                <h2 class="formation">{{ user.formation }}</h2>
+            </div>
+        </div>
+        <div class="background"></div>
+    </div>
+</section>
+{% endblock %}
 
-{% block body %}
-    <h1>User</h1>
+{% block content %}
+    <div class="bg-bgWhite max-size">
+        <div class="tabs-container">
+            <div class="tabs-menu">
+                <div data-tab="rapidposts" class="tab col-xs-4 active">
+                    <svg class="rapidpost">
+                        <use xlink:href="#rapidpost"></use>
+                    </svg>
+                    <span>Messages thématiques</span>
+                </div>
+                <div data-tab="blogposts" class="tab col-xs-4 ">
+                    <svg class="blogpost">
+                        <use xlink:href="#blogpost"></use>
+                    </svg>
+                    <span>Articles de blog</span>
+                </div>
+                <div data-tab="offers" class="tab col-xs-4 ">
+                    <svg class="market">
+                        <use xlink:href="#market"></use>
+                    </svg>
+                    <span>Place du marché</span>
+                </div>
+            </div>
+            <div class="tabs-content">
+                <div data-tab-content="rapidposts" class="tab-content active">
+                    {% include "user/profil_rapidposts_list.html.twig" %}
+                </div>
+                <div data-tab-content="blogposts" class="tab-content">
+                    {% include "user/profil_blogposts_list.html.twig" %}
+                </div>
+                <div data-tab-content="offers" class="tab-content">
+                   
+                </div>
+            </div>
+        </div>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ user.id }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ user.email }}</td>
-            </tr>
-            <tr>
-                <th>Roles</th>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-            </tr>
-            <tr>
-                <th>Password</th>
-                <td>{{ user.password }}</td>
-            </tr>
-            <tr>
-                <th>FirstName</th>
-                <td>{{ user.firstName }}</td>
-            </tr>
-            <tr>
-                <th>LastName</th>
-                <td>{{ user.lastName }}</td>
-            </tr>
-            <tr>
-                <th>University</th>
-                <td>{{ user.university }}</td>
-            </tr>
-            <tr>
-                <th>Formation</th>
-                <td>{{ user.formation }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>VisitedAt</th>
-                <td>{{ user.visitedAt ? user.visitedAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
+    </div>
+{% endblock %}
+
+
+{% block aside %}
+{% if app.user.id != user.id %}
+    <div class="bg-bgWhite max-size">
+        <div class=" xs-py-10 xs-px-10">
+            <a href="mailto:{{ user.email }}" class="button orange">
+                <svg class="enveloppe"><use xlink:href="#enveloppe"></use></svg>
+                <span>Contacter {{ user.firstname }}</span>
+            </a>
+        </div>
+        {% endif %}
+        {% if app.user.id == user.id %}
+        <div class=" xs-py-10 xs-px-10">
+            <a href="{{ url('user_edit') }}" class="button orange">
+                <svg class="plume"><use xlink:href="#plume"></use></svg>
+                <span>Éditer mon profil</span>
+            </a>
+        </div>
+        {% endif %}
+    </div>
+
 {% endblock %}

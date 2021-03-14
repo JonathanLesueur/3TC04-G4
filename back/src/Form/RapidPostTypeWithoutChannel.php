@@ -11,7 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class RapidPostType extends AbstractType
+class RapidPostTypeWithoutChannel extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -32,16 +32,6 @@ class RapidPostType extends AbstractType
                         'message' => 'Veuillez spécifier un contenu.'
                     ]),
                     new Length(['min' => 20, 'max' => 700, 'minMessage' => 'Veuillez indiquer un contenu d\'au moins 100 caractères.'])
-                ]
-            ])
-            ->add('channels', TextType::class, [
-                'required' => true,
-                'mapped' => false,
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Veuillez indiquer au moins un thème.'
-                    ]),
-                    new Length(['min' => 5, 'max' => 255, 'minMessage' => 'Veuillez indiquer une thématique d\'au moins 5 caractères.'])
                 ]
             ])
         ;

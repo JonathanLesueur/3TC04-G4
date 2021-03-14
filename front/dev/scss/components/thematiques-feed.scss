@@ -10,9 +10,10 @@
             display: flex;
             flex-direction: row;
             align-items: center;
+            justify-content: space-between;
             .identity {
-                width: 40%;
                 display: flex;
+                width: 50%;
                 flex-direction: row;
                 align-items: center;
                 .logo {
@@ -21,6 +22,7 @@
                     overflow: hidden;
                     height: 60px;
                     width: 60px;
+                    min-width: 60px;
                     border: 50%;
                     margin-right: 10px;
                     text-align: center;
@@ -47,7 +49,6 @@
             }
         }
         .postcount {
-            width: 30%;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -62,7 +63,6 @@
             }
         }
         .more {
-            width: 30%;
             text-align: center;
             svg {
                 width:40px;

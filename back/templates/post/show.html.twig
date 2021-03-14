@@ -1,34 +1,21 @@
-{% extends 'base.html.twig' %}
+{% extends 'full-content.html.twig' %}
+{% block title %}Réponses à {{ post.author.firstname ~ ' ' ~ post.author.lastname}} {{global_name}}{% endblock %}
 
-{% block title %}RapidPost{% endblock %}
+{% block headerblock %}{% endblock %}
 
-{% block body %}
-    <h1>RapidPost</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ rapid_post.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ rapid_post.title }}</td>
-            </tr>
-            <tr>
-                <th>Content</th>
-                <td>{{ rapid_post.content }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ rapid_post.createdAt ? rapid_post.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
+{% block content %} 
+<div class="col-xs-12">
+    <div class="xs-py-15 xs-px-15">
+        <h1 class="main-title">{{ post.title }}</h1>
+        <div class="initial-post">
 
-    <a href="{{ path('posts_index') }}">back to list</a>
-
-    <a href="{{ path('postt_edit', {'id': rapid_post.id}) }}">edit</a>
-
-    {{ include('post/_delete_form.html.twig') }}
+        </div>
+        <h2 class="bloc-title">Réponses à {{ post.author.firstname }}</h2>
+        <div class="posts-list">
+            {% include "post/responses_list.html.twig" %}
+        </div>
+    </div>
+</div>
 {% endblock %}
+

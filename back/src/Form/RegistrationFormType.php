@@ -56,7 +56,7 @@ class RegistrationFormType extends AbstractType
                     new NotBlank([
                         'message' => 'Veuillez indiquer votre prénom.'
                     ]),
-                    new Length(['min' => 5, 'max' => 255])
+                    new Length(['min' => 3, 'max' => 255])
                 ]
             ])
             ->add('lastname', TextType::class, [
@@ -64,7 +64,7 @@ class RegistrationFormType extends AbstractType
                     new NotBlank([
                         'message' => 'Veuillez indiquer votre nom de famille.'
                     ]),
-                    new Length(['min' => 5, 'max' => 255])
+                    new Length(['min' => 3, 'max' => 255])
                 ]
             ])
             ->add('university', TextType::class, [
