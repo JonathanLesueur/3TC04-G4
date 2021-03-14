@@ -1,5 +1,5 @@
 {% extends 'aside-right.html.twig' %}
-{% block title %}Nouveau message rapide {{global_name}}{% endblock %}
+{% block title %}Nouvelle discussion thématique {{global_name}}{% endblock %}
 
 {% block headerblock %}{% endblock %}
 
@@ -7,7 +7,7 @@
 {% block content %} 
 <div class="col-xs-12">
     <div class="xs-py-15 xs-px-15">
-        <h1 class="bloc-title">Nouveau message rapide</h1>
+        <h1 class="bloc-title">Nouvelle discussion thématique</h1>
         {% include "post/_form.html.twig" %}
     </div>
 </div>
@@ -16,7 +16,7 @@
 
 {% block aside %}
     <div class=" xs-py-10 xs-px-10">
-        <a href="{{ url('posts_index') }}" class="button orange">
+        <a href="{{ url('channels_index') }}" class="button orange">
             <svg class="back"><use xlink:href="#back"></use></svg>
             <span>Retour</span>
         </a>

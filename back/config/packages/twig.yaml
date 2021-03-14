@@ -7,3 +7,5 @@ twig:
       reply_to: 'Répondre à'
       in_reply_to: 'en réponse à'
       global_name: '- ESU Limoges'
+    paths: 
+      '%kernel.project_dir%/vendor/knplabs/knp-paginator-bundle/templates': KnpPaginator

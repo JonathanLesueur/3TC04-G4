@@ -1,45 +1,34 @@
-{% extends 'base.html.twig' %}
+{% extends 'aside-right.html.twig' %}
+{% block title %}Salons thématiques {{global_name}}{% endblock %}
 
-{% block title %}RapidPostChannel index{% endblock %}
+{% block headerblock %}{% endblock %}
 
-{% block body %}
-    <h1>RapidPostChannel index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Logo</th>
-                <th>CreatedAt</th>
-                <th>UpdatedAt</th>
-                <th>Type</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for rapid_post_channel in rapid_post_channels %}
-            <tr>
-                <td>{{ rapid_post_channel.id }}</td>
-                <td>{{ rapid_post_channel.name }}</td>
-                <td>{{ rapid_post_channel.description }}</td>
-                <td>{{ rapid_post_channel.logo }}</td>
-                <td>{{ rapid_post_channel.createdAt ? rapid_post_channel.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ rapid_post_channel.updatedAt ? rapid_post_channel.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ rapid_post_channel.type }}</td>
-                <td>
-                    <a href="{{ path('channel_show', {'id': rapid_post_channel.id}) }}">show</a>
-                    <a href="{{ path('channel_edit', {'id': rapid_post_channel.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('channel_new') }}">Create new</a>
+{% block content %} 
+<div class="col-xs-12">
+    <div class="xs-py-15 xs-px-15">
+        <h1 class="bloc-title">Salons thématiques (par nom)</h1>
+        {% include "channel/channels_list.html.twig" %}
+        {{ knp_pagination_render(channels) }}
+        <h2 class="bloc-title xs-my-10">Dernières discussions thématiques</h2>
+        {% include "post/post_list.html.twig" %}
+    </div>
+</div>
 {% endblock %}
+
+
+{% block aside %}
+    <div class=" xs-py-10 xs-px-10">
+        <a href="{{ url('post_new') }}" class="button orange">
+            <svg class="plume"><use xlink:href="#plume"></use></svg>
+            <span>Nouvelle discussion</span>
+        </a>
+    </div>
+    <div class=" xs-py-10 xs-px-10">
+        <a href="{{ url('channel_new') }}" class="button orange">
+            <svg class="plume"><use xlink:href="#plume"></use></svg>
+            <span>Nouveau salon</span>
+        </a>
+    </div>
+{% endblock %}
+

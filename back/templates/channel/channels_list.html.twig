@@ -1,0 +1,27 @@
+<section class="bloc-thematiques xs-px-10 xs-py-10">
+    <div class="thematiques-feed">
+        {% for channel in channels %}
+        <div class="thematique-item col-xs-12 col-md-6">
+            <a href="{{ path('channel_show', {'id': channel.id}) }}">
+                <div class="identity">
+                    <div class="logo">
+                        {% if channel.logo == true %}
+                            <img src="{{ asset('/uploads/channels/' ~ channel.logo) }}"/>
+                        {% else %}
+                            <svg class="hash-tag"><use xlink:href="#hash-tag"></use></svg>
+                        {% endif %}
+                    </div>
+                    <span class="name">{{ channel.name }}</span>
+                </div>
+                <div class="postcount">
+                    <svg class="rapidpost"><use xlink:href="#rapidpost"></use></svg>
+                    <span class="count">{{ channel.rapidPosts|length }}</span>
+                </div>
+                <div class="more">
+                    <svg class="chevron-right"><use xlink:href="#chevron-right"></use></svg>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</section>

@@ -60,3 +60,39 @@ class AjaxRequest {
         return this.loading;
     }
 }
+
+class SearchMenu {
+    constructor(input) {
+        this.input = input;
+
+        if(this.input) {
+            this.init();
+        }
+    }
+    init() {
+        this.input.addEventListener('keyup', this.search.bind(this));
+    }
+    search() {
+        var word = this.input.value.trim();
+
+        if(word.length > 3) {
+            this.sendRequest(word);
+        }
+    }
+    sendRequest(word) {
+        new AjaxRequest({
+            url: "http://localhost:8000/ajaxsearch",
+            dataType: "json",
+            data: {text: word},
+            onSuccess(response) {
+                var result = JSON.parse(response);
+                console.log(result);
+            }
+        }).send();
+    }
+}
+
+const inputSearch = document.getElementById('search-menu');
+if(inputSearch) {
+    new SearchMenu(inputSearch);
+}

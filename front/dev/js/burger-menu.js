@@ -10,7 +10,7 @@ class BurgerMenu {
 
     init() {
         this.buttonMenu.addEventListener('click', (e) => {
-            this.menu.classList.toggle('active');
+            (this.menu.style.display === 'none')? this.menu.style.display = 'block' : this.menu.style.display = 'none';
         });
     }
 }

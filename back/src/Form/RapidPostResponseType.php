@@ -6,6 +6,10 @@ use App\Entity\RapidPost;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class RapidPostResponseType extends AbstractType
 {
@@ -13,7 +17,7 @@ class RapidPostResponseType extends AbstractType
     {
         $builder
             ->add('title', TextType::class, [
-                'required' => false,
+                'required' => true,
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez indiquer un titre à votre message.'
@@ -27,7 +31,7 @@ class RapidPostResponseType extends AbstractType
                     new NotBlank([
                         'message' => 'Veuillez spécifier un contenu.'
                     ]),
-                    new Length(['min' => 100, 'max' => 700,'minMessage' => 'Veuillez indiquer un contenu d\'au moins 100 caractères.'])
+                    new Length(['min' => 20, 'max' => 700, 'minMessage' => 'Veuillez indiquer un contenu d\'au moins 100 caractères.'])
                 ]
             ])
         ;

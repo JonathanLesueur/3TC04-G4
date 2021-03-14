@@ -1,14 +1,16 @@
 @import "base/reset.scss";
 @import "base/colors.scss";
 @import "base/fonts.scss";
+@import "base/titles.scss";
 @import "base/grid.scss";
 @import "base/containers.scss";
-@import "base/titles.scss";
 @import "base/forms-inputs.scss";
 @import "base/buttons.scss";
 @import "base/alerts.scss";
 @import "base/tabs.scss";
 
+
+@import "components/pagination.scss";
 @import "components/nav-menu.scss";
 @import "components/header.scss";
 @import "components/footer.scss";
@@ -19,4 +21,5 @@
 @import "components/blog-feed.scss";
 @import "components/thematiques-feed.scss";
 @import "components/profil.scss";
+@import "components/initial-post.scss";
 @import "components/post-list.scss";

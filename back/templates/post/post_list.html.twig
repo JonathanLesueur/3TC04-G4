@@ -33,12 +33,15 @@
         </div>
         <div class="post-more">
             <div class="actions">
-                <a href="{{ path('post_show', {'id': post.id}) }}">Voir la discussion</a>
-                <a href="{{ path('post_rep', {'id': post.id}) }}">Répondre</a>
+                {% set linkId = post.id %}
+                {% if post.initialPost %}
+                    {% set linkId = post.initialPost.id %}
+                {% endif %}
+                <a href="{{ path('post_show', {'id': linkId}) }}">Voir la discussion</a>
             </div>
             <div class="stats">
-                    <div class="comments"><svg class="comment"><use xlink:href="#comment"></use></svg><span>{{ post.rapidPosts|length }}</span></div>
-                    <div class="likes"><svg class="like"><use xlink:href="#like"></use></svg><span>{{ post.likes|length }}</span></div>
+                <div class="comments"><svg class="comment"><use xlink:href="#comment"></use></svg><span>{{ post.rapidPosts|length }}</span></div>
+                <div class="likes"><svg data-post="{{ post.id }}" class="like"><use xlink:href="#like"></use></svg><span>{{ post.likes|length }}</span></div>
             </div>
         </div>
     </div>

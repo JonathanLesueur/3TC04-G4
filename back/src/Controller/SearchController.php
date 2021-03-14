@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\BlogPost;
@@ -24,10 +25,12 @@ class SearchController extends AbstractController
     }
 
     /**
-     * @Route("/ajaxsearch", name="search", methods={"GET", "POST"})
+     * @Route("/ajaxsearch", name="search", methods={"POST"})
      */
-    public function AjaxSearch(): Response
+    public function AjaxSearch(Request $request): Response
     {
+        $text = $request->request->get('text');
+
         $blogRepository = $this->getDoctrine()->getRepository(BlogPost::class);
         $_blogPosts = $blogRepository->findAll();
 

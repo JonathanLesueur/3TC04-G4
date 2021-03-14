@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @IsGranted("ROLE_USER")
@@ -20,12 +21,18 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 class ChannelController extends AbstractController
 {
     /**
-     * @Route("/channels", name="channels_index", methods={"GET"})
+     * @Route("/channels/{page}",defaults={"page"=1}, name="channels_index", methods={"GET"})
      */
-    public function index(RapidPostChannelRepository $rapidPostChannelRepository): Response
+    public function index(int $page, RapidPostChannelRepository $rapidPostChannelRepository, PaginatorInterface $paginator): Response
     {
+
+        $_channels = $this->getDoctrine()->getRepository(RapidPostChannel::class)->findBy(array(), array('name' => 'ASC'));
+        $_pageChannels = $paginator->paginate($_channels, $page, 8);
+        $_posts = $this->getDoctrine()->getRepository(RapidPost::class)->findBy(array('type' => 'initial'), array('id' => 'DESC'), 5, 0);
+
         return $this->render('channel/index.html.twig', [
-            'rapid_post_channels' => $rapidPostChannelRepository->findAll(),
+            'channels' => $_pageChannels,
+            'posts' => $_posts
         ]);
     }
 
@@ -64,7 +71,7 @@ class ChannelController extends AbstractController
             $entityManager->persist($rapidPostChannel);
             $entityManager->flush();
 
-            return $this->redirectToRoute('channels_index');
+            return $this->redirectToRoute('channel_show', ['id' => $rapidPostChannel->getId()]);
         }
 
         return $this->render('channel/new.html.twig', [
@@ -139,7 +146,7 @@ class ChannelController extends AbstractController
             $entityManager->persist($rapidPost);
             $entityManager->flush();
 
-            return $this->redirectToRoute('post_show', array('id' => $channel->getId()));
+            return $this->redirectToRoute('post_show', array('id' => $rapidPost->getId()));
         }
 
         return $this->render('channel/newPost.html.twig', [

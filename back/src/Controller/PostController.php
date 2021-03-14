@@ -3,14 +3,17 @@
 namespace App\Controller;
 
 use App\Entity\RapidPost;
+use App\Entity\Like;
 use App\Entity\RapidPostChannel;
 use App\Form\RapidPostType;
+use App\Form\RapidPostResponseType;
 use App\Repository\RapidPostRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Doctrine\Common\Collections\Criteria;
 
 /**
  * @IsGranted("ROLE_USER")
@@ -78,12 +81,27 @@ class PostController extends AbstractController
     }
 
     /**
-     * @Route("/post/{id}", name="post_show", methods={"GET"})
+     * @Route("/post/{id}", name="post_show", methods={"GET", "POST"})
      */
-    public function show(RapidPost $rapidPost): Response
+    public function show(RapidPost $rapidPost, Request $request): Response
     {
+        $newReponse = new RapidPost();
+        $form = $this->createForm(RapidPostResponseType::class, $newReponse);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $newReponse->setAuthor($this->getUser());
+            $newReponse->setType('response');
+            $newReponse->setInitialPost($rapidPost);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($newReponse);
+            $entityManager->flush();
+        }
+
         return $this->render('post/show.html.twig', [
-            'post' => $rapidPost
+            'post' => $rapidPost,
+            'form' => $form->createView(),
         ]);
     }
 
@@ -122,11 +140,29 @@ class PostController extends AbstractController
     }
 
     /**
-     * @Route("/post/rep/{id}", name="post_rep", methods={"GET", "POST"})
+     * @Route("/post/like/{id}", name="post_like", methods={"GET"})
      */
-    public function rep(Request $request, RapidPost $rapidPost): Response
+    public function rep(RapidPost $rapidPost): Response
     {
 
-        return $this->redirectToRoute('posts_index');
+        $_likes = $this->getUser()->getLikes();
+        $hasPreviouslyLike = false;
+
+        foreach($_likes as $like) {
+            if ($like->getRapidPost() == $rapidPost) {
+                $hasPreviouslyLike = true;
+            }
+        }
+
+        if(!$hasPreviouslyLike) {
+            $like = new Like();
+            $like->setAuthor($this->getUser());
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($like);
+            $rapidPost->addLike($like);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('post_show', array('id' => $rapidPost->getId()));
     }
 }
