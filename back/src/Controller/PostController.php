@@ -83,8 +83,13 @@ class PostController extends AbstractController
     /**
      * @Route("/post/{id}", name="post_show", methods={"GET", "POST"})
      */
-    public function show(RapidPost $rapidPost, Request $request): Response
+    public function show(int $id, Request $request): Response
     {
+        $rapidPost = $this->getDoctrine()->getRepository(RapidPost::class)->findOneBy(array('id' => $id));
+        if(!$rapidPost) {
+            return $this->redirectToRoute('posts_index');
+        }
+
         $newReponse = new RapidPost();
         $form = $this->createForm(RapidPostResponseType::class, $newReponse);
         $form->handleRequest($request);
@@ -108,8 +113,13 @@ class PostController extends AbstractController
     /**
      * @Route("/post/edit/{id}", name="post_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, RapidPost $rapidPost): Response
+    public function edit(Request $request, int $id): Response
     {
+        $rapidPost = $this->getDoctrine()->getRepository(RapidPost::class)->findOneBy(array('id' => $id));
+        if(!$rapidPost) {
+            return $this->redirectToRoute('posts_index');
+        }
+
         $form = $this->createForm(RapidPostType::class, $rapidPost);
         $form->handleRequest($request);
 
@@ -128,8 +138,13 @@ class PostController extends AbstractController
     /**
      * @Route("/post/delete/{id}", name="post_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, RapidPost $rapidPost): Response
+    public function delete(Request $request, int $id): Response
     {
+        $rapidPost = $this->getDoctrine()->getRepository(RapidPost::class)->findOneBy(array('id' => $id));
+        if(!$rapidPost) {
+            return $this->redirectToRoute('posts_index');
+        }
+
         if ($this->isCsrfTokenValid('delete'.$rapidPost->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($rapidPost);
@@ -142,8 +157,12 @@ class PostController extends AbstractController
     /**
      * @Route("/post/like/{id}", name="post_like", methods={"GET"})
      */
-    public function rep(RapidPost $rapidPost): Response
+    public function rep(int $id): Response
     {
+        $rapidPost = $this->getDoctrine()->getRepository(RapidPost::class)->findOneBy(array('id' => $id));
+        if(!$rapidPost) {
+            return $this->redirectToRoute('posts_index');
+        }
 
         $_likes = $this->getUser()->getLikes();
         $hasPreviouslyLike = false;

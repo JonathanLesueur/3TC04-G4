@@ -83,8 +83,12 @@ class ChannelController extends AbstractController
     /**
      * @Route("/channel/{id}", name="channel_show", methods={"GET"})
      */
-    public function show(RapidPostChannel $channel): Response
+    public function show(int $id): Response
     {
+        $channel = $this->getDoctrine()->getRepository(RapidPostChannel::class)->findOneBy(array('id' => $id));
+        if(!$channel) {
+            return $this->redirectToRoute('channels_index');
+        }
         return $this->render('channel/show.html.twig', [
             'channel' => $channel
         ]);
@@ -94,9 +98,14 @@ class ChannelController extends AbstractController
      * @Route("/channel/edit/{id}", name="channel_edit", methods={"GET","POST"})
      * @IsGranted("ROLE_ADMIN")
      */
-    public function edit(Request $request, RapidPostChannel $rapidPostChannel): Response
+    public function edit(Request $request, int $id): Response
     {
-        $form = $this->createForm(RapidPostChannelType::class, $rapidPostChannel);
+        $channel = $this->getDoctrine()->getRepository(RapidPostChannel::class)->findOneBy(array('id' => $id));
+        if(!$channel) {
+            return $this->redirectToRoute('channels_index');
+        }
+
+        $form = $this->createForm(RapidPostChannelType::class, $channel);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -106,7 +115,7 @@ class ChannelController extends AbstractController
         }
 
         return $this->render('channel/edit.html.twig', [
-            'rapid_post_channel' => $rapidPostChannel,
+            'rapid_post_channel' => $channel,
             'form' => $form->createView(),
         ]);
     }
@@ -115,11 +124,17 @@ class ChannelController extends AbstractController
      * @Route("/channel/delete/{id}", name="channel_delete", methods={"DELETE"})
      * @IsGranted("ROLE_ADMIN")
      */
-    public function delete(Request $request, RapidPostChannel $rapidPostChannel): Response
+    public function delete(Request $request, int $id): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$rapidPostChannel->getId(), $request->request->get('_token'))) {
+        $channel = $this->getDoctrine()->getRepository(RapidPostChannel::class)->findOneBy(array('id' => $id));
+        if(!$channel) {
+            return $this->redirectToRoute('channels_index');
+        }
+        
+
+        if ($this->isCsrfTokenValid('delete'.$channel->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($rapidPostChannel);
+            $entityManager->remove($channel);
             $entityManager->flush();
         }
 
@@ -129,8 +144,13 @@ class ChannelController extends AbstractController
     /**
      * @Route("/channel/new/{id}", name="channel_new_post", methods={"GET","POST"})
      */
-    public function newPost(Request $request, RapidPostChannel $channel): Response
+    public function newPost(Request $request, int $id): Response
     {
+        $channel = $this->getDoctrine()->getRepository(RapidPostChannel::class)->findOneBy(array('id' => $id));
+        if(!$channel) {
+            return $this->redirectToRoute('channels_index');
+        }
+        
         $rapidPost = new RapidPost();
         $form = $this->createForm(RapidPostTypeWithoutChannel::class, $rapidPost);
         $form->handleRequest($request);

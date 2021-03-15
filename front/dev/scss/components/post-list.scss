@@ -105,23 +105,26 @@
             }
         }
         .content {
-            padding: 10px;
             border-radius: 7px;
             border-left: 3px solid color(bgMainColor);
             background-color: color(bgGrey);
             margin-bottom: 5px;
-            .title {
-                font-family: 'Roboto Bold', sans-serif;
-                font-size: 14px;
-                color: color(textGreyDark);
-                line-height: 16px;
-                margin-bottom: 5px;
-            }
             .text {
-                font-size: 14px;
-                color: color(textGreyDark);
-                line-height: 17px;
+                padding: 10px;
+                .title {
+                    font-family: 'Roboto Bold', sans-serif;
+                    font-size: 14px;
+                    color: color(textGreyDark);
+                    line-height: 16px;
+                    margin-bottom: 5px;
+                }
+                .main-text {
+                    font-size: 14px;
+                    color: color(textGreyDark);
+                    line-height: 17px;
+                }
             }
+            
         }
         .post-more {
             display: flex;

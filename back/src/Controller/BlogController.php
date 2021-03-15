@@ -38,8 +38,13 @@ class BlogController extends AbstractController
     /**
      * @Route("/blog/user/{id}/{page}", defaults={"page"=1}, name="blog_posts_user", methods={"GET"})
      */
-    public function user(BlogPostRepository $blogPostRepository, User $user, int $page, PaginatorInterface $paginator): Response
+    public function user(BlogPostRepository $blogPostRepository, int $id, int $page, PaginatorInterface $paginator): Response
     {
+        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(array('id' => $id));
+        if(!$user) {
+            return $this->redirectToRoute('blog_index');
+        }
+
         $user = $this->getUser();
         $_blogPosts = $user->getBlogPosts();
         $_pageBlogPosts = $paginator->paginate($_blogPosts, $page, 10);
@@ -113,8 +118,13 @@ class BlogController extends AbstractController
     /**
      * @Route("/blog/{id}", name="blog_post_show", methods={"GET", "POST"})
      */
-    public function show(BlogPost $blogPost, Request $request): Response
+    public function show(int $id, Request $request): Response
     {   
+        $blogPost = $this->getDoctrine()->getRepository(BlogPost::class)->findOneBy(array('id' => $id));
+        if(!$blogPost) {
+            return $this->redirectToRoute('blog_index');
+        }
+
         $blogPostComment = new BlogPostComment();
         $form = $this->createForm(BlogPostCommentType::class, $blogPostComment);
         $form->handleRequest($request);
@@ -141,8 +151,13 @@ class BlogController extends AbstractController
     /**
      * @Route("/blog/edit/{id}", name="blog_post_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, BlogPost $blogPost): Response
+    public function edit(Request $request, int $id): Response
     {
+        $blogPost = $this->getDoctrine()->getRepository(BlogPost::class)->findOneBy(array('id' => $id));
+        if(!$blogPost) {
+            return $this->redirectToRoute('blog_index');
+        }
+
         if($this->getUser()->getId() != $blogPost->getAuthor()->getId()) {
             return $this->redirectToRoute('blog_index');
         }
@@ -165,13 +180,18 @@ class BlogController extends AbstractController
     /**
      * @Route("/blog/delete/{id}", name="blog_post_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, BlogPost $blogPost): Response
+    public function delete(Request $request, int $id): Response
     {
+        $blogPost = $this->getDoctrine()->getRepository(BlogPost::class)->findOneBy(array('id' => $id));
+        if(!$blogPost) {
+            return $this->redirectToRoute('blog_index');
+        }
+
         if($this->getUser()->getId() != $blogPost->getAuthor()->getId()) {
             return $this->redirectToRoute('blog_index');
         }
 
-        if ($this->isCsrfTokenValid('delete'.$blogPost->getId(), $request->request->get('_token')) && $this->getUser() == $blogPost->getAuthor()) {
+        if ($this->isCsrfTokenValid('delete'.$blogPost->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($blogPost);
             $entityManager->flush();
@@ -184,7 +204,10 @@ class BlogController extends AbstractController
      */
     public function rep(BlogPost $blogPost): Response
     {
-
+        if(!$blogPost) {
+            return $this->redirectToRoute('blog_index');
+        }
+        
         $_likes = $this->getUser()->getLikes();
         $hasPreviouslyLike = false;
 

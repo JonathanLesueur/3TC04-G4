@@ -26,10 +26,12 @@
             </div>
         </div>
         <div class="content">
-            {% if post.title %}
-                <div class="title">{{ post.title }}</div>
-            {% endif %}
-            <div class="text"> {{ post.content|raw }}</div>
+            <div class="text">
+                {% if post.title %}
+                    <div class="title">{{ post.title }}</div>
+                {% endif %}
+                <div class="main-text"> {{ post.content|raw }}</div>
+            </div>
         </div>
         <div class="post-more">
             <div class="actions">
