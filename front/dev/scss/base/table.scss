@@ -1,0 +1,33 @@
+table {
+    width: 100%;
+    > * {
+        vertical-align: middle;
+    }
+    thead {
+        tr {
+            th, td {
+                font-family: 'Roboto Medium', sans-serif;
+                height: 40px;
+            }
+        }
+    }
+    tbody {
+        tr {
+            th {
+
+            }
+            td {
+
+            }
+            th, td {
+                height: 40px;
+                vertical-align: middle;
+                a {
+                    display: inline!important;
+                    padding: 2px 5px;
+                }
+                
+            }
+        }
+    }
+}

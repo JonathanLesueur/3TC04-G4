@@ -6,6 +6,8 @@ a.button, button.button {
     border-radius: 7px;
     height: 60px;
     text-decoration: none;
+    border: none;
+    cursor: pointer;
     svg {
         width: 30px;
         height: 30px;
@@ -16,7 +18,12 @@ a.button, button.button {
         font-family: 'Roboto Light', sans-serif;
         text-transform: uppercase;
     }
-
+    &.small {
+        height: 30px;
+        span {
+            font-size: 14px;
+        }
+    }
     &.orange {
         background-color: color(bgMainColor);
         span {

@@ -1,42 +1,38 @@
-{% extends 'base.html.twig' %}
+{% extends 'aside-right.html.twig' %}
+{% block title %}{{ blogPost.title|striptags }} {{global_name}}{% endblock %}
 
-{% block title %}BlogPost{% endblock %}
-
-{% block body %}
-    <h1>BlogPost</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ blog_post.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ blog_post.title }}</td>
-            </tr>
-            <tr>
-                <th>Content</th>
-                <td>{{ blog_post.content }}</td>
-            </tr>
-            <tr>
-                <th>Picture</th>
-                <td>{{ blog_post.picture }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ blog_post.createdAt ? blog_post.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>UpdatedAt</th>
-                <td>{{ blog_post.updatedAt ? blog_post.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('blog_post_index') }}">back to list</a>
-
-    <a href="{{ path('blog_post_edit', {'id': blog_post.id}) }}">edit</a>
-
-    {{ include('blog_post/_delete_form.html.twig') }}
+{% block headerblock %}
+    {% include "user/user_headerBox.html.twig" %}
 {% endblock %}
+
+
+{% block content %} 
+<div class="col-xs-12">
+    <div class="xs-py-15 xs-px-15">
+        {% include "blog/blogPost_full.html.twig" %}
+        {% if blogPost.blogPostComments|length > 0 %}
+            <h2 class="bloc-title">Commentaires</h2>
+            {% include "blog/blogPost_responses_list.html.twig" %}
+        {% endif %}
+        <h2 class="bloc-title xs-mt-20">Réagir à cet article</h2>
+        {% include "blog/_form_reponse.html.twig" %}
+    </div>
+</div>
+{% endblock %}
+
+
+{% block aside %}
+<div class=" xs-py-10 xs-px-10">
+    <a href="{{ path('user_profile', {'id': blogPost.author.id }) }}" class="button orange">
+        <svg class="loupe"><use xlink:href="#loupe"></use></svg>
+        <span>Blog de {{ blogPost.author.firstname }}</span>
+    </a>
+</div>
+<div class=" xs-py-10 xs-px-10">
+    <a href="{{ path('user_profile', {'id': blogPost.author.id }) }}" class="button orange">
+        <svg class="loupe"><use xlink:href="#loupe"></use></svg>
+        <span>Blog de {{ blogPost.author.firstname }}</span>
+    </a>
+</div>
+{% endblock %}
+

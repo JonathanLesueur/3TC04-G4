@@ -2,24 +2,7 @@
 {% block title %}Profil de {{ user.firstname }} {{ user.lastname }} {{global_name}}{% endblock %}
 
 {% block headerblock %}
-<section class="col-xs-12 col-md-12 shadow max-size xs-mb-20">
-    <div class="profilHeader-box">
-        <div class="content">
-            <div class="avatar-box">
-                {% if user.avatar == true %}
-                    <img src="{{ asset('/uploads/avatars/' ~ user.avatar) }}"/>
-                {% else %}
-                    <svg class="user"><use xlink:href="#user"></use></svg>
-                {% endif %}
-            </div>
-            <div class="details">
-                <h1 class="name">{{ user.firstname ~ ' ' ~ user.lastname }}</h1>
-                <h2 class="formation">{{ user.formation }}</h2>
-            </div>
-        </div>
-        <div class="background"></div>
-    </div>
-</section>
+    {% include "user/user_headerBox.html.twig" %}
 {% endblock %}
 
 {% block content %}

@@ -1,13 +1,25 @@
-{% extends 'base.html.twig' %}
+{% extends 'aside-right.html.twig' %}
+{% block title %}Édition de l'article {{ blogPost.title }} {{global_name}}{% endblock %}
 
-{% block title %}Edit BlogPost{% endblock %}
+{% block headerblock %}{% endblock %}
 
-{% block body %}
-    <h1>Edit BlogPost</h1>
 
-    {{ include('blog/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('blog_index') }}">back to list</a>
-
-    {{ include('blog_post/_delete_form.html.twig') }}
+{% block content %} 
+<div class="col-xs-12">
+    <div class="xs-py-15 xs-px-15">
+        <h1 class="bloc-title">Édition de l'article</h1>
+        {% include "blog/_form.html.twig" %}
+    </div>
+</div>
 {% endblock %}
+
+
+{% block aside %}
+    <div class=" xs-py-10 xs-px-10">
+        <a href="{{ url('blog_index') }}" class="button orange">
+            <svg class="back"><use xlink:href="#back"></use></svg>
+            <span>Retour</span>
+        </a>
+    </div>
+{% endblock %}
+

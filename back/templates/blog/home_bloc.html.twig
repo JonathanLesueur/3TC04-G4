@@ -14,8 +14,8 @@
                 </div>
                 <div class="main-content">
                     <div class="text-content">
-                        <h3>{{ post.title }}</h3>
-                        <p>{{ post.content|u.truncate(220, '...') }}</p>
+                        <h3>{{ post.title|striptags }}</h3>
+                        <p>{{ post.content|u.truncate(220, '...')|striptags }}</p>
                     </div>
                     <div class="more-content">
                         <div class="stats">

@@ -1,0 +1,22 @@
+<div class="blog-post-full">
+    <h1 class="main-title">{{ blogPost.title|striptags }}</h1>
+    {% if blogPost.picture != '' %}
+        <div class="blog-post-picture">
+            <div class="picture-bloc">
+                <img src="{{ asset('/uploads/blog/' ~ blogPost.picture) }}" title="{{ blogPost.title|striptags }}"/>
+            </div>
+        </div>
+    {% endif %}
+    <div class="blog-post-content">
+        {{ blogPost.content|raw }}
+    </div>
+    {% if blogPost.source != '' %}
+    <div class="blog-post-source">
+        <span>Source :</span><a target="_blank" href="{{ blogPost.source }}">{{ blogPost.source }}</a>
+    </div>
+    {% endif %}
+    <div class="blog-post-stats">
+        <div class="comments"><svg class="comment"><use xlink:href="#comment"></use></svg><span>{{ blogPost.blogPostComments|length }}</span></div>
+        <a href="{{ path('blog_like', {'id': blogPost.id }) }}" class="likes"><svg class="like"><use xlink:href="#like"></use></svg><span>{{ blogPost.likes|length }}</span></a>
+    </div>
+</div>

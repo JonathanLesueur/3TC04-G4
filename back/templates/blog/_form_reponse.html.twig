@@ -1,0 +1,26 @@
+{{ form_start(form) }}
+ 
+<div class="form-line">
+    <div class="group-block">
+        <label for="blog_post_comment_title">Titre</label>
+        <div class="input-box">
+            <div class="input-logo"><svg class="plume"><use xlink:href="#plume"></use></svg></div>
+            {{ form_widget(form.title) }}
+        </div>
+    </div>
+</div>
+<div class="form-line">
+    <div class="group-block">
+        <label for="blog_post_comment_content">Contenu</label>
+        <div class="input-box">
+            {{ form_widget(form.content) }}
+            <div class="input-logo"><svg class="plume"><use xlink:href="#plume"></use></svg></div>
+        </div>
+    </div>
+</div>
+<div class="form-line">
+    <div class="button-block">
+        <button class="submit" type="submit">Publier la réponse</button>
+    </div>
+</div>
+{{ form_end(form) }}

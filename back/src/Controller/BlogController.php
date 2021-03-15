@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\BlogPost;
+use App\Entity\BlogPostComment;
 use App\Entity\User;
+use App\Entity\Like;
 use App\Form\BlogPostType;
+use App\Form\BlogPostCommentType;
 use App\Repository\BlogPostRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -33,26 +36,32 @@ class BlogController extends AbstractController
     }
 
     /**
-     * @Route("/blog/user/{id}", name="blog_posts_user", methods={"GET"})
+     * @Route("/blog/user/{id}/{page}", defaults={"page"=1}, name="blog_posts_user", methods={"GET"})
      */
-    public function user(BlogPostRepository $blogPostRepository, User $user): Response
+    public function user(BlogPostRepository $blogPostRepository, User $user, int $page, PaginatorInterface $paginator): Response
     {
-        
+        $user = $this->getUser();
+        $_blogPosts = $user->getBlogPosts();
+        $_pageBlogPosts = $paginator->paginate($_blogPosts, $page, 10);
+
         return $this->render('blog/user_index.html.twig', [
-            'blog_posts' => $user->getBlogPosts(),
+            'blogPosts' => $_pageBlogPosts,
             'user' => $user
         ]);
     }
 
     /**
-     * @Route("/blog/manage", name="blog_user_management", methods={"GET"})
+     * @Route("/blog/manage/{page}", defaults={"page"=1}, name="blog_user_management", methods={"GET"})
      */
-    public function manage(BlogPostRepository $blogPostRepository): Response
+    public function manage(BlogPostRepository $blogPostRepository, PaginatorInterface $paginator, int $page): Response
     {
         $user = $this->getUser();
-        
-        return $this->render('blog/user_index.html.twig', [
-            'user' => $user
+        $_blogPosts = $user->getBlogPosts();
+        $_pageBlogPosts = $paginator->paginate($_blogPosts, $page, 20);
+
+        return $this->render('blog/user_manage.html.twig', [
+            'user' => $user,
+            'blogPosts' => $_pageBlogPosts
         ]);
     }
 
@@ -102,17 +111,35 @@ class BlogController extends AbstractController
     }
 
     /**
-     * @Route("/blog/{id}", name="blog_post_show", methods={"GET"})
+     * @Route("/blog/{id}", name="blog_post_show", methods={"GET", "POST"})
      */
-    public function show(BlogPost $blogPost): Response
-    {
+    public function show(BlogPost $blogPost, Request $request): Response
+    {   
+        $blogPostComment = new BlogPostComment();
+        $form = $this->createForm(BlogPostCommentType::class, $blogPostComment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $blogPostComment->setAuthor($this->getUser());
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($blogPostComment);
+            $blogPost->addBlogPostComment($blogPostComment);
+            $entityManager->flush();
+        }
+        
+        if(!$blogPost) {
+            return $this->redirectToRoute('blog_index');
+        }
+
         return $this->render('blog/show.html.twig', [
-            'blog_post' => $blogPost,
+            'blogPost' => $blogPost,
+            'user' => $blogPost->getAuthor(),
+            'form' => $form->createView()
         ]);
     }
 
     /**
-     * @Route("/blog/{id}/edit", name="blog_post_edit", methods={"GET","POST"})
+     * @Route("/blog/edit/{id}", name="blog_post_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, BlogPost $blogPost): Response
     {
@@ -126,11 +153,11 @@ class BlogController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('blog_index');
+            return $this->redirectToRoute('blog_user_management');
         }
 
         return $this->render('blog/edit.html.twig', [
-            'blog_post' => $blogPost,
+            'blogPost' => $blogPost,
             'form' => $form->createView(),
         ]);
     }
@@ -150,7 +177,32 @@ class BlogController extends AbstractController
             $entityManager->flush();
             return $this->redirectToRoute('blog_user_management');
         }
+    }
 
-        return $this->redirectToRoute('blog_index');
+    /**
+     * @Route("/blog/like/{id}", name="blog_like", methods={"GET"})
+     */
+    public function rep(BlogPost $blogPost): Response
+    {
+
+        $_likes = $this->getUser()->getLikes();
+        $hasPreviouslyLike = false;
+
+        foreach($_likes as $like) {
+            if ($like->getBlogPost() && $like->getBlogPost() == $blogPost) {
+                $hasPreviouslyLike = true;
+            }
+        }
+
+        if(!$hasPreviouslyLike) {
+            $like = new Like();
+            $like->setAuthor($this->getUser());
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($like);
+            $blogPost->addLike($like);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('blog_post_show', array('id' => $blogPost->getId()));
     }
 }
