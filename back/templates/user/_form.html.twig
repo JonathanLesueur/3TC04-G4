@@ -7,6 +7,7 @@
             <div class="input-logo"><svg class="user"><use xlink:href="#user"></use></svg></div>
             {{ form_widget(form.firstname) }}
         </div>
+        <div class="error-box">{{ form_errors(form.firstname) }}</div>
     </div>
     <div class="group-block">
         <label for="user_lastname">Nom</label>
@@ -14,6 +15,7 @@
             <div class="input-logo"><svg class="user"><use xlink:href="#user"></use></svg></div>
             {{ form_widget(form.lastname) }}
         </div>
+        <div class="error-box">{{ form_errors(form.lastname) }}</div>
     </div>
 </div>
 <div class="form-line">
@@ -23,6 +25,7 @@
             <div class="input-logo"><svg class="certificat"><use xlink:href="#certificat"></use></svg></div>
             {{ form_widget(form.formation) }}
         </div>
+        <div class="error-box">{{ form_errors(form.formation) }}</div>
     </div>
 </div>
 <div class="form-line">
@@ -32,6 +35,7 @@
             <div class="input-logo"><svg class="user"><use xlink:href="#user"></use></svg></div>
             {{ form_widget(form.avatar) }}
         </div>
+        <div class="error-box">{{ form_errors(form.avatar) }}</div>
     </div>
 </div>
 <div class="form-line">

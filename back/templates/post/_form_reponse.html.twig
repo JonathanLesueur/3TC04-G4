@@ -1,13 +1,12 @@
 {{ form_start(form) }}
- 
 <div class="form-line">
     <div class="group-block">
         <label for="rapid_post_title">Titre</label>
         <div class="input-box">
             <div class="input-logo"><svg class="plume"><use xlink:href="#plume"></use></svg></div>
             {{ form_widget(form.title) }}
-            {{ form_errors(form.title) }}
         </div>
+        <div class="error-box">{{ form_errors(form.title) }}</div>
     </div>
 </div>
 <div class="form-line">
@@ -16,8 +15,8 @@
         <div class="input-box">
             {{ form_widget(form.content) }}
             <div class="input-logo"><svg class="plume"><use xlink:href="#plume"></use></svg></div>
-            {{ form_errors(form.content) }}
         </div>
+        <div class="error-box">{{ form_errors(form.content) }}</div>
     </div>
 </div>
 <div class="form-line">

@@ -1,5 +1,4 @@
 {{ form_start(form) }}
-{{ form_errors(form) }}
 <div class="form-line">
     <div class="group-block">
         <label for="rapid_post_title">Titre</label>
@@ -7,6 +6,7 @@
             <div class="input-logo"><svg class="plume"><use xlink:href="#plume"></use></svg></div>
             {{ form_widget(form.title) }}
         </div>
+        <div class="error-box">{{ form_errors(form.title) }}</div>
     </div>
 </div>
 <div class="form-line">
@@ -16,6 +16,7 @@
             {{ form_widget(form.content) }}
             <div class="input-logo"><svg class="plume"><use xlink:href="#plume"></use></svg></div>
         </div>
+        <div class="error-box">{{ form_errors(form.content) }}</div>
     </div>
 </div>
 <div class="form-line">
@@ -26,6 +27,7 @@
             {{ form_widget(form.channels) }}
         </div>
         <label for="rapid_post_channels"><em><small>(séparez les thématiques par des virgules s'il doit y en avoir plusieurs)</small></em></label>
+        <div class="error-box">{{ form_errors(form.channels) }}</div>
     </div>
 </div>
 <div class="form-line">

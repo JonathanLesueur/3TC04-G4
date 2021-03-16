@@ -1,5 +1,4 @@
 {{ form_start(form) }}
-{{ form_errors(form) }}
 <div class="form-line">
     <div class="group-block">
         <label for="blog_post_title">Titre</label>
@@ -7,6 +6,7 @@
             <div class="input-logo"><svg class="plume"><use xlink:href="#plume"></use></svg></div>
             {{ form_widget(form.title) }}
         </div>
+        <div class="error-box">{{ form_errors(form.title) }}</div>
     </div>
 </div>
 <div class="form-line">
@@ -16,6 +16,7 @@
             <div class="input-logo"><svg class="plume"><use xlink:href="#plume"></use></svg></div>
             {{ form_widget(form.picture) }}
         </div>
+        <div class="error-box">{{ form_errors(form.picture) }}</div>
     </div>
 </div>
 <div class="form-line">
@@ -25,6 +26,7 @@
             {{ form_widget(form.content) }}
             <div class="input-logo"><svg class="plume"><use xlink:href="#plume"></use></svg></div>
         </div>
+        <div class="error-box">{{ form_errors(form.content) }}</div>
     </div>
 </div>
 <div class="form-line">
@@ -35,6 +37,7 @@
             {{ form_widget(form.source) }}
         </div>
         <label for="blog_post_source"><em>A mentionner si votre article se base sur une publication en ligne.</em></label>
+        <div class="error-box">{{ form_errors(form.source) }}</div>
     </div>
 </div>
 <div class="form-line">

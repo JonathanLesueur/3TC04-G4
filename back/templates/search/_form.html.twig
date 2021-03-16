@@ -7,6 +7,7 @@
             <div class="input-logo"><svg class="plume"><use xlink:href="#plume"></use></svg></div>
             {{ form_widget(form.searchtext) }}
         </div>
+        <div class="error-box">{{ form_errors(form.searchtext) }}</div>
     </div>
 </div>
 <div class="form-line">
@@ -16,6 +17,7 @@
             <div class="input-logo"><svg class="list"><use xlink:href="#list"></use></svg></div>
             {{ form_widget(form.contenttype) }}
         </div>
+        <div class="error-box">{{ form_errors(form.contenttype) }}</div>
     </div>
 </div>
 

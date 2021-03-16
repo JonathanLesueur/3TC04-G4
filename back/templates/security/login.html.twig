@@ -8,14 +8,6 @@
     <h1 class="thin-dark-title-big">Accès sécurisé</h1>
     <div class="login-box">
         <form method="POST">
-            {% if error %}
-                <div class="alert alert-danger xs-mb-10">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-            {% endif %}
-            {% if app.user %}
-                <div class="alert alert-info xs-mb-10">
-                    You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
-                </div>
-            {% endif %}
             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
             <div class="form-line">
                 <div class="group-block">

@@ -8,10 +8,6 @@
     <h1 class="thin-dark-title-big">Inscription</h1>
     <div class="login-box">
         {{ form_start(registrationForm) }}
-        {{ form_errors(form) }}
-        {% for flashError in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
-        {% endfor %}
         <div class="form-line">
             <div class="group-block">
                 <label for="registration_form_firstname">Prénom</label>
@@ -19,6 +15,7 @@
                     <div class="input-logo"><svg class="user"><use xlink:href="#user"></use></svg></div>
                     {{ form_widget(registrationForm.firstname) }}
                 </div>
+                <div class="error-box">{{ form_errors(registrationForm.firstname) }}</div>
             </div>
             <div class="group-block">
                 <label for="registration_form_lastname">Nom</label>
@@ -26,6 +23,7 @@
                     <div class="input-logo"><svg class="user"><use xlink:href="#user"></use></svg></div>
                     {{ form_widget(registrationForm.lastname) }}
                 </div>
+                <div class="error-box">{{ form_errors(registrationForm.colastnamentent) }}</div>
             </div>
         </div>
         <div class="form-line">
@@ -35,6 +33,7 @@
                     <div class="input-logo"><svg class="padlock"><use xlink:href="#padlock"></use></svg></div>
                     {{ form_widget(registrationForm.plainPassword) }}
                 </div>
+                <div class="error-box">{{ form_errors(registrationForm.plainPassword) }}</div>
             </div>
         </div>
         <div class="form-line">
@@ -44,6 +43,7 @@
                     <div class="input-logo"><svg class="email"><use xlink:href="#email"></use></svg></div>
                     {{ form_widget(registrationForm.email) }}
                 </div>
+                <div class="error-box">{{ form_errors(registrationForm.email) }}</div>
             </div>
         </div>
         <div class="form-line">
@@ -53,6 +53,7 @@
                     <div class="input-logo"><svg class="mortar"><use xlink:href="#mortar"></use></svg></div>
                     {{ form_widget(registrationForm.university) }}
                 </div>
+                <div class="error-box">{{ form_errors(registrationForm.university) }}</div>
             </div>
         </div>
         <div class="form-line">
@@ -62,6 +63,7 @@
                     <div class="input-logo"><svg class="certificat"><use xlink:href="#certificat"></use></svg></div>
                     {{ form_widget(registrationForm.formation) }}
                 </div>
+                <div class="error-box">{{ form_errors(foregistrationFormrm.formation) }}</div>
             </div>
         </div>
         <div class="form-line">

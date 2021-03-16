@@ -52,6 +52,12 @@ form {
                     justify-content: center;
                 }
             }
+            .error-box {
+                margin: 5px 0px;
+                color: color(textError);
+                font-size: 14px;
+                font-style: italic;
+            }
         }
 
         .button-block {

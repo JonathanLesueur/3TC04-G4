@@ -1,5 +1,4 @@
 {{ form_start(form) }}
-{{ form_errors(form) }}
 <div class="form-line">
     <div class="group-block">
         <label for="offer_title">Titre</label>
@@ -7,6 +6,7 @@
             <div class="input-logo"><svg class="plume"><use xlink:href="#plume"></use></svg></div>
             {{ form_widget(form.title) }}
         </div>
+        <div class="error-box">{{ form_errors(form.title) }}</div>
     </div>
 </div>
 <div class="form-line">
@@ -16,6 +16,7 @@
             <div class="input-logo"><svg class="list"><use xlink:href="#list"></use></svg></div>
             {{ form_widget(form.type) }}
         </div>
+        <div class="error-box">{{ form_errors(form.type) }}</div>
     </div>
     <div class="group-block">
         <label for="offer_price">Prix maximal</label>
@@ -23,6 +24,7 @@
             <div class="input-logo"><svg class="euro"><use xlink:href="#euro"></use></svg></div>
             {{ form_widget(form.price) }}
         </div>
+        <div class="error-box">{{ form_errors(form.price) }}</div>
     </div>
     <div class="group-block">
         <div class="button-block">
