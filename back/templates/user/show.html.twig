@@ -30,17 +30,28 @@
             </div>
             <div class="tabs-content">
                 <div data-tab-content="rapidposts" class="tab-content active">
+                    <h2 class="bloc-title">Messages récents</h2>
                     {% include "user/profil_rapidposts_list.html.twig" %}
+                    <div class="col-xs-12">
+                        <a href="{{ path('blog_posts_user', {'id': user.id }) }}" class="button orange small"><span>En voir plus</span></a>
+                    </div>
                 </div>
                 <div data-tab-content="blogposts" class="tab-content">
+                    <h2 class="bloc-title">Articles récents</h2>
                     {% include "user/profil_blogposts_list.html.twig" %}
+                    <div class="col-xs-12">
+                        <a href="" class="button orange small"><span>En voir plus</span></a>
+                    </div>
                 </div>
                 <div data-tab-content="offers" class="tab-content">
-                   
+                    <h2 class="bloc-title">Offres récentes</h2>
+                    {% include "user/profil_offers_list.html.twig" %}
+                    <div class="col-xs-12">
+                        <a href="{{ path('market_offers_user', {'id': user.id }) }}" class="button orange small"><span>En voir plus</span></a>
+                    </div>
                 </div>
             </div>
         </div>
-
     </div>
 {% endblock %}
 

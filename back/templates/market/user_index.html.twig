@@ -1,5 +1,5 @@
 {% extends 'aside-right.html.twig' %}
-{% block title %}Blog de {{ user.firstname }} {{ user.lastname }} {{global_name}}{% endblock %}
+{% block title %}Offres de {{ user.firstname }} {{ user.lastname }} {{global_name}}{% endblock %}
 
 {% block headerblock %}
     {% include "user/user_headerBox.html.twig" %}
@@ -9,9 +9,9 @@
 {% block content %} 
 <div class="col-xs-12">
     <div class="xs-py-15 xs-px-15">
-        <h1 class="bloc-title">Publications de {{ user.firstname }}</h1>
-        {% include "user/profil_blogPosts_list.html.twig" %}
-        {{ knp_pagination_render(blogPosts) }}
+        <h1 class="bloc-title">Offres de {{ user.firstname }}</h1>
+        {% include "user/profil_offers_list.html.twig" %}
+        {{ knp_pagination_render(offers) }}
     </div>
 </div>
 {% endblock %}
@@ -25,16 +25,16 @@
     </a>
 </div>
     <div class=" xs-py-10 xs-px-10">
-        <a href="{{ url('blog_post_new') }}" class="button orange">
+        <a href="{{ url('market_new_offer') }}" class="button orange">
             <svg class="plume"><use xlink:href="#plume"></use></svg>
-            <span>Nouvel article</span>
+            <span>Nouvelle offre</span>
         </a>
     </div>
 {% if app.user.id == user.id %}
     <div class=" xs-py-10 xs-px-10">
-        <a href="{{ url('blog_user_management') }}" class="button orange">
+        <a href="{{ url('market_user_management') }}" class="button orange">
             <svg class="loupe"><use xlink:href="#loupe"></use></svg>
-            <span>Mes articles</span>
+            <span>Mes offres</span>
         </a>
     </div>
 {% endif %}

@@ -1,0 +1,28 @@
+{% extends 'aside-right.html.twig' %}
+{% block title %}Gestion des offres sur la Place du marché {{global_name}}{% endblock %}
+
+{% block headerblock %}
+    {% include "user/user_headerBox.html.twig" %}
+{% endblock %}
+
+
+{% block content %} 
+<div class="col-xs-12">
+    <div class="xs-py-15 xs-px-15">
+        <h1 class="bloc-title">Mes publications</h1>
+        {% include "market/offers_manageList.html.twig" %}
+        {{ knp_pagination_render(offers) }}
+    </div>
+</div>
+{% endblock %}
+
+
+{% block aside %}
+<div class=" xs-py-10 xs-px-10">
+    <a href="{{ path('blog_posts_user', {'id': user.id }) }}" class="button orange">
+        <svg class="back"><use xlink:href="#back"></use></svg>
+        <span>Retour au blog</span>
+    </a>
+</div>
+{% endblock %}
+

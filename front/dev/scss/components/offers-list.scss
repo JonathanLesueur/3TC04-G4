@@ -76,6 +76,11 @@
                     font-size: 16px;
                     text-align: justify
                 }
+                .date {
+                    margin: 5px 0;
+                    font-size: 13px;
+                    color: color(textGreyLight);
+                }
                 .description {
                     margin-top: 10px;
                     p {
@@ -92,9 +97,6 @@
                         font-size: 21px;
                         font-family: 'Roboto Medium', sans-serif;
                         color: color(bgMainColor);
-                    }
-                    .button {
-
                     }
                 }
             }

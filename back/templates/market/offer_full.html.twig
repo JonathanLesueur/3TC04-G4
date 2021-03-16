@@ -1,0 +1,18 @@
+<div class="offer-full xs-mb-15">
+    <h1 class="title xs-mb-10">{{ offer.title|striptags }}</h1>
+    <div class="picture-box">
+        <div class="picture">
+            <img src="{{ asset('/uploads/offers/' ~ offer.picture) }}" alt="">
+        </div>
+    </div>
+    <div class="infos">
+        <span class="date">Publication mise en ligne le {{ offer.createdAt|date("d/m/Y") }}</span>
+        <div class="more">
+            <span class="type xs-mr-10 {{ offer.type }}"></span>
+            <span class="price">{% if offer.price != ''%}{{ offer.price }} €{% endif %}</span>
+        </div>
+        <div class="content">
+            {{ offer.content|raw }}
+        </div>
+    </div>
+</div>

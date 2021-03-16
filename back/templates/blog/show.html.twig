@@ -23,13 +23,13 @@
 
 {% block aside %}
 <div class=" xs-py-10 xs-px-10">
-    <a href="{{ path('user_profile', {'id': blogPost.author.id }) }}" class="button orange">
-        <svg class="loupe"><use xlink:href="#loupe"></use></svg>
-        <span>Blog de {{ blogPost.author.firstname }}</span>
+    <a href="{{ url('blog_index') }}" class="button orange">
+        <svg class="back"><use xlink:href="#back"></use></svg>
+        <span>Retour</span>
     </a>
 </div>
 <div class=" xs-py-10 xs-px-10">
-    <a href="{{ path('user_profile', {'id': blogPost.author.id }) }}" class="button orange">
+    <a href="{{ path('blog_posts_user', {'id': blogPost.author.id }) }}" class="button orange">
         <svg class="loupe"><use xlink:href="#loupe"></use></svg>
         <span>Blog de {{ blogPost.author.firstname }}</span>
     </a>

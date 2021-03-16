@@ -35,10 +35,6 @@ class Like
      */
     private $blogpost;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=BlogPostComment::class, inversedBy="likes")
-     */
-    private $blogpostcomment;
 
     /**
      * @ORM\ManyToMany(targetEntity=RapidPost::class, inversedBy="likes")
@@ -49,7 +45,6 @@ class Like
     {
         $this->likedAt = new \DateTime();
         $this->blogpost = new ArrayCollection();
-        $this->blogpostcomment = new ArrayCollection();
         $this->rapidpost = new ArrayCollection();
     }
 
@@ -106,29 +101,6 @@ class Like
         return $this;
     }
 
-    /**
-     * @return Collection|BlogPostComment[]
-     */
-    public function getBlogpostcomment(): Collection
-    {
-        return $this->blogpostcomment;
-    }
-
-    public function addBlogpostcomment(BlogPostComment $blogpostcomment): self
-    {
-        if (!$this->blogpostcomment->contains($blogpostcomment)) {
-            $this->blogpostcomment[] = $blogpostcomment;
-        }
-
-        return $this;
-    }
-
-    public function removeBlogpostcomment(BlogPostComment $blogpostcomment): self
-    {
-        $this->blogpostcomment->removeElement($blogpostcomment);
-
-        return $this;
-    }
 
     /**
      * @return Collection|RapidPost[]

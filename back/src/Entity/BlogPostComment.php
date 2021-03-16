@@ -46,15 +46,10 @@ class BlogPostComment
      */
     private $post;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Like::class, mappedBy="blogpostcomment")
-     */
-    private $likes;
 
     public function __construct()
     {
         $this->createdAt = new \DateTime();
-        $this->likes = new ArrayCollection();
     }
     
     public function getId(): ?int
@@ -118,33 +113,6 @@ class BlogPostComment
     public function setPost(?BlogPost $post): self
     {
         $this->post = $post;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Like[]
-     */
-    public function getLikes(): Collection
-    {
-        return $this->likes;
-    }
-
-    public function addLike(Like $like): self
-    {
-        if (!$this->likes->contains($like)) {
-            $this->likes[] = $like;
-            $like->addBlogpostcomment($this);
-        }
-
-        return $this;
-    }
-
-    public function removeLike(Like $like): self
-    {
-        if ($this->likes->removeElement($like)) {
-            $like->removeBlogpostcomment($this);
-        }
 
         return $this;
     }

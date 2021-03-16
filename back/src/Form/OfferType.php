@@ -74,7 +74,7 @@ class OfferType extends AbstractType
             ])
             ->add('price', NumberType::class, [
                 'mapped' => true,
-                'required' => true
+                'required' => false
             ])
         ;
     }

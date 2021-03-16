@@ -3,10 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Offer;
+use App\Entity\OfferComment;
 use App\Entity\User;
 use App\Form\OfferType;
+use App\Form\OfferCommentType;
 use App\Form\SearchOfferType;
 use App\Repository\OfferRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,7 +17,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
-use Doctrine\Common\Collections\Criteria;
 
 /**
  * @IsGranted("ROLE_USER")
@@ -52,17 +54,20 @@ class MarketController extends AbstractController
     }
 
     /**
-     * @Route("/market/user/{id}", name="market_offers_user", methods={"GET"})
+     * @Route("/market/user/{id}/{page}", defaults={"page"=1}, name="market_offers_user", methods={"GET"})
      */
-    public function user(OfferRepository $offerRepository, int $id): Response
+    public function user(UserRepository $userRepository, int $id, PaginatorInterface $paginator, int $page): Response
     {
-        $user = $offerRepository->findOneBy(array('id' => $id));
+        $user = $userRepository->findOneBy(array('id' => $id));
         if(!$user) {
             return $this->redirectToRoute('market_index');
         }
 
+        $_offers = $user->getOffers();
+        $_pageOffers = $paginator->paginate($_offers, $page, 10);
+
         return $this->render('market/user_index.html.twig', [
-            'blog_posts' => $user->getBlogPosts(),
+            'offers' => $_pageOffers,
             'user' => $user
         ]);
     }
@@ -114,30 +119,51 @@ class MarketController extends AbstractController
     }
 
     /**
-     * @Route("/market/offer/{id}", name="market_show_offer", methods={"GET"})
+     * @Route("/market/offer/{id}", name="market_show_offer", methods={"GET", "POST"})
      */
-    public function show(int $id, OfferRepository $offerRepository): Response
+    public function show(int $id, OfferRepository $offerRepository, Request $request): Response
     {
+        
         $offer = $offerRepository->findOneBy(array('id' => $id));
         if(!$offer) {
             return $this->redirectToRoute('market_index');
         }
 
+        $offerComment = new OfferComment();
+        $form = $this->createForm(OfferCommentType::class, $offerComment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $offerComment->setAuthor($this->getUser());
+            
+
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($offerComment);
+
+            $offer->addOfferComment($offerComment);
+            $entityManager->flush();
+        }
+
+       
+
         return $this->render('market/show.html.twig', [
             'offer' => $offer,
+            'user' => $offer->getAuthor(),
+            'form' => $form->createView()
         ]);
     }
 
     /**
-     * @Route("/market/manage/{page}", defaults={"page"=1}, name="market_user_management", methods={"GET"})
+     * @Route("/offers/manage/{page}", defaults={"page"=1}, name="market_user_management", methods={"GET"})
      */
-    public function manage(OfferRepository $offerRepository, PaginatorInterface $paginator, int $page): Response
+    public function manage(PaginatorInterface $paginator, int $page): Response
     {
         $user = $this->getUser();
         $_offers = $user->getOffers();
         $_pageOffers = $paginator->paginate($_offers, $page, 20);
 
-        return $this->render('blog/user_manage.html.twig', [
+        return $this->render('market/user_manage.html.twig', [
             'user' => $user,
             'offers' => $_pageOffers
         ]);
