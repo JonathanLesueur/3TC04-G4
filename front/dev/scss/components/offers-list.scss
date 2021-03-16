@@ -1,0 +1,114 @@
+.offers-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    .offer {
+        .content {
+            display: flex;
+            flex-direction: column;
+            padding: 10px 5px;
+            .picture-box {
+                position: relative;
+                margin-right: 15px;
+                width: 100%;
+                padding-top: 56.36%;
+                overflow: hidden;
+                .offer-type {
+                    position: absolute;
+                    z-index: 3;
+                    top: 0px;
+                    right: 0px;
+                    height: 25px;
+                    width: 110px;
+                    background-color: color(bgMainColor);
+                    border-radius: 0px 0px 0px 7px;
+                    border-bottom: 1px solid color(bgWhite);
+                    border-left: 1px solid color(bgWhite);
+                    
+                    &::after {
+                        display: block;
+                        position: absolute;
+                        font-family: 'Roboto Medium', sans-serif;
+                        text-transform: uppercase;
+                        color: color(textWhite);
+                        width: 100%;
+                        height: 100%;
+                        text-align: center;
+                        line-height: 25px;
+                    }
+                    &.purchase {
+                        &::after {
+                            content: 'Achat';
+                        }
+                    }
+                    &.sale {
+                        &::after {
+                            content: 'Vente';
+                        }
+                    }
+                    &.service {
+                        &::after {
+                            content: 'Service';
+                        }
+                    }
+                    &.search {
+                        &::after {
+                            content: 'Recherche';
+                        }
+                    }
+                }
+                .picture {
+                    position: absolute;
+                    z-index: 2;
+                    top: 50%;
+                    left: 50%;
+                    width: 110%;
+                    height: 110%;
+                    transform: translate(-50%, -50%);
+                }
+            }
+            .main {
+                margin-top: 10px;
+                .offer-title {
+                    color: color(textGreyDark);
+                    font-family: 'Roboto Medium', sans-serif;
+                    font-size: 16px;
+                    text-align: justify
+                }
+                .description {
+                    margin-top: 10px;
+                    p {
+                        font-size: 14px;
+                        text-align: justify;
+                    }
+                }
+                .more {
+                    margin-top: 10px;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    .price {
+                        font-size: 21px;
+                        font-family: 'Roboto Medium', sans-serif;
+                        color: color(bgMainColor);
+                    }
+                    .button {
+
+                    }
+                }
+            }
+        }
+        @include for-breakpoint(md) {
+            .content {
+                .main {
+                    .more {
+                        .price {
+                            font-size: 24px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

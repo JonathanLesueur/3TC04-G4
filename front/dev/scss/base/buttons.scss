@@ -22,7 +22,15 @@ a.button, button.button {
         height: 30px;
         span {
             font-size: 14px;
+            margin: 5px 10px 5px 0px;
         }
+        
+        svg {
+            width: 20px;
+            height: 20px;
+            margin: 5px 2px 5px 10px;
+        }
+        
     }
     &.orange {
         background-color: color(bgMainColor);

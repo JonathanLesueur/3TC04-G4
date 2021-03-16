@@ -4,9 +4,16 @@
 {% block content %} 
 <div class="col-xs-12">
     <div class="xs-py-15 xs-px-15">
-        <h1 class="bloc-title">Publications récentes</h1>
-        {% include "market/offers_list.html.twig" %}
-        {{ knp_pagination_render(offers) }}
+        <h1 class="main-title">Place du marché</h1>
+        <h2 class="bloc-title">Recherche</h2>
+        {% include "market/_search_form.html.twig" %}
+        {% if offers|length > 0 %}
+            <h2 class="bloc-title">Offres récentes</h2>
+            {% include "market/offers_list.html.twig" %}
+            {% if hasPage == true %}
+                {{ knp_pagination_render(offers) }}
+            {% endif %}
+        {% endif %}
     </div>
 </div>
 {% endblock %}

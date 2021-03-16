@@ -27,4 +27,20 @@ class OfferRepository extends ServiceEntityRepository
         ->getQuery()
         ->getResult();
     }
+
+    public function searchCustom($name, $type, $price)
+    {
+        $qb = $this->createQueryBuilder('o');
+        if($name != '') {
+            $qb->andWhere('lower(o.title) LIKE :name')->setParameter('name', '%'.$name.'%');
+        }
+        if($type != '') {
+            $qb->andWhere('o.type = :type')->setParameter('type', $type);
+        }
+        if($price != '') {
+            $qb->andWhere('o.price <= :price')->setParameter('price', $price);
+        }
+        $result = $qb->getQuery()->getResult();
+        return $result;
+    }
 }

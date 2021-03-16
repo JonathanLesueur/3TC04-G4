@@ -1,0 +1,33 @@
+{{ form_start(form) }}
+{{ form_errors(form) }}
+<div class="form-line">
+    <div class="group-block">
+        <label for="offer_title">Titre</label>
+        <div class="input-box">
+            <div class="input-logo"><svg class="plume"><use xlink:href="#plume"></use></svg></div>
+            {{ form_widget(form.title) }}
+        </div>
+    </div>
+</div>
+<div class="form-line">
+    <div class="group-block">
+        <label for="offer_type">Type d'offre</label>
+        <div class="input-box">
+            <div class="input-logo"><svg class="list"><use xlink:href="#list"></use></svg></div>
+            {{ form_widget(form.type) }}
+        </div>
+    </div>
+    <div class="group-block">
+        <label for="offer_price">Prix maximal</label>
+        <div class="input-box">
+            <div class="input-logo"><svg class="euro"><use xlink:href="#euro"></use></svg></div>
+            {{ form_widget(form.price) }}
+        </div>
+    </div>
+    <div class="group-block">
+        <div class="button-block">
+            <button class="submit" type="submit">Rechercher</button>
+        </div>
+    </div>
+</div>
+{{ form_end(form) }}

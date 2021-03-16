@@ -59,7 +59,7 @@ class OfferType extends AbstractType
             ])
             ->add('picture', FileType::class, [
                 'mapped' => false,
-                'required' => false,
+                'required' => true,
                 'data_class' => null,
                 'constraints' => [
                     new File([
