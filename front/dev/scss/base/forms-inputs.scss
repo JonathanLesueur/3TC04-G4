@@ -27,11 +27,11 @@ form {
                         fill: color(bgWhite);
                     }
                 }
-                .input-logo, input {
+                .input-logo, input, select {
                     display: inline-block;
                     height: 50px;
                 }
-                input, textarea {
+                input, textarea, select {
                     background-color: color(bgGrey);
                     border: none;
                     margin: 0;

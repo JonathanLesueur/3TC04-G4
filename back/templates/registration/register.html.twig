@@ -8,6 +8,7 @@
     <h1 class="thin-dark-title-big">Inscription</h1>
     <div class="login-box">
         {{ form_start(registrationForm) }}
+        {{ form_errors(form) }}
         {% for flashError in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flashError }}</div>
         {% endfor %}

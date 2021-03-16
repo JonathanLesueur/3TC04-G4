@@ -72,10 +72,11 @@ class SearchMenu {
     }
     init() {
         this.input.addEventListener('keyup', this.search.bind(this));
-        this.resultDiv.addEventListener('focusout', (this) => {
+
+        this.resultDiv.addEventListener('focusout', () => {
             this.resultDiv.classList.add('hidden');
         });
-        this.input.addEventListener('focus', (this) => {
+        this.input.addEventListener('focus', () => {
             this.resultDiv.classList.remove('hidden');
         });
     }

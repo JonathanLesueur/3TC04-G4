@@ -1,11 +1,23 @@
-{% extends 'base.html.twig' %}
+{% extends 'aside-right.html.twig' %}
+{% block title %}Nouvelle offre sur la Place du marché {{global_name}}{% endblock %}
 
-{% block title %}New Offer{% endblock %}
 
-{% block body %}
-    <h1>Create new Offer</h1>
-
-    {{ include('market/_form.html.twig') }}
-
-    <a href="{{ path('market_index') }}">back to list</a>
+{% block content %} 
+<div class="col-xs-12">
+    <div class="xs-py-15 xs-px-15">
+        <h1 class="bloc-title">Nouvelle offre sur la Place du marché</h1>
+        {% include "market/_form.html.twig" %}
+    </div>
+</div>
 {% endblock %}
+
+
+{% block aside %}
+    <div class=" xs-py-10 xs-px-10">
+        <a href="{{ url('market_index') }}" class="button orange">
+            <svg class="back"><use xlink:href="#back"></use></svg>
+            <span>Retour</span>
+        </a>
+    </div>
+{% endblock %}
+

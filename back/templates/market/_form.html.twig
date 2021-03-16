@@ -1,4 +1,52 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_errors(form) }}
+<div class="form-line">
+    <div class="group-block">
+        <label for="offer_title">Titre de l'offre</label>
+        <div class="input-box">
+            <div class="input-logo"><svg class="plume"><use xlink:href="#plume"></use></svg></div>
+            {{ form_widget(form.title) }}
+        </div>
+    </div>
+</div>
+<div class="form-line">
+    <div class="group-block">
+        <label for="offer_type">Type d'offre</label>
+        <div class="input-box">
+            <div class="input-logo"><svg class="list"><use xlink:href="#list"></use></svg></div>
+            {{ form_widget(form.type) }}
+        </div>
+    </div>
+    <div class="group-block">
+        <label for="offer_price">Prix</label>
+        <div class="input-box">
+            <div class="input-logo"><svg class="euro"><use xlink:href="#euro"></use></svg></div>
+            {{ form_widget(form.price) }}
+        </div>
+    </div>
+</div>
+<div class="form-line">
+    <div class="group-block">
+        <label for="offer_picture">Image d'illustration</label>
+        <div class="input-box">
+            <div class="input-logo"><svg class="plume"><use xlink:href="#plume"></use></svg></div>
+            {{ form_widget(form.picture) }}
+
+        </div>
+    </div>
+</div>
+<div class="form-line">
+    <div class="group-block">
+        <label for="offer_content">Description de l'offre</label>
+        <div class="input-box">
+            {{ form_widget(form.content) }}
+            <div class="input-logo"><svg class="plume"><use xlink:href="#plume"></use></svg></div>
+        </div>
+    </div>
+</div>
+<div class="form-line">
+    <div class="button-block">
+        <button class="submit" type="submit">Valider l'offre</button>
+    </div>
+</div>
 {{ form_end(form) }}
