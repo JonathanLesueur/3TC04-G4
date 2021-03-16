@@ -1,20 +1,33 @@
-{% extends 'base.html.twig' %}
+{% extends 'aside-left.html.twig' %}
+{% block title %}Recherche {{global_name}}{% endblock %}
 
-{% block title %}Hello SearchController!{% endblock %}
-
-{% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/jonat/Desktop/3TC04-G4/back/src/Controller/SearchController.php'|file_link(0) }}">src/Controller/SearchController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/jonat/Desktop/3TC04-G4/back/templates/search/index.html.twig'|file_link(0) }}">templates/search/index.html.twig</a></code></li>
-    </ul>
+{% block aside %}
+<div class="xs-py-15 xs-px-15">
+    <h2 class="bloc-title">Recherche</h2>
+    {% include "search/_form.html.twig" %}
+</div>
+{% endblock %}
+{% block content %}
+<div class="col-xs-12">
+    <div class="xs-py-15 xs-px-15">
+        <h1 class="bloc-title">Résultats</h1>
+        {% if search_result != false %}
+            {% if search_type == 'user' %}
+                {% include "search/users_list.html.twig" %}
+            {% elseif search_type == 'channel' %}
+                {% include "search/channels_list.html.twig" %}
+            {% elseif search_type == 'blogpost' %}
+                {% include "search/blogposts_list.html.twig" %}
+            {% elseif search_type == 'rapidpost' %}
+                {% include "search/rapidposts_list.html.twig" %}
+            {% elseif search_type == 'offer' %}
+                {% include "search/offers_list.html.twig" %}
+            {% elseif search_type == 'association' %}
+                {% include "search/associations_list.html.twig" %}
+            {% else %}
+                Aucun résultat !            
+            {% endif %}
+        {% endif %}
+    </div>
 </div>
 {% endblock %}

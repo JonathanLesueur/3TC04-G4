@@ -63,7 +63,8 @@ class AjaxRequest {
 
 class SearchMenu {
     constructor(input) {
-        this.input = input;
+        this.input = input,
+        this.resultDiv = document.querySelector('.result-group');
 
         if(this.input) {
             this.init();
@@ -71,24 +72,79 @@ class SearchMenu {
     }
     init() {
         this.input.addEventListener('keyup', this.search.bind(this));
+        this.resultDiv.addEventListener('focusout', (this) => {
+            this.resultDiv.classList.add('hidden');
+        });
+        this.input.addEventListener('focus', (this) => {
+            this.resultDiv.classList.remove('hidden');
+        });
     }
     search() {
+        //this.resultDiv.classList.add('hidden');
         var word = this.input.value.trim();
-
+        
         if(word.length > 3) {
             this.sendRequest(word);
         }
     }
     sendRequest(word) {
+        var object = this;
         new AjaxRequest({
             url: "http://localhost:8000/ajaxsearch",
             dataType: "json",
             data: {text: word},
             onSuccess(response) {
                 var result = JSON.parse(response);
-                console.log(result);
+                object.buildResults(result);
             }
         }).send();
+    }
+    buildResults(result) {
+        var object = this;
+            object.resultDiv.innerHTML = '';
+        result.forEach(element => {
+            var row = object.makeRow(element);
+            object.resultDiv.appendChild(row);
+        });
+        object.resultDiv.classList.remove('hidden');
+    }
+
+    makeRow(object) {
+        var element = document.createElement('a');
+            element.setAttribute('class', 'item');
+            element.href = object.link;
+
+        var content = document.createElement('div');
+            content.setAttribute('class', 'content');
+
+        var pictureBox = document.createElement('div');
+            pictureBox.setAttribute('class', 'picture');
+
+        var img = document.createElement('img');
+            img.setAttribute('src', object.picture);
+        
+        var main = document.createElement('div');
+            main.setAttribute('class', 'main');
+
+        var type = document.createElement('div');
+            type.setAttribute('class', 'type');
+            type.innerHTML = object.type;
+
+        var title = document.createElement('div');
+            title.setAttribute('class', 'title');
+            title.innerHTML = object.title;
+
+            main.appendChild(title);
+            if(object.picture) {
+                pictureBox.appendChild(img);
+            }
+        
+            content.appendChild(pictureBox);
+            content.appendChild(main);
+            content.appendChild(type);
+            element.appendChild(content);
+
+            return element;
     }
 }
 

@@ -1,0 +1,26 @@
+{{ form_start(form) }}
+<div class="form-line">
+    <div class="group-block">
+        <label for="">Votre recherche</label>
+        <div class="input-box">
+            <div class="input-logo"><svg class="plume"><use xlink:href="#plume"></use></svg></div>
+            {{ form_widget(form.searchtext) }}
+        </div>
+    </div>
+</div>
+<div class="form-line">
+    <div class="group-block">
+        <label for="">Type de contenu</label>
+        <div class="input-box">
+            <div class="input-logo"><svg class="plume"><use xlink:href="#plume"></use></svg></div>
+            {{ form_widget(form.contenttype) }}
+        </div>
+    </div>
+</div>
+
+<div class="form-line">
+    <div class="button-block">
+        <button class="submit" type="submit">Rechercher</button>
+    </div>
+</div>
+{{ form_end(form) }}

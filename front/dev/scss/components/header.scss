@@ -87,7 +87,7 @@
                 }
                 .result-group {
                     background-color: color(bgWhite);
-                    height: 450px;
+                    height: 250px;
                     max-height: 100vh;
                     overflow-y: scroll;
                     position: absolute;
@@ -95,6 +95,54 @@
                     width: 100%;
                     border-top: 2px solid color(bgMainColor);
                     z-index: 9;
+                    
+                    .item {
+                        padding: 5px 10px;
+                        display: block;
+                        .content {
+                            display: flex;
+                            flex-direction: row;
+                            justify-content: space-between;
+                            .picture {
+                                position: relative;
+                                height: 40px;
+                                width: 40px;
+                                margin-right: 20px;
+                                border-radius: 7px;
+                                img {
+                                    position: absolute;
+                                    width: 110%;
+                                    height: 110%;
+                                    top: 50%;
+                                    left: 50%;
+                                    transform: translate(-50%, -50%);
+                                    &[src=''] {
+                                        display: none;
+                                    }
+                                }
+                            }
+                            .main {
+                                display: flex;
+                                align-items: center;
+                                .title {
+                                    font-family: 'Roboto Medium', sans-serif;
+                                    color: color(textGreyDark);
+                                }
+                            }
+                            .type {
+                                display: flex;
+                                align-items: center;
+                                align-content: center;
+                                justify-content: flex-end;
+                                flex-grow: 1;
+                                color: color(textGreyDark);
+                                font-family: 'Roboto Light', sans-serif;
+                            }
+                        }
+                        &:not(:last-of-type) {
+                            border-bottom: 1px solid color(bgSecondColor);
+                        }
+                    }
                 }
             }
             @include for-breakpoint(md) {
@@ -201,6 +249,7 @@
         z-index: 98;
     }
     @include for-breakpoint(md) {
+
         .nav-menu {
             max-width: 250px;
         }

@@ -95,53 +95,6 @@ class ChannelController extends AbstractController
     }
 
     /**
-     * @Route("/channel/edit/{id}", name="channel_edit", methods={"GET","POST"})
-     * @IsGranted("ROLE_ADMIN")
-     */
-    public function edit(Request $request, int $id): Response
-    {
-        $channel = $this->getDoctrine()->getRepository(RapidPostChannel::class)->findOneBy(array('id' => $id));
-        if(!$channel) {
-            return $this->redirectToRoute('channels_index');
-        }
-
-        $form = $this->createForm(RapidPostChannelType::class, $channel);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('channels_index');
-        }
-
-        return $this->render('channel/edit.html.twig', [
-            'rapid_post_channel' => $channel,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/channel/delete/{id}", name="channel_delete", methods={"DELETE"})
-     * @IsGranted("ROLE_ADMIN")
-     */
-    public function delete(Request $request, int $id): Response
-    {
-        $channel = $this->getDoctrine()->getRepository(RapidPostChannel::class)->findOneBy(array('id' => $id));
-        if(!$channel) {
-            return $this->redirectToRoute('channels_index');
-        }
-        
-
-        if ($this->isCsrfTokenValid('delete'.$channel->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($channel);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('channels_index');
-    }
-
-    /**
      * @Route("/channel/new/{id}", name="channel_new_post", methods={"GET","POST"})
      */
     public function newPost(Request $request, int $id): Response

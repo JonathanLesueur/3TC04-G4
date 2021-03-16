@@ -34,4 +34,13 @@ class HomeController extends AbstractController
             'channels' => $_channels
         ]);
     }
+
+    /**
+     * @Route("/help", name="help")
+     * @IsGranted("ROLE_USER")
+     */
+    public function help(): Response
+    {
+        return $this->render('home/help.html.twig');
+    }
 }

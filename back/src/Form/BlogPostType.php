@@ -68,8 +68,7 @@ class BlogPostType extends AbstractType
                         'minMessage' => 'Veuillez indiquer une source d\'au moins 10 caractères.'
                         ])
                 ]
-            ])
-        ;
+            ]);             
     }
 
     public function configureOptions(OptionsResolver $resolver)

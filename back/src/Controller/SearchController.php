@@ -10,17 +10,51 @@ use App\Entity\BlogPost;
 use App\Entity\User;
 use App\Entity\Offer;
 use App\Entity\RapidPost;
-use App\Entity\BlogPostChannel;
+use App\Entity\RapidPostChannel;
+use App\Form\SearchType;
+use PhpParser\Node\Stmt\Break_;
 
 class SearchController extends AbstractController
 {
     /**
-     * @Route("/search", name="search", methods={"GET","POST"})
+     * @Route("/search", name="search_index", methods={"GET","POST"})
      */
-    public function index(): Response
+    public function index(Request $request): Response
     {
+        $form = $this->createForm(SearchType::class);
+        $form->handleRequest($request);
+        $search_result = false;
+        $search_type = false;
+        if ($form->isSubmitted() && $form->isValid()) {
+            $searchValue = strtolower($form->get('searchtext')->getData());
+            $search_type = $form->get('contenttype')->getData();
+            
+            switch($search_type) {
+                case 'user' :
+                    $search_result = $this->getDoctrine()->getRepository(User::class)->searchWithName($searchValue);
+                break;
+                case 'channel':
+                    $search_result = $this->getDoctrine()->getRepository(RapidPostChannel::class)->searchWithName($searchValue);
+                break;
+                case 'blogpost':
+                    $search_result = $this->getDoctrine()->getRepository(BlogPost::class)->searchWithName($searchValue);
+                break;
+                case 'rapidpost':
+                    $search_result = $this->getDoctrine()->getRepository(RapidPost::class)->searchWithName($searchValue);
+                break;
+                case 'offer':
+                    $search_result = $this->getDoctrine()->getRepository(Offer::class)->searchWithName($searchValue);
+                break;
+                case 'association':
+                    $search_result = $this->getDoctrine()->getRepository(Association::class)->searchWithName($searchValue);
+                break;
+            }
+        }
+
         return $this->render('search/index.html.twig', [
-            'controller_name' => 'SearchController',
+            'form' => $form->createView(),
+            'search_result' => $search_result,
+            'search_type' => $search_type
         ]);
     }
 
@@ -29,23 +63,30 @@ class SearchController extends AbstractController
      */
     public function AjaxSearch(Request $request): Response
     {
-        $text = $request->request->get('text');
+        $text = strtolower($request->request->get('text'));
 
         $blogRepository = $this->getDoctrine()->getRepository(BlogPost::class);
-        $_blogPosts = $blogRepository->findAll();
+        $_blogPosts = $blogRepository->searchWithName($text);
 
         $userRepository = $this->getDoctrine()->getRepository(User::class);
-        $_users = $userRepository->findAll();
+        $_users = $userRepository->searchWithName($text);
+
+        $channelRepository = $this->getDoctrine()->getRepository(RapidPostChannel::class);
+        $_channels = $channelRepository->searchWithName($text);
         
         $_array = [];
 
+        foreach($_users as $user) {
+            $_element = $this->UsertoArray($user);
+            $_array[] = $_element;
+        }
         foreach($_blogPosts as $post) {
             $_element = $this->BlogPostToArray($post);
             $_array[] = $_element;
         }
 
-        foreach($_users as $user) {
-            $_element = $this->UsertoArray($user);
+        foreach($_channels as $channel) {
+            $_element = $this->ChannelToArray($channel);
             $_array[] = $_element;
         }
 
@@ -57,21 +98,42 @@ class SearchController extends AbstractController
     private function BlogPostToArray(BlogPost $post): Array
     {
         $_element = [
-            'id' => $post->getId(),
-            'type' => 'blogpost',
-            'title' => $post->getTitle()
+            'type' => 'Article',
+            'title' => $post->getTitle(),
+            'link' => $this->generateUrl('post_show', array('id' => $post->getId()))
         ];
 
+        if($post->getPicture() != '') {
+            $_element['picture'] = '/uploads/blog/'.$post->getPicture();
+        }
         return $_element;
     }
 
     private function UsertoArray(User $user): Array
     {
         $_element = [
-            'id' => $user->getId(),
-            'type' => 'user',
-            'title' => $user->getFirstName().' '.$user->getLastName()
+            'type' => 'Utilisateur',
+            'title' => $user->getFirstName().' '.$user->getLastName(),
+            'link' => $this->generateUrl('user_profile', array('id' => $user->getId()))
         ];
+
+        if($user->getAvatar() != '') {
+            $_element['picture'] = '/uploads/avatars/'.$user->getAvatar();
+        }
+
+        return $_element;
+    }
+
+    private function ChannelToArray(RapidPostChannel $channel): Array
+    {
+        $_element = [
+            'type' => 'Thématique',
+            'title' => $channel->getName(),
+            'link' => $this->generateUrl('channel_show', array('id' => $channel->getId()))
+        ];
+        if($channel->getLogo() != '') {
+            $_element['picture'] = '/uploads/channels/'.$channel->getLogo();
+        }
 
         return $_element;
     }

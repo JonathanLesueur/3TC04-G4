@@ -19,32 +19,12 @@ class RapidPostRepository extends ServiceEntityRepository
         parent::__construct($registry, RapidPost::class);
     }
 
-    // /**
-    //  * @return RapidPost[] Returns an array of RapidPost objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function searchWithName($name)
     {
         return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        ->andWhere('lower(r.title) LIKE :name')
+        ->setParameter('name', '%'.$name.'%')
+        ->getQuery()
+        ->getResult();
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?RapidPost
-    {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

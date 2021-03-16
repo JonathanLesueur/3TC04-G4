@@ -19,41 +19,13 @@ class RapidPostChannelRepository extends ServiceEntityRepository
         parent::__construct($registry, RapidPostChannel::class);
     }
 
-    // /**
-    //  * @return RapidPostChannel[] Returns an array of RapidPostChannel objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?RapidPostChannel
-    {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 
     public function searchWithName($name)
     {
         return $this->createQueryBuilder('r')
-        ->andWhere('r.name LIKE :name')
+        ->andWhere('lower(r.name) LIKE :name')
         ->setParameter('name', '%'.$name.'%')
         ->getQuery()
-        ->getOneOrNullResult();
+        ->getResult();
     }
 }

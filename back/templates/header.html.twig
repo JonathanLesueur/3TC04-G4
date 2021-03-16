@@ -13,14 +13,12 @@
             <div class="center-content">
                 <div class="search-box">
                     <label class="input-group">
-                        <form action="" method="POST">
+                        <form action="{{ url('search_index') }}" method="POST">
                             <input type="text" name="search-menu" id="search-menu">
                             <button type="submit"><svg class="search"><use xlink:href="#loupe"></use></svg></button>
                         </form>
                     </label>
-                    <div class="result-group hidden">
-                    
-                    </div>
+                    <div class="result-group hidden"></div>
                 </div>
             </div>
             <div class="right-content">
@@ -43,7 +41,7 @@
                     </div>
                 </div>
                 <div class="help-zone">
-                    <a href="#">
+                    <a href="{{ url('help') }}">
                         <svg class="help"><use xlink:href="#help"></use></svg>
                     </a>
                 </div>
@@ -53,9 +51,9 @@
             <div class="menu-item">
                 <div class="search-box">
                     <label class="input-group">
-                        <form action="" method="POST">
-                            <input type="text" name="" id="">
-                            <button type="submit" name="" id=""><svg class="search"><use xlink:href="#loupe"></use></svg></button>
+                        <form action="{{ url('search_index') }}" method="POST">
+                            <input type="text" name="search-menu" id="search-menu">
+                            <button type="submit"><svg class="search"><use xlink:href="#loupe"></use></svg></button>
                         </form>
                     </label>
                 </div>
