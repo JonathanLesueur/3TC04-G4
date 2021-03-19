@@ -40,10 +40,10 @@ class BlogPostRepository extends ServiceEntityRepository
         if($limit != null) {
             $qb->setMaxResults($limit);
         }
-        $qb->getQuery()
+        $result = $qb->getQuery()
         ->getResult();
 
-        return $qb;
+        return $result;
     }
     public function findWithoutAssociation($limit = null, $offset = null)
     {
@@ -56,9 +56,9 @@ class BlogPostRepository extends ServiceEntityRepository
             if($limit != null) {
                 $qb->setMaxResults($limit);
             }
-        $qb->getQuery()
+        $result = $qb->getQuery()
         ->getResult();
         
-        return $qb;
+        return $result;
     }
 }

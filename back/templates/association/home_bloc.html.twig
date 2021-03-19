@@ -3,12 +3,12 @@
     <div class="assos-feed">
     {% for post in associationsPosts %}
         <div class="asso-item col-xs-12 col-md-6">
-            <a href="{{ path('blog_show', {'id': post.id}) }}" class="content">
+            <a href="{{ path('blog_post_show', {'id': post.id}) }}" class="content">
                 <div class="text">
-                    <h3>{{ post.name|striptags|u.truncate(50, '...') }}</h3>
+                    <h3>{{ post.title|striptags|u.truncate(50, '...') }}</h3>
                     <p>{{ post.content|striptags|u.truncate(60, '...') }}</p>
                 </div>
-                <img src="https://picsum.photos/750/240" class="" title=""/>
+                <img src="{{ asset('uploads/blog/' ~ post.picture) }}" class="" title=""/>
             </a>
         </div>
     {% endfor %}
