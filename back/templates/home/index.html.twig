@@ -16,6 +16,8 @@
 {% endblock %}
 
 {% block content %}
+{{ dump (blogPosts)}}
+    {% include "association/home_bloc.html.twig" %}
     {% include "channel/home_bloc.html.twig" %}
     {% include "blog/home_bloc.html.twig" %}
 {% endblock %}

@@ -6,22 +6,42 @@ use App\Entity\Association;
 use App\Entity\BlogPost;
 use App\Form\BlogPostType;
 use App\Form\AssociationType;
-use App\Repository\AssociationRepository;
-use App\Repository\BlogPostRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Doctrine\Common\Collections\Criteria;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use App\Repository\BlogPostRepository;
+use App\Repository\OfferRepository;
+use App\Repository\RapidPostChannelRepository;
+use App\Repository\AssociationRepository;
+use App\Repository\RapidPostRepository;
+use App\Repository\UserRepository;
 
 /**
  * @IsGranted("ROLE_USER")
  */
 class AssociationController extends AbstractController
 {
+    protected $blogPostRepository;
+    protected $offerRepository;
+    protected $channelRepository;
+    protected $associationRepository;
+    protected $rapidPostRepoitory;
+    protected $userRepository;
+
+    public function __construct(BlogPostRepository $blogPostRepository, OfferRepository $offerRepository, RapidPostChannelRepository $channelRepository, AssociationRepository $associationRepository, RapidPostRepository $rapidPostRepoitory, UserRepository $userRepository)
+    {
+        $this->blogPostRepository = $blogPostRepository;
+        $this->offerRepository = $offerRepository;
+        $this->channelRepository = $channelRepository;
+        $this->associationRepository = $associationRepository;
+        $this->rapidPostRepoitory = $rapidPostRepoitory;
+        $this->userRepository = $userRepository;
+    }
+
     /**
      * @Route("/associations/{page}", defaults={"page"=1}, name="associations_index", methods={"GET"})
      */

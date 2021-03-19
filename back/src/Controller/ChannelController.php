@@ -6,7 +6,6 @@ use App\Entity\RapidPostChannel;
 use App\Entity\RapidPost;
 use App\Form\RapidPostChannelType;
 use App\Form\RapidPostTypeWithoutChannel;
-use App\Repository\RapidPostChannelRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,12 +13,35 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Knp\Component\Pager\PaginatorInterface;
+use App\Repository\BlogPostRepository;
+use App\Repository\OfferRepository;
+use App\Repository\RapidPostChannelRepository;
+use App\Repository\AssociationRepository;
+use App\Repository\RapidPostRepository;
+use App\Repository\UserRepository;
 
 /**
  * @IsGranted("ROLE_USER")
  */
 class ChannelController extends AbstractController
 {
+    protected $blogPostRepository;
+    protected $offerRepository;
+    protected $channelRepository;
+    protected $associationRepository;
+    protected $rapidPostRepoitory;
+    protected $userRepository;
+
+    public function __construct(BlogPostRepository $blogPostRepository, OfferRepository $offerRepository, RapidPostChannelRepository $channelRepository, AssociationRepository $associationRepository, RapidPostRepository $rapidPostRepoitory, UserRepository $userRepository)
+    {
+        $this->blogPostRepository = $blogPostRepository;
+        $this->offerRepository = $offerRepository;
+        $this->channelRepository = $channelRepository;
+        $this->associationRepository = $associationRepository;
+        $this->rapidPostRepoitory = $rapidPostRepoitory;
+        $this->userRepository = $userRepository;
+    }
+
     /**
      * @Route("/channels/{page}",defaults={"page"=1}, name="channels_index", methods={"GET"})
      */

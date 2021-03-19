@@ -8,7 +8,6 @@ use App\Entity\User;
 use App\Entity\Like;
 use App\Form\BlogPostType;
 use App\Form\BlogPostCommentType;
-use App\Repository\BlogPostRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,17 +16,42 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use App\Repository\BlogPostRepository;
+use App\Repository\OfferRepository;
+use App\Repository\RapidPostChannelRepository;
+use App\Repository\AssociationRepository;
+use App\Repository\RapidPostRepository;
+use App\Repository\UserRepository;
+
+
 /**
  * @IsGranted("ROLE_USER")
  */
 class BlogController extends AbstractController
 {
+    protected $blogPostRepository;
+    protected $offerRepository;
+    protected $channelRepository;
+    protected $associationRepository;
+    protected $rapidPostRepoitory;
+    protected $userRepository;
+
+    public function __construct(BlogPostRepository $blogPostRepository, OfferRepository $offerRepository, RapidPostChannelRepository $channelRepository, AssociationRepository $associationRepository, RapidPostRepository $rapidPostRepoitory, UserRepository $userRepository)
+    {
+        $this->blogPostRepository = $blogPostRepository;
+        $this->offerRepository = $offerRepository;
+        $this->channelRepository = $channelRepository;
+        $this->associationRepository = $associationRepository;
+        $this->rapidPostRepoitory = $rapidPostRepoitory;
+        $this->userRepository = $userRepository;
+    }
+    
     /**
      * @Route("/blogs/{page}", defaults={"page"=1}, name="blog_index", methods={"GET"})
      */
     public function index(BlogPostRepository $blogPostRepository, PaginatorInterface $paginator, int $page): Response
     {
-        $_blogPosts = $this->getDoctrine()->getRepository(BlogPost::class)->findBy(array(), array('id' => 'DESC'));
+        $_blogPosts = $blogPostRepository->findWithoutAssociation();
         $_pageBlogPosts = $paginator->paginate($_blogPosts, $page, 10);
 
         return $this->render('blog/index.html.twig', [

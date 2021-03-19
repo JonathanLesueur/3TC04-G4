@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
-use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,12 +11,36 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use App\Repository\BlogPostRepository;
+use App\Repository\OfferRepository;
+use App\Repository\RapidPostChannelRepository;
+use App\Repository\AssociationRepository;
+use App\Repository\RapidPostRepository;
+use App\Repository\UserRepository;
 
 /**
 * @IsGranted("ROLE_USER")
 */
 class UserController extends AbstractController
 {
+
+    protected $blogPostRepository;
+    protected $offerRepository;
+    protected $channelRepository;
+    protected $associationRepository;
+    protected $rapidPostRepoitory;
+    protected $userRepository;
+
+    public function __construct(BlogPostRepository $blogPostRepository, OfferRepository $offerRepository, RapidPostChannelRepository $channelRepository, AssociationRepository $associationRepository, RapidPostRepository $rapidPostRepoitory, UserRepository $userRepository)
+    {
+        $this->blogPostRepository = $blogPostRepository;
+        $this->offerRepository = $offerRepository;
+        $this->channelRepository = $channelRepository;
+        $this->associationRepository = $associationRepository;
+        $this->rapidPostRepoitory = $rapidPostRepoitory;
+        $this->userRepository = $userRepository;
+    }
+
     /**
      * @Route("/profils", name="user_index", methods={"GET"})
      */

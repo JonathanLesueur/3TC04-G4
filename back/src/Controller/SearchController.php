@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Association;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,9 +14,32 @@ use App\Entity\RapidPost;
 use App\Entity\RapidPostChannel;
 use App\Form\SearchType;
 use PhpParser\Node\Stmt\Break_;
+use App\Repository\BlogPostRepository;
+use App\Repository\OfferRepository;
+use App\Repository\RapidPostChannelRepository;
+use App\Repository\AssociationRepository;
+use App\Repository\RapidPostRepository;
+use App\Repository\UserRepository;
 
 class SearchController extends AbstractController
 {
+    protected $blogPostRepository;
+    protected $offerRepository;
+    protected $channelRepository;
+    protected $associationRepository;
+    protected $rapidPostRepoitory;
+    protected $userRepository;
+
+    public function __construct(BlogPostRepository $blogPostRepository, OfferRepository $offerRepository, RapidPostChannelRepository $channelRepository, AssociationRepository $associationRepository, RapidPostRepository $rapidPostRepoitory, UserRepository $userRepository)
+    {
+        $this->blogPostRepository = $blogPostRepository;
+        $this->offerRepository = $offerRepository;
+        $this->channelRepository = $channelRepository;
+        $this->associationRepository = $associationRepository;
+        $this->rapidPostRepoitory = $rapidPostRepoitory;
+        $this->userRepository = $userRepository;
+    }
+
     /**
      * @Route("/search", name="search_index", methods={"GET","POST"})
      */
@@ -31,22 +55,22 @@ class SearchController extends AbstractController
             
             switch($search_type) {
                 case 'user' :
-                    $search_result = $this->getDoctrine()->getRepository(User::class)->searchWithName($searchValue);
+                    $search_result = $this->userRepository->searchWithName($searchValue);
                 break;
                 case 'channel':
-                    $search_result = $this->getDoctrine()->getRepository(RapidPostChannel::class)->searchWithName($searchValue);
+                    $search_result = $this->channelRepository->searchWithName($searchValue);
                 break;
                 case 'blogpost':
-                    $search_result = $this->getDoctrine()->getRepository(BlogPost::class)->searchWithName($searchValue);
+                    $search_result = $this->blogPostRepository->searchWithName($searchValue);
                 break;
                 case 'rapidpost':
-                    $search_result = $this->getDoctrine()->getRepository(RapidPost::class)->searchWithName($searchValue);
+                    $search_result = $this->rapidPostRepository->searchWithName($searchValue);
                 break;
                 case 'offer':
-                    $search_result = $this->getDoctrine()->getRepository(Offer::class)->searchWithName($searchValue);
+                    $search_result = $this->offerRepository->searchWithName($searchValue);
                 break;
                 case 'association':
-                    $search_result = $this->getDoctrine()->getRepository(Association::class)->searchWithName($searchValue);
+                    $search_result = $this->associationRepository->searchWithName($searchValue);
                 break;
             }
         }
@@ -65,14 +89,9 @@ class SearchController extends AbstractController
     {
         $text = strtolower($request->request->get('text'));
 
-        $blogRepository = $this->getDoctrine()->getRepository(BlogPost::class);
-        $_blogPosts = $blogRepository->searchWithName($text);
-
-        $userRepository = $this->getDoctrine()->getRepository(User::class);
-        $_users = $userRepository->searchWithName($text);
-
-        $channelRepository = $this->getDoctrine()->getRepository(RapidPostChannel::class);
-        $_channels = $channelRepository->searchWithName($text);
+        $_blogPosts = $this->blogRepository->searchWithName($text);
+        $_users = $this->userRepository->searchWithName($text);
+        $_channels = $this->channelRepository->searchWithName($text);
         
         $_array = [];
 

@@ -29,11 +29,36 @@ class BlogPostRepository extends ServiceEntityRepository
         ->getResult();
     }
 
-    public function findWithAssociation()
+    public function findWithAssociation($limit = null, $offset = null)
     {
-        return $this->createQueryBuilder('b')
+        $qb = $this->createQueryBuilder('b')
         ->where('b.association IS NOT NULL')
-        ->getQuery()
+        ->addOrderBy('b.id', 'DESC');
+        if($offset != null) {
+            $qb->setFirstResult($offset);
+        }
+        if($limit != null) {
+            $qb->setMaxResults($limit);
+        }
+        $qb->getQuery()
         ->getResult();
+
+        return $qb;
+    }
+    public function findWithoutAssociation($limit = null, $offset = null)
+    {
+        $qb = $this->createQueryBuilder('b')
+        ->where('b.association IS NULL')
+        ->addOrderBy('b.id', 'DESC');
+            if($offset != null) {
+                $qb->setFirstResult($offset);
+            }
+            if($limit != null) {
+                $qb->setMaxResults($limit);
+            }
+        $qb->getQuery()
+        ->getResult();
+        
+        return $qb;
     }
 }
