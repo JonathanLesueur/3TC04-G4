@@ -1,9 +1,6 @@
 {% extends 'full-content.html.twig' %}
 {% block title %}Réponses à {{ post.author.firstname ~ ' ' ~ post.author.lastname}} {{global_name}}{% endblock %}
 
-{% block headerblock %}{% endblock %}
-
-
 {% block content %} 
 <div class="col-xs-12">
     <div class="xs-py-15 xs-px-15">
@@ -25,7 +22,7 @@
                 {% endfor %}
             </div>
             <div class="content">
-                <div class="text"> {{ post.content|raw }}</div>
+                <div class="text custom-text-content"> {{ post.content|raw }}</div>
                 <div class="author">
                     <a href="{{ path('user_profile', {'id': post.author.id }) }}">
                         <div class="avatar">

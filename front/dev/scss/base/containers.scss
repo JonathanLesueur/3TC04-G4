@@ -65,7 +65,7 @@ body {
     }
 }
 
-@include for-breakpoint(xl) {
+@include for-breakpoint(md) {
 
     .main-container {
         width: 100%;

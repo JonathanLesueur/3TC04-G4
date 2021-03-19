@@ -112,9 +112,12 @@ class AssociationController extends AbstractController
         $_blogPosts = $association->getBlogPosts();
         $_pageBlogPosts = $paginator->paginate($_blogPosts, $page, 10);
 
+        $isAdmin = $association->searchAdmin($this->getUser());
+
         return $this->render('association/show.html.twig', [
             'association' => $association,
-            'blogPosts' => $_pageBlogPosts
+            'blogPosts' => $_pageBlogPosts,
+            'userIsAdmin' => $isAdmin
         ]);
     }
 
@@ -127,8 +130,8 @@ class AssociationController extends AbstractController
         if(!$association) {
             return $this->redirectToRoute('associations_index');
         }
-        $userExist = $association->searchAdmin($this->getUser());
-        if(!$userExist) {
+        $isAdmin = $association->searchAdmin($this->getUser());
+        if(!$isAdmin) {
             return $this->redirectToRoute('associations_index');
         }
 

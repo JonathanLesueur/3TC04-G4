@@ -14,6 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use App\Repository\RapidPostChannelRepository;
 use App\Repository\RapidPostRepository;
+use App\Repository\UserRepository;
 use Knp\Component\Pager\PaginatorInterface;
 
 /**
@@ -24,10 +25,11 @@ class PostController extends AbstractController
     protected $channelRepository;
     protected $rapidPostRepository;
 
-    public function __construct(RapidPostChannelRepository $channelRepository, RapidPostRepository $rapidPostRepository)
+    public function __construct(RapidPostChannelRepository $channelRepository, RapidPostRepository $rapidPostRepository, UserRepository $userRepository)
     {
         $this->channelRepository = $channelRepository;
         $this->rapidPostRepository = $rapidPostRepository;
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -40,6 +42,25 @@ class PostController extends AbstractController
 
         return $this->render('post/index.html.twig', [
             'posts' => $_pageBlogPosts,
+        ]);
+    }
+
+    /**
+     * @Route("/posts/user/{id}/{page}", defaults={"page"=1}, name="posts_user", methods={"GET"})
+     */
+    public function user(int $id, int $page, PaginatorInterface $paginator): Response
+    {
+        $user = $this->userRepository->findOneBy(array('id' => $id));
+        if(!$user) {
+            return $this->redirectToRoute('blog_index');
+        }
+
+        $_rapidPosts = $user->getRapidPosts();
+        $_pageRapidPosts = $paginator->paginate($_rapidPosts, $page, 10);
+
+        return $this->render('post/user_index.html.twig', [
+            'posts' => $_pageRapidPosts,
+            'user' => $user
         ]);
     }
 

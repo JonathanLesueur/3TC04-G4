@@ -1,0 +1,42 @@
+{% extends 'aside-right.html.twig' %}
+{% block title %}Messages de {{ user.firstname }} {{ user.lastname }} {{global_name}}{% endblock %}
+
+{% block headerblock %}
+    {% include "user/user_headerBox.html.twig" %}
+{% endblock %}
+
+
+{% block content %} 
+<div class="col-xs-12">
+    <div class="xs-py-15 xs-px-15">
+        <h1 class="bloc-title">Publications de {{ user.firstname }}</h1>
+        {% include "user/profil_rapidPosts_list.html.twig" %}
+        {{ knp_pagination_render(posts) }}
+    </div>
+</div>
+{% endblock %}
+
+
+{% block aside %}
+<div class=" xs-py-10 xs-px-10">
+    <a href="{{ path('user_profile', {'id': user.id }) }}" class="button orange">
+        <svg class="loupe"><use xlink:href="#loupe"></use></svg>
+        <span>Voir le profil</span>
+    </a>
+</div>
+    <div class=" xs-py-10 xs-px-10">
+        <a href="{{ url('blog_post_new') }}" class="button orange">
+            <svg class="plume"><use xlink:href="#plume"></use></svg>
+            <span>Nouvel article</span>
+        </a>
+    </div>
+{% if app.user.id == user.id %}
+    <div class=" xs-py-10 xs-px-10">
+        <a href="{{ url('blog_user_management') }}" class="button orange">
+            <svg class="loupe"><use xlink:href="#loupe"></use></svg>
+            <span>Mes articles</span>
+        </a>
+    </div>
+{% endif %}
+{% endblock %}
+

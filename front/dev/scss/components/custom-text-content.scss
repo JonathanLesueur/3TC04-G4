@@ -1,0 +1,51 @@
+.custom-text-content {
+    line-height: 18px;
+    text-align: justify;
+    margin-bottom: 10px;
+
+    h1,h2,h3,h4,h5 {
+        font-family: 'Roboto Medium', sans-serif;
+        text-transform: uppercase;
+        color: color(bgMainColor);
+        text-align: left;
+        margin: 20px 0;
+    }
+    h1 {
+        font-size: 21px;
+    }
+
+    h2 {
+        font-size: 19px;
+    }
+
+    h3 {
+        font-size: 17px;
+    }
+
+    h4 {
+        font-size: 16px;
+            
+    }
+
+    h5 {
+        font-size: 15px;
+
+    }
+    p {
+        margin: 10px 0;
+    }
+    ol, ul {
+        padding-left: 25px;
+        margin: initial;
+        list-style: initial;
+        li {
+            padding: initial;
+            margin: initial;
+            list-style: initial;
+        }
+    }
+    a {
+        color: color(bgMainColor);
+        border-bottom: 1px dashed color(bgMainColor);
+    }
+}

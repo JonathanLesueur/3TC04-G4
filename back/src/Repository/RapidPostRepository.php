@@ -23,6 +23,7 @@ class RapidPostRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('r')
         ->andWhere('lower(r.title) LIKE :name')
+        ->orWhere('lower(r.content) LIKE :name')
         ->setParameter('name', '%'.$name.'%')
         ->getQuery()
         ->getResult();

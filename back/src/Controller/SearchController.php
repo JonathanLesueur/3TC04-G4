@@ -31,16 +31,16 @@ class SearchController extends AbstractController
     protected $offerRepository;
     protected $channelRepository;
     protected $associationRepository;
-    protected $rapidPostRepoitory;
+    protected $rapidPostRepository;
     protected $userRepository;
 
-    public function __construct(BlogPostRepository $blogPostRepository, OfferRepository $offerRepository, RapidPostChannelRepository $channelRepository, AssociationRepository $associationRepository, RapidPostRepository $rapidPostRepoitory, UserRepository $userRepository)
+    public function __construct(BlogPostRepository $blogPostRepository, OfferRepository $offerRepository, RapidPostChannelRepository $channelRepository, AssociationRepository $associationRepository, RapidPostRepository $rapidPostRepository, UserRepository $userRepository)
     {
         $this->blogPostRepository = $blogPostRepository;
         $this->offerRepository = $offerRepository;
         $this->channelRepository = $channelRepository;
         $this->associationRepository = $associationRepository;
-        $this->rapidPostRepoitory = $rapidPostRepoitory;
+        $this->rapidPostRepository = $rapidPostRepository;
         $this->userRepository = $userRepository;
     }
 
@@ -93,9 +93,12 @@ class SearchController extends AbstractController
     {
         $text = strtolower($request->request->get('text'));
 
-        $_blogPosts = $this->blogPostRepository->searchWithName($text);
         $_users = $this->userRepository->searchWithName($text);
+        $_blogPosts = $this->blogPostRepository->searchWithName($text);
         $_channels = $this->channelRepository->searchWithName($text);
+        $_rapidPosts = $this->rapidPostRepository->searchWithName($text);
+        $_associations = $this->associationRepository->searchWithName($text);
+        $_offers = $this->offerRepository->searchWithName($text);
         
         $_array = [];
 
@@ -103,6 +106,12 @@ class SearchController extends AbstractController
             $_element = $this->UsertoArray($user);
             $_array[] = $_element;
         }
+
+        foreach($_associations as $post) {
+            $_element = $this->AssociationToArray($post);
+            $_array[] = $_element;
+        }
+
         foreach($_blogPosts as $post) {
             $_element = $this->BlogPostToArray($post);
             $_array[] = $_element;
@@ -110,6 +119,16 @@ class SearchController extends AbstractController
 
         foreach($_channels as $channel) {
             $_element = $this->ChannelToArray($channel);
+            $_array[] = $_element;
+        }
+
+        foreach($_rapidPosts as $user) {
+            $_element = $this->RapidPostToArray($user);
+            $_array[] = $_element;
+        }
+
+        foreach($_offers as $channel) {
+            $_element = $this->OfferToArray($channel);
             $_array[] = $_element;
         }
 
@@ -157,6 +176,39 @@ class SearchController extends AbstractController
         if($channel->getLogo() != '') {
             $_element['picture'] = '/uploads/channels/'.$channel->getLogo();
         }
+
+        return $_element;
+    }
+    private function AssociationToArray(Association $association): Array
+    {
+        $_element = [
+            'type' => 'Association',
+            'title' => $association->getName(),
+            'link' => $this->generateUrl('association_show', array('id' => $association->getId()))
+        ];
+        if($association->getLogo() != '') {
+            $_element['logo'] = '/uploads/associations/'.$association->getLogo();
+        }
+
+        return $_element;
+    }
+    private function OfferToArray(Offer $offer): Array
+    {
+        $_element = [
+            'type' => 'Offre',
+            'title' => $offer->getTitle(),
+            'link' => $this->generateUrl('offer_show', array('id' => $offer->getId()))
+        ];
+
+        return $_element;
+    }
+    private function RapidPostToArray(RapidPost $rapidPost): Array
+    {
+        $_element = [
+            'type' => 'Message Thématique',
+            'title' => $rapidPost->getTitle(),
+            'link' => $this->generateUrl('post_show', array('id' => $rapidPost->getId()))
+        ];
 
         return $_element;
     }

@@ -57,7 +57,6 @@ class BlogController extends AbstractController
             return $this->redirectToRoute('blog_index');
         }
 
-        $user = $this->getUser();
         $_blogPosts = $user->getBlogPosts();
         $_pageBlogPosts = $paginator->paginate($_blogPosts, $page, 10);
 

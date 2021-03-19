@@ -1,0 +1,26 @@
+<div class="offers-list">
+    {% for offer in search_result %}
+    <div class="offer col-xs-12 col-md-6">
+        <div class="content">
+            <div class="picture-box">
+                <span class="offer-type {{ offer.type }}"></span>
+                <img src="{{ asset('/uploads/offers/' ~ offer.picture) }}" alt="" class="picture">
+            </div>
+            <div class="main">
+                <h2 class="offer-title">{{ offer.title }}</h2>
+                <span class="date">le {{ offer.createdAt|date("d/m/Y") }}</span>
+                <div class="description">
+                    <p>{{ offer.content|u.truncate(150, '...')|striptags }}</p>
+                </div>
+                <div class="more">
+                    <span class="price"> {% if offer.price != '' %}{{ offer.price }} €{% endif %}</span>
+                    <a href="{{ path('market_show_offer', {'id': offer.id }) }}" class="button orange small">
+                        <svg class="loupe"><use xlink:href="#loupe"></use></svg>
+                        <span>Consulter</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
