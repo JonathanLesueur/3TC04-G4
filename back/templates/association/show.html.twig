@@ -1,42 +1,23 @@
-{% extends 'base.html.twig' %}
+{% extends 'aside-right.html.twig' %}
+{% block title %}Actualité de l'association {{ association.name }} {{global_name}}{% endblock %}
 
-{% block title %}Association{% endblock %}
-
-{% block body %}
-    <h1>Association</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ association.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ association.name }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ association.description }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ association.createdAt ? association.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Logo</th>
-                <td>{{ association.logo }}</td>
-            </tr>
-            <tr>
-                <th>Coverpicture</th>
-                <td>{{ association.coverpicture }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('association_index') }}">back to list</a>
-
-    <a href="{{ path('association_edit', {'id': association.id}) }}">edit</a>
-
-    {{ include('association/_delete_form.html.twig') }}
+{% block headerblock %}
+    {% include "association/association_headerBox.html.twig" %}
 {% endblock %}
+
+
+{% block content %} 
+<div class="col-xs-12">
+    <div class="xs-py-15 xs-px-15">
+        <h1 class="bloc-title">Publications de l'association</h1>
+        {% include "association/profil_blogPosts_list.html.twig" %}
+        {{ knp_pagination_render(blogPosts) }}
+    </div>
+</div>
+{% endblock %}
+
+
+{% block aside %}
+
+{% endblock %}
+

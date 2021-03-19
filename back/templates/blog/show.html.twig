@@ -2,7 +2,12 @@
 {% block title %}{{ blogPost.title|striptags }} {{global_name}}{% endblock %}
 
 {% block headerblock %}
-    {% include "user/user_headerBox.html.twig" %}
+    {% if blogPost.association %}
+        {% set association = blogPost.association %}
+        {% include "association/association_headerBox.html.twig" %}
+    {% elseif blogPost.author %}
+        {% include "user/user_headerBox.html.twig" %}
+    {% endif %}
 {% endblock %}
 
 
@@ -22,17 +27,32 @@
 
 
 {% block aside %}
-<div class=" xs-py-10 xs-px-10">
-    <a href="{{ url('blog_index') }}" class="button orange">
-        <svg class="back"><use xlink:href="#back"></use></svg>
-        <span>Retour</span>
-    </a>
-</div>
-<div class=" xs-py-10 xs-px-10">
-    <a href="{{ path('blog_posts_user', {'id': blogPost.author.id }) }}" class="button orange">
-        <svg class="loupe"><use xlink:href="#loupe"></use></svg>
-        <span>Blog de {{ blogPost.author.firstname }}</span>
-    </a>
-</div>
+    {% if blogPost.association %}
+        <div class=" xs-py-10 xs-px-10">
+            <a href="{{ path('association_show', {'id': blogPost.association.id}) }}" class="button orange">
+                <svg class="back"><use xlink:href="#back"></use></svg>
+                <span>Retour</span>
+            </a>
+        </div>
+        <div class=" xs-py-10 xs-px-10">
+            <a href="{{ path('association_show', {'id': blogPost.association.id }) }}" class="button orange">
+                <svg class="loupe"><use xlink:href="#loupe"></use></svg>
+                <span>Flux de l'asso</span>
+            </a>
+        </div>
+    {% elseif blogPost.author %}
+        <div class=" xs-py-10 xs-px-10">
+            <a href="{{ url('blog_index') }}" class="button orange">
+                <svg class="back"><use xlink:href="#back"></use></svg>
+                <span>Retour</span>
+            </a>
+        </div>
+        <div class=" xs-py-10 xs-px-10">
+            <a href="{{ path('blog_posts_user', {'id': blogPost.author.id }) }}" class="button orange">
+                <svg class="loupe"><use xlink:href="#loupe"></use></svg>
+                <span>Blog de {{ blogPost.author.firstname }}</span>
+            </a>
+        </div>
+    {% endif %}
 {% endblock %}
 

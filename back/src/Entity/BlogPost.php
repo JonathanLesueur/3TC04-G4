@@ -46,7 +46,7 @@ class BlogPost
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="blogPosts")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $author;
 

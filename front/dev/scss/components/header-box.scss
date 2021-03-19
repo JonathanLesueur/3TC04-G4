@@ -29,20 +29,23 @@
                 color: color(bgMainColor);
                 font-size: 18px;
                 text-transform: uppercase;
-                &::after {
-                    content: '|';
-                    display: inline-block;
-                    vertical-align: middle;
-                    font-family: 'Roboto Bold', sans-serif;
-                    color: color(textGreyDark);
-                    font-size: 24px;
-                    margin: 0px 5px;
-                }
             }
             .formation {
                 color: color(textGreyDark);
                 font-size: 12px;
                 text-transform: uppercase;
+                position: relative;
+                padding-left: 10px;
+                &::before {
+                    content: '|';
+                    position: absolute;
+                    display: block;
+                    font-family: 'Roboto Bold', sans-serif;
+                    color: color(textGreyDark);
+                    font-size: 24px;
+                    left: 2px;
+                    top: -4px;
+                }
             }
         }
         .avatar-box {

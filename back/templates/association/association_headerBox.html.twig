@@ -1,0 +1,21 @@
+<section class="col-xs-12 col-md-12 shadow max-size xs-mb-20">
+    <div class="profilHeader-box">
+        <div class="content">
+            <div class="avatar-box">
+                {% if association.logo == true %}
+                    <img src="{{ asset('/uploads/associations/' ~ association.logo) }}"/>
+                {% else %}
+                    <svg class="user"><use xlink:href="#user"></use></svg>
+                {% endif %}
+            </div>
+            <div class="details">
+                <h1 class="name">{{ association.name }}</h1>
+            </div>
+        </div>
+        <div class="background">
+            {% if association.coverpicture == true %}
+                <img src="{{ asset('/uploads/associations/' ~ association.coverpicture) }}"/>
+            {% endif %}
+        </div>
+    </div>
+</section>

@@ -1,0 +1,43 @@
+<section class="bloc-blog xs-px-10 xs-py-10">
+    <div class="blog-feed">
+        {% for post in blogPosts %}
+        <div class="blog-item">
+            <div class="content-box">
+                <div class="picture-box">
+                    {% if post.picture == true %}
+                        {% set picture = asset('/uploads/blog/' ~ post.picture) %}
+                    {% else %}
+                        {% set picture = asset('/uploads/blog/default.jpg') %}
+                    {% endif %}
+                    <img src="{{ picture }}" title="{{ post.title }}" />
+                </div>
+                <div class="main-content">
+                    <div class="text-content">
+                        <h3>{{ post.title|striptags }}</h3>
+                        <p>{{ post.content|u.truncate(220, '...')|striptags }}</p>
+                    </div>
+                    <div class="more-content">
+                        <div class="stats">
+                            <div class="comments"><svg class="comment"><use xlink:href="#comment"></use></svg><span>{{ post.blogPostComments|length }}</span></div>
+                            <div class="likes"><svg class="like"><use xlink:href="#like"></use></svg><span>{{ post.likes|length }}</span></div>
+                        </div>
+                        <a href="{{ path('blog_post_show', {'id': post.id }) }}" class="button orange"><span>Lire la suite</span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="author-box">
+                <a href="{{ path('association_show', {'id': post.association.id}) }}">
+                    <div class="avatar">
+                        {% if post.association.logo == true %}
+                            <img src="{{ asset('/uploads/associations/' ~ post.association.logo) }}"/>
+                        {% else %}
+                            <svg class="user"><use xlink:href="#user"></use></svg>
+                        {% endif %}
+                    </div>
+                    <span class="name">{{ post.association.name }}</span>
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>

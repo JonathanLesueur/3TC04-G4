@@ -6,6 +6,7 @@ use App\Repository\AssociationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Criteria;
 
 /**
  * @ORM\Entity(repositoryClass=AssociationRepository::class)
@@ -182,5 +183,13 @@ class Association
         }
 
         return $this;
+    }
+
+    public function searchAdmin(User $user): bool
+    {
+        $criteria = Criteria::create()->where(Criteria::expr()->eq('id', $user->getId()));
+        $matchingResult = $this->getAdmins()->matching($criteria);
+        $result = (count($matchingResult) > 0)? true : false;
+        return $result;
     }
 }

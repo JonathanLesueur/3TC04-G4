@@ -28,4 +28,12 @@ class BlogPostRepository extends ServiceEntityRepository
         ->getQuery()
         ->getResult();
     }
+
+    public function findWithAssociation()
+    {
+        return $this->createQueryBuilder('b')
+        ->where('b.association IS NOT NULL')
+        ->getQuery()
+        ->getResult();
+    }
 }

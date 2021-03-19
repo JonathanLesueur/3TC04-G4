@@ -1,43 +1,24 @@
-{% extends 'base.html.twig' %}
+{% extends 'aside-right.html.twig' %}
+{% block title %}Actualité des associations {{global_name}}{% endblock %}
 
-{% block title %}Association index{% endblock %}
 
-{% block body %}
-    <h1>Association index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>CreatedAt</th>
-                <th>Logo</th>
-                <th>Coverpicture</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for association in associations %}
-            <tr>
-                <td>{{ association.id }}</td>
-                <td>{{ association.name }}</td>
-                <td>{{ association.description }}</td>
-                <td>{{ association.createdAt ? association.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ association.logo }}</td>
-                <td>{{ association.coverpicture }}</td>
-                <td>
-                    <a href="{{ path('association_show', {'id': association.id}) }}">show</a>
-                    <a href="{{ path('association_edit', {'id': association.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('association_new') }}">Create new</a>
+{% block content %} 
+<div class="col-xs-12">
+    <div class="xs-py-15 xs-px-15">
+        <h1 class="bloc-title">Actualité des associations</h1>
+        {% include "association/blogPosts_list.html.twig" %}
+        {{ knp_pagination_render(blogPosts) }}
+    </div>
+</div>
 {% endblock %}
+
+
+{% block aside %}
+    <div class=" xs-py-10 xs-px-10">
+        <a href="{{ url('blog_post_new') }}" class="button orange">
+            <svg class="plume"><use xlink:href="#plume"></use></svg>
+            <span>Nouvel article</span>
+        </a>
+    </div>
+{% endblock %}
+
