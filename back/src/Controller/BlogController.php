@@ -17,10 +17,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use App\Repository\BlogPostRepository;
-use App\Repository\OfferRepository;
-use App\Repository\RapidPostChannelRepository;
-use App\Repository\AssociationRepository;
-use App\Repository\RapidPostRepository;
 use App\Repository\UserRepository;
 
 
@@ -30,19 +26,11 @@ use App\Repository\UserRepository;
 class BlogController extends AbstractController
 {
     protected $blogPostRepository;
-    protected $offerRepository;
-    protected $channelRepository;
-    protected $associationRepository;
-    protected $rapidPostRepoitory;
     protected $userRepository;
 
-    public function __construct(BlogPostRepository $blogPostRepository, OfferRepository $offerRepository, RapidPostChannelRepository $channelRepository, AssociationRepository $associationRepository, RapidPostRepository $rapidPostRepoitory, UserRepository $userRepository)
+    public function __construct(BlogPostRepository $blogPostRepository, UserRepository $userRepository)
     {
         $this->blogPostRepository = $blogPostRepository;
-        $this->offerRepository = $offerRepository;
-        $this->channelRepository = $channelRepository;
-        $this->associationRepository = $associationRepository;
-        $this->rapidPostRepoitory = $rapidPostRepoitory;
         $this->userRepository = $userRepository;
     }
     
@@ -62,9 +50,9 @@ class BlogController extends AbstractController
     /**
      * @Route("/blog/user/{id}/{page}", defaults={"page"=1}, name="blog_posts_user", methods={"GET"})
      */
-    public function user(BlogPostRepository $blogPostRepository, int $id, int $page, PaginatorInterface $paginator): Response
+    public function user(int $id, int $page, PaginatorInterface $paginator): Response
     {
-        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(array('id' => $id));
+        $user = $this->userRepository->findOneBy(array('id' => $id));
         if(!$user) {
             return $this->redirectToRoute('blog_index');
         }
@@ -82,7 +70,7 @@ class BlogController extends AbstractController
     /**
      * @Route("/blog/manage/{page}", defaults={"page"=1}, name="blog_user_management", methods={"GET"})
      */
-    public function manage(BlogPostRepository $blogPostRepository, PaginatorInterface $paginator, int $page): Response
+    public function manage(PaginatorInterface $paginator, int $page): Response
     {
         $user = $this->getUser();
         $_blogPosts = $user->getBlogPosts();
@@ -118,9 +106,7 @@ class BlogController extends AbstractController
                         $this->getParameter('upload_blog_directory'),
                         $newFileName
                     );
-                } catch(FileException $e) {
-
-                }
+                } catch(FileException $e) {}
 
                 $blogPost->setPicture($newFileName);
             }
@@ -144,7 +130,7 @@ class BlogController extends AbstractController
      */
     public function show(int $id, Request $request): Response
     {   
-        $blogPost = $this->getDoctrine()->getRepository(BlogPost::class)->findOneBy(array('id' => $id));
+        $blogPost = $this->blogPostRepository->findOneBy(array('id' => $id));
         if(!$blogPost) {
             return $this->redirectToRoute('blog_index');
         }
@@ -177,7 +163,7 @@ class BlogController extends AbstractController
      */
     public function edit(Request $request, int $id): Response
     {
-        $blogPost = $this->getDoctrine()->getRepository(BlogPost::class)->findOneBy(array('id' => $id));
+        $blogPost = $this->blogPostRepository->findOneBy(array('id' => $id));
         if(!$blogPost) {
             return $this->redirectToRoute('blog_index');
         }
@@ -191,6 +177,23 @@ class BlogController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $blogPost->setUpdatedAt(new \DateTime());
+            
+            $pictureFile = $form->get('picture')->getData();
+            if($pictureFile) {
+                $originalFileName = pathinfo($pictureFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFileName = $slugger->slug($originalFileName);
+                $newFileName = $safeFileName.'-'.uniqid().'.'.$pictureFile->guessExtension();
+
+                try {
+                    $pictureFile->move(
+                        $this->getParameter('upload_blog_directory'),
+                        $newFileName
+                    );
+                } catch(FileException $e) {}
+
+                $blogPost->setPicture($newFileName);
+            }
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('blog_user_management');
@@ -207,7 +210,7 @@ class BlogController extends AbstractController
      */
     public function delete(Request $request, int $id): Response
     {
-        $blogPost = $this->getDoctrine()->getRepository(BlogPost::class)->findOneBy(array('id' => $id));
+        $blogPost = $this->blogPostRepository->findOneBy(array('id' => $id));
         if(!$blogPost) {
             return $this->redirectToRoute('blog_index');
         }

@@ -11,11 +11,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\String\Slugger\SluggerInterface;
-use App\Repository\BlogPostRepository;
-use App\Repository\OfferRepository;
-use App\Repository\RapidPostChannelRepository;
-use App\Repository\AssociationRepository;
-use App\Repository\RapidPostRepository;
 use App\Repository\UserRepository;
 
 /**
@@ -24,30 +19,20 @@ use App\Repository\UserRepository;
 class UserController extends AbstractController
 {
 
-    protected $blogPostRepository;
-    protected $offerRepository;
-    protected $channelRepository;
-    protected $associationRepository;
-    protected $rapidPostRepoitory;
     protected $userRepository;
 
-    public function __construct(BlogPostRepository $blogPostRepository, OfferRepository $offerRepository, RapidPostChannelRepository $channelRepository, AssociationRepository $associationRepository, RapidPostRepository $rapidPostRepoitory, UserRepository $userRepository)
+    public function __construct(UserRepository $userRepository)
     {
-        $this->blogPostRepository = $blogPostRepository;
-        $this->offerRepository = $offerRepository;
-        $this->channelRepository = $channelRepository;
-        $this->associationRepository = $associationRepository;
-        $this->rapidPostRepoitory = $rapidPostRepoitory;
         $this->userRepository = $userRepository;
     }
 
     /**
      * @Route("/profils", name="user_index", methods={"GET"})
      */
-    public function index(UserRepository $userRepository): Response
+    public function index(): Response
     {
         return $this->render('user/index.html.twig', [
-            'users' => $userRepository->findAll(),
+            'users' => $this->userRepository->findAll(),
         ]);
     }
 

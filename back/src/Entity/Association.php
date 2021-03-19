@@ -59,6 +59,7 @@ class Association
     {
         $this->admins = new ArrayCollection();
         $this->blogPosts = new ArrayCollection();
+        $this->createdAt = new \DateTime();
     }
 
     public function __toString()

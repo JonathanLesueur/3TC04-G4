@@ -15,11 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
-use App\Repository\BlogPostRepository;
 use App\Repository\OfferRepository;
-use App\Repository\RapidPostChannelRepository;
-use App\Repository\AssociationRepository;
-use App\Repository\RapidPostRepository;
 use App\Repository\UserRepository;
 
 /**
@@ -27,27 +23,19 @@ use App\Repository\UserRepository;
  */
 class MarketController extends AbstractController
 {
-    protected $blogPostRepository;
     protected $offerRepository;
-    protected $channelRepository;
-    protected $associationRepository;
-    protected $rapidPostRepoitory;
     protected $userRepository;
 
-    public function __construct(BlogPostRepository $blogPostRepository, OfferRepository $offerRepository, RapidPostChannelRepository $channelRepository, AssociationRepository $associationRepository, RapidPostRepository $rapidPostRepoitory, UserRepository $userRepository)
+    public function __construct(OfferRepository $offerRepository, UserRepository $userRepository)
     {
-        $this->blogPostRepository = $blogPostRepository;
         $this->offerRepository = $offerRepository;
-        $this->channelRepository = $channelRepository;
-        $this->associationRepository = $associationRepository;
-        $this->rapidPostRepoitory = $rapidPostRepoitory;
         $this->userRepository = $userRepository;
     }
 
     /**
      * @Route("/market/{page}", defaults={"page"=1}, name="market_index", methods={"GET", "POST"})
      */
-    public function index(OfferRepository $offerRepository, PaginatorInterface $paginator, int $page, Request $request): Response
+    public function index(PaginatorInterface $paginator, int $page, Request $request): Response
     {
         $form = $this->createForm(SearchOfferType::class);
         $form->handleRequest($request);
@@ -60,10 +48,10 @@ class MarketController extends AbstractController
             $type = $form->get('type')->getData();
             $price = $form->get('price')->getData();
 
-            $_pageOffers = $offerRepository->searchCustom($name, $type, $price);
+            $_pageOffers = $this->offerRepository->searchCustom($name, $type, $price);
             $hasPage = false;
         } else {
-            $_offers = $offerRepository->findAll();
+            $_offers = $this->offerRepository->findAll();
             $_pageOffers = $paginator->paginate($_offers, $page, 10);
         }
 
@@ -77,9 +65,9 @@ class MarketController extends AbstractController
     /**
      * @Route("/market/user/{id}/{page}", defaults={"page"=1}, name="market_offers_user", methods={"GET"})
      */
-    public function user(UserRepository $userRepository, int $id, PaginatorInterface $paginator, int $page): Response
+    public function user(int $id, PaginatorInterface $paginator, int $page): Response
     {
-        $user = $userRepository->findOneBy(array('id' => $id));
+        $user = $this->userRepository->findOneBy(array('id' => $id));
         if(!$user) {
             return $this->redirectToRoute('market_index');
         }
@@ -113,15 +101,12 @@ class MarketController extends AbstractController
                 $safeFileName = $slugger->slug($originalFileName);
                 $newFileName = $safeFileName.'-'.uniqid().'.'.$pictureFile->guessExtension();
 
-
                 try {
                     $pictureFile->move(
                         $this->getParameter('upload_offer_directory'),
                         $newFileName
                     );
-                } catch(FileException $e) {
-
-                }
+                } catch(FileException $e) {}
 
                 $offer->setPicture($newFileName);
             }
@@ -142,10 +127,10 @@ class MarketController extends AbstractController
     /**
      * @Route("/market/offer/{id}", name="market_show_offer", methods={"GET", "POST"})
      */
-    public function show(int $id, OfferRepository $offerRepository, Request $request): Response
+    public function show(int $id, Request $request): Response
     {
         
-        $offer = $offerRepository->findOneBy(array('id' => $id));
+        $offer = $this->offerRepository->findOneBy(array('id' => $id));
         if(!$offer) {
             return $this->redirectToRoute('market_index');
         }
@@ -157,16 +142,12 @@ class MarketController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $offerComment->setAuthor($this->getUser());
             
-
-
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($offerComment);
 
             $offer->addOfferComment($offerComment);
             $entityManager->flush();
         }
-
-       
 
         return $this->render('market/show.html.twig', [
             'offer' => $offer,
@@ -193,9 +174,9 @@ class MarketController extends AbstractController
     /**
      * @Route("/market/offer/edit/{id}", name="market_edit_offer", methods={"GET","POST"})
      */
-    public function edit(Request $request, int $id, OfferRepository $offerRepository): Response
+    public function edit(Request $request, int $id): Response
     {
-        $offer = $offerRepository->findOneBy(array('id' => $id));
+        $offer = $this->offerRepository->findOneBy(array('id' => $id));
         if(!$offer) {
             return $this->redirectToRoute('market_index');
         }
@@ -219,9 +200,9 @@ class MarketController extends AbstractController
     /**
      * @Route("/market/offer/delete/{id}", name="market_delete_offer", methods={"DELETE"})
      */
-    public function delete(Request $request, int $id, OfferRepository $offerRepository): Response
+    public function delete(Request $request, int $id): Response
     {
-        $offer = $offerRepository->findOneBy(array('id' => $id));
+        $offer = $this->offerRepository->findOneBy(array('id' => $id));
         if(!$offer) {
             return $this->redirectToRoute('market_index');
         }

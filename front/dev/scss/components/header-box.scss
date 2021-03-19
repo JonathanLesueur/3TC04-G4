@@ -9,6 +9,13 @@
         background-position: center center;
         height: 100%;
         width: 100%;
+
+        img {
+            position: absolute;
+            width: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
     }
     .content {
         position: absolute;

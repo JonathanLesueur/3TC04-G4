@@ -13,44 +13,32 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Knp\Component\Pager\PaginatorInterface;
-use App\Repository\BlogPostRepository;
-use App\Repository\OfferRepository;
 use App\Repository\RapidPostChannelRepository;
-use App\Repository\AssociationRepository;
 use App\Repository\RapidPostRepository;
-use App\Repository\UserRepository;
 
 /**
  * @IsGranted("ROLE_USER")
  */
 class ChannelController extends AbstractController
 {
-    protected $blogPostRepository;
-    protected $offerRepository;
     protected $channelRepository;
-    protected $associationRepository;
-    protected $rapidPostRepoitory;
-    protected $userRepository;
+    protected $rapidPostRepository;
 
-    public function __construct(BlogPostRepository $blogPostRepository, OfferRepository $offerRepository, RapidPostChannelRepository $channelRepository, AssociationRepository $associationRepository, RapidPostRepository $rapidPostRepoitory, UserRepository $userRepository)
+    public function __construct(RapidPostChannelRepository $channelRepository, RapidPostRepository $rapidPostRepository)
     {
-        $this->blogPostRepository = $blogPostRepository;
-        $this->offerRepository = $offerRepository;
         $this->channelRepository = $channelRepository;
-        $this->associationRepository = $associationRepository;
-        $this->rapidPostRepoitory = $rapidPostRepoitory;
-        $this->userRepository = $userRepository;
+        $this->rapidPostRepository = $rapidPostRepository;
     }
 
     /**
      * @Route("/channels/{page}",defaults={"page"=1}, name="channels_index", methods={"GET"})
      */
-    public function index(int $page, RapidPostChannelRepository $rapidPostChannelRepository, PaginatorInterface $paginator): Response
+    public function index(int $page, PaginatorInterface $paginator): Response
     {
 
-        $_channels = $this->getDoctrine()->getRepository(RapidPostChannel::class)->findBy(array(), array('name' => 'ASC'));
+        $_channels = $this->channelRepository->findBy(array(), array('name' => 'ASC'));
         $_pageChannels = $paginator->paginate($_channels, $page, 8);
-        $_posts = $this->getDoctrine()->getRepository(RapidPost::class)->findBy(array('type' => 'initial'), array('id' => 'DESC'), 5, 0);
+        $_posts = $this->rapidPostRepository->findBy(array('type' => 'initial'), array('id' => 'DESC'), 5, 0);
 
         return $this->render('channel/index.html.twig', [
             'channels' => $_pageChannels,
@@ -81,13 +69,10 @@ class ChannelController extends AbstractController
                         $this->getParameter('upload_channel_directory'),
                         $newFileName
                     );
-                } catch(FileException $e) {
-
-                }
+                } catch(FileException $e) {}
 
                 $rapidPostChannel->setLogo($newFileName);
             }
-
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($rapidPostChannel);
@@ -107,7 +92,7 @@ class ChannelController extends AbstractController
      */
     public function show(int $id): Response
     {
-        $channel = $this->getDoctrine()->getRepository(RapidPostChannel::class)->findOneBy(array('id' => $id));
+        $channel = $this->channelRepository->findOneBy(array('id' => $id));
         if(!$channel) {
             return $this->redirectToRoute('channels_index');
         }
@@ -121,7 +106,7 @@ class ChannelController extends AbstractController
      */
     public function newPost(Request $request, int $id): Response
     {
-        $channel = $this->getDoctrine()->getRepository(RapidPostChannel::class)->findOneBy(array('id' => $id));
+        $channel = $this->channelRepository->findOneBy(array('id' => $id));
         if(!$channel) {
             return $this->redirectToRoute('channels_index');
         }
@@ -135,7 +120,6 @@ class ChannelController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
 
             $rapidPost->setAuthor($this->getUser());
-
             $rapidPost->addChannel($channel);
 
             $entityManager->persist($rapidPost);

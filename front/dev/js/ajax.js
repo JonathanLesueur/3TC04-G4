@@ -91,7 +91,7 @@ class SearchMenu {
     sendRequest(word) {
         var object = this;
         new AjaxRequest({
-            url: "http://localhost:8000/ajaxsearch",
+            url: "./ajaxsearch",
             dataType: "json",
             data: {text: word},
             onSuccess(response) {

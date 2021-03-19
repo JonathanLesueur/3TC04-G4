@@ -20,7 +20,11 @@ use App\Repository\RapidPostChannelRepository;
 use App\Repository\AssociationRepository;
 use App\Repository\RapidPostRepository;
 use App\Repository\UserRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
+/**
+ * @IsGranted("ROLE_USER")
+ */
 class SearchController extends AbstractController
 {
     protected $blogPostRepository;
@@ -89,7 +93,7 @@ class SearchController extends AbstractController
     {
         $text = strtolower($request->request->get('text'));
 
-        $_blogPosts = $this->blogRepository->searchWithName($text);
+        $_blogPosts = $this->blogPostRepository->searchWithName($text);
         $_users = $this->userRepository->searchWithName($text);
         $_channels = $this->channelRepository->searchWithName($text);
         
@@ -119,7 +123,7 @@ class SearchController extends AbstractController
         $_element = [
             'type' => 'Article',
             'title' => $post->getTitle(),
-            'link' => $this->generateUrl('post_show', array('id' => $post->getId()))
+            'link' => $this->generateUrl('blog_post_show', array('id' => $post->getId()))
         ];
 
         if($post->getPicture() != '') {

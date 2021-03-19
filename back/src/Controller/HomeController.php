@@ -10,8 +10,6 @@ use App\Repository\BlogPostRepository;
 use App\Repository\OfferRepository;
 use App\Repository\RapidPostChannelRepository;
 use App\Repository\AssociationRepository;
-use App\Repository\RapidPostRepository;
-use App\Repository\UserRepository;
 
 class HomeController extends AbstractController
 {   
@@ -19,17 +17,13 @@ class HomeController extends AbstractController
     protected $offerRepository;
     protected $channelRepository;
     protected $associationRepository;
-    protected $rapidPostRepoitory;
-    protected $userRepository;
 
-    public function __construct(BlogPostRepository $blogPostRepository, OfferRepository $offerRepository, RapidPostChannelRepository $channelRepository, AssociationRepository $associationRepository, RapidPostRepository $rapidPostRepoitory, UserRepository $userRepository)
+    public function __construct(BlogPostRepository $blogPostRepository, OfferRepository $offerRepository, RapidPostChannelRepository $channelRepository, AssociationRepository $associationRepository)
     {
         $this->blogPostRepository = $blogPostRepository;
         $this->offerRepository = $offerRepository;
         $this->channelRepository = $channelRepository;
         $this->associationRepository = $associationRepository;
-        $this->rapidPostRepoitory = $rapidPostRepoitory;
-        $this->userRepository = $userRepository;
     }
    
     /**
@@ -38,8 +32,8 @@ class HomeController extends AbstractController
      */
     public function index(): Response
     {
-        $_assocPosts = $this->blogPostRepository->findWithAssociation();
-        $_blogPosts = $this->blogPostRepository->findWithoutAssociation();
+        $_assocPosts = $this->blogPostRepository->findWithAssociation(4,0);
+        $_blogPosts = $this->blogPostRepository->findWithoutAssociation(5,0);
         $_offers = $this->offerRepository->findBy(array(), array('id' => 'DESC'), 5, 0);
         $_channels = $this->channelRepository->findBy(array(), array('id' => 'DESC'), 6, 0);
 

@@ -12,44 +12,34 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use App\Repository\BlogPostRepository;
-use App\Repository\OfferRepository;
 use App\Repository\RapidPostChannelRepository;
-use App\Repository\AssociationRepository;
 use App\Repository\RapidPostRepository;
-use App\Repository\UserRepository;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @IsGranted("ROLE_USER")
  */
 class PostController extends AbstractController
 {
-    protected $blogPostRepository;
-    protected $offerRepository;
     protected $channelRepository;
-    protected $associationRepository;
-    protected $rapidPostRepoitory;
-    protected $userRepository;
+    protected $rapidPostRepository;
 
-    public function __construct(BlogPostRepository $blogPostRepository, OfferRepository $offerRepository, RapidPostChannelRepository $channelRepository, AssociationRepository $associationRepository, RapidPostRepository $rapidPostRepoitory, UserRepository $userRepository)
+    public function __construct(RapidPostChannelRepository $channelRepository, RapidPostRepository $rapidPostRepository)
     {
-        $this->blogPostRepository = $blogPostRepository;
-        $this->offerRepository = $offerRepository;
         $this->channelRepository = $channelRepository;
-        $this->associationRepository = $associationRepository;
-        $this->rapidPostRepoitory = $rapidPostRepoitory;
-        $this->userRepository = $userRepository;
+        $this->rapidPostRepository = $rapidPostRepository;
     }
 
     /**
      * @Route("/posts/{page}", defaults={"page"=1}, name="posts_index", methods={"GET"})
      */
-    public function index(RapidPostRepository $rapidPostRepository, int $page): Response
+    public function index(int $page, PaginatorInterface $paginator): Response
     {
-        $_posts =  $rapidPostRepository->findBy(array('type' => 'initial'), array(), 10, 0);
+        $_blogPosts = $this->rapidPostRepository->findBy(array('type' => 'initial'));
+        $_pageBlogPosts = $paginator->paginate($_blogPosts, $page, 10);
 
         return $this->render('post/index.html.twig', [
-            'posts' => $_posts,
+            'posts' => $_pageBlogPosts,
         ]);
     }
 
@@ -75,8 +65,7 @@ class PostController extends AbstractController
             // On vient parcourir ce tableau pour nettoyer les noms des thématiques et vérifier qu'elle n'existent pas déjà
             foreach($_channels as $channel) {
                 $channelName = ucfirst(trim($channel));
-                $chanRepository = $this->getDoctrine()->getRepository(RapidPostChannel::class);
-                $search = $chanRepository->searchWithName($channelName);
+                $search = $this->channelRepository->searchWithName($channelName);
                 // Si elle existe, alors on l'associe au post qui vient d'être écrit
                 if($search) {
                     $rapidPost->addChannel($search);
@@ -106,7 +95,7 @@ class PostController extends AbstractController
      */
     public function show(int $id, Request $request): Response
     {
-        $rapidPost = $this->getDoctrine()->getRepository(RapidPost::class)->findOneBy(array('id' => $id));
+        $rapidPost = $this->rapidPostRepository->findOneBy(array('id' => $id));
         if(!$rapidPost) {
             return $this->redirectToRoute('posts_index');
         }
@@ -136,7 +125,7 @@ class PostController extends AbstractController
      */
     public function edit(Request $request, int $id): Response
     {
-        $rapidPost = $this->getDoctrine()->getRepository(RapidPost::class)->findOneBy(array('id' => $id));
+        $rapidPost = $this->rapidPostRepository->findOneBy(array('id' => $id));
         if(!$rapidPost) {
             return $this->redirectToRoute('posts_index');
         }
@@ -161,7 +150,7 @@ class PostController extends AbstractController
      */
     public function delete(Request $request, int $id): Response
     {
-        $rapidPost = $this->getDoctrine()->getRepository(RapidPost::class)->findOneBy(array('id' => $id));
+        $rapidPost = $this->rapidPostRepository->findOneBy(array('id' => $id));
         if(!$rapidPost) {
             return $this->redirectToRoute('posts_index');
         }
@@ -180,7 +169,7 @@ class PostController extends AbstractController
      */
     public function rep(int $id): Response
     {
-        $rapidPost = $this->getDoctrine()->getRepository(RapidPost::class)->findOneBy(array('id' => $id));
+        $rapidPost = $this->rapidPostRepository->findOneBy(array('id' => $id));
         if(!$rapidPost) {
             return $this->redirectToRoute('posts_index');
         }

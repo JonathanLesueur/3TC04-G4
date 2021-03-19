@@ -14,11 +14,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use App\Repository\BlogPostRepository;
-use App\Repository\OfferRepository;
-use App\Repository\RapidPostChannelRepository;
 use App\Repository\AssociationRepository;
-use App\Repository\RapidPostRepository;
-use App\Repository\UserRepository;
+
 
 /**
  * @IsGranted("ROLE_USER")
@@ -26,32 +23,24 @@ use App\Repository\UserRepository;
 class AssociationController extends AbstractController
 {
     protected $blogPostRepository;
-    protected $offerRepository;
-    protected $channelRepository;
     protected $associationRepository;
-    protected $rapidPostRepoitory;
-    protected $userRepository;
 
-    public function __construct(BlogPostRepository $blogPostRepository, OfferRepository $offerRepository, RapidPostChannelRepository $channelRepository, AssociationRepository $associationRepository, RapidPostRepository $rapidPostRepoitory, UserRepository $userRepository)
+    public function __construct(BlogPostRepository $blogPostRepository, AssociationRepository $associationRepository)
     {
         $this->blogPostRepository = $blogPostRepository;
-        $this->offerRepository = $offerRepository;
-        $this->channelRepository = $channelRepository;
         $this->associationRepository = $associationRepository;
-        $this->rapidPostRepoitory = $rapidPostRepoitory;
-        $this->userRepository = $userRepository;
     }
 
     /**
      * @Route("/associations/{page}", defaults={"page"=1}, name="associations_index", methods={"GET"})
      */
-    public function index(AssociationRepository $associationRepository, BlogPostRepository $blogPostRepository, PaginatorInterface $paginator, int $page): Response
+    public function index(PaginatorInterface $paginator, int $page): Response
     {
-        $_blogPosts = $blogPostRepository->findWithAssociation();
+        $_blogPosts = $this->blogPostRepository->findWithAssociation();
         $_pageBlogPosts = $paginator->paginate($_blogPosts, $page, 10);
 
         return $this->render('association/index.html.twig', [
-            'associations' => $associationRepository->findAll(),
+            'associations' => $this->associationRepository->findAll(),
             'blogPosts' => $_pageBlogPosts,
         ]);
     }
@@ -60,18 +49,53 @@ class AssociationController extends AbstractController
     /**
      * @Route("/association/new", name="association_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, SluggerInterface $slugger): Response
     {
         $association = new Association();
         $form = $this->createForm(AssociationType::class, $association);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $logoFile = $form->get('logo')->getData();
+            if($logoFile) {
+                $originalFileName = pathinfo($logoFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFileName = $slugger->slug($originalFileName);
+                $newFileName = $safeFileName.'-'.uniqid().'.'.$logoFile->guessExtension();
+
+                try {
+                    $logoFile->move(
+                        $this->getParameter('upload_associations_directory'),
+                        $newFileName
+                    );
+                } catch(FileException $e) {
+
+                }
+                $association->setLogo($newFileName);
+            }
+
+            $coverPicture = $form->get('coverpicture')->getData();
+            if($coverPicture) {
+                $originalFileName = pathinfo($coverPicture->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFileName = $slugger->slug($originalFileName);
+                $newFileName = $safeFileName.'-'.uniqid().'.'.$coverPicture->guessExtension();
+
+                try {
+                    $coverPicture->move(
+                        $this->getParameter('upload_associations_directory'),
+                        $newFileName
+                    );
+                } catch(FileException $e) {
+
+                }
+                $association->setCoverpicture($newFileName);
+            }
+            $association->addAdmin($this->getUser());
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($association);
             $entityManager->flush();
 
-            return $this->redirectToRoute('association_index');
+            return $this->redirectToRoute('associations_index');
         }
 
         return $this->render('association/new.html.twig', [
@@ -95,36 +119,15 @@ class AssociationController extends AbstractController
     }
 
     /**
-     * @Route("/association/edit/{id}", name="association_edit", methods={"GET","POST"})
-     */
-    public function edit(Request $request, Association $association): Response
-    {
-        //$searchUser = $association->getAdmins();
-        //$criteria = Criteria::create()->where(Criteria::expr()->eq('user_id', $this->getUser()->getId()));
-        //$searchUser->matching($criteria);
-
-        $form = $this->createForm(AssociationType::class, $association);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('association_index');
-        }
-
-        return $this->render('association/edit.html.twig', [
-            'association' => $association,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
      * @Route("/association/post/new/{id}", name="association_new_post", methods={"GET","POST"})
      */
-    public function post_new(Request $request, SluggerInterface $slugger, Association $association): Response
+    public function post_new(Request $request, SluggerInterface $slugger, int $id): Response
     {
+        $association = $this->associationRepository->findOneBy(array('id' => $id));
+        if(!$association) {
+            return $this->redirectToRoute('associations_index');
+        }
         $userExist = $association->searchAdmin($this->getUser());
-
         if(!$userExist) {
             return $this->redirectToRoute('associations_index');
         }

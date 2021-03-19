@@ -1,10 +1,21 @@
 <div class="associations-list">
-    <a href="" class="association">
-        <div class="logo">
-            <img src="" title="Nom de l'association"/>
-        </div>
-        <div class="name">
-            Nom de l'association
-        </div>
-    </a>
+    {% for association in associations %}
+    <div class="association col-xs-12 col-sm-6 col-md-4">
+        <a href="{{ path('association_show', {'id': association.id}) }}" class="content">
+            <div class="coverpicture">
+                <div class="background">
+                    {% if  association.coverpicture != '' %}
+                        <img src="{{ asset('uploads/associations/' ~ association.coverpicture) }}" alt="">
+                    {% endif %}
+                </div>
+                <div class="logo">
+                    <img src="{{ asset('uploads/associations/' ~ association.logo) }}" title=""/>
+                </div>
+            </div>
+            <span class="name">
+                {{ association.name }}
+            </span>
+        </a>
+    </div>
+    {% endfor %}
 </div>

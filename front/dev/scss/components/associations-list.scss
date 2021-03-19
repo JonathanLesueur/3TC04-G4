@@ -1,0 +1,65 @@
+.associations-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    .association {
+        border: 1px solid color(bgGrey);
+        .content {
+            display: block;
+            width: 100%;
+            padding-bottom: 20px;
+            .coverpicture {
+                padding-top: 56.24%;
+                position: relative;
+                border-bottom: 2px solid color(bgMainColor);
+                margin-bottom: 35px;
+                
+                .background {
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    background-image: url('../imgs/bg-profil.jpg');
+                    background-repeat: no-repeat;
+                    background-size: auto 100%;
+                    background-position: center center;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    overflow: hidden;
+                    img {
+                        position: absolute;
+                        width: 110%;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                    }
+                }
+                .logo {
+                    position: absolute;
+                    bottom: -30px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    width: 60px;
+                    height: 60px;
+                    border-radius: 50%;
+                    border: 4px solid color(bgGrey);
+                    overflow: hidden;
+                    background-color: color(bgWhite);
+                    img {
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+            }
+            .name {
+                display: block;
+                width: 100%;
+                font-style: 24px;
+                color: color(textGreyDark);
+                font-family: 'Roboto Medium', sans-serif;
+                text-align: center;
+            }
+        }
+    }
+}

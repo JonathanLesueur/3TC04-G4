@@ -5,7 +5,9 @@
 {% block content %} 
 <div class="col-xs-12">
     <div class="xs-py-15 xs-px-15">
-        <h1 class="bloc-title">Actualité des associations</h1>
+        <h1 class="bloc-title">Les associations</h1>
+        {% include "association/associations_list.html.twig" %}
+        <h2 class="bloc-title xs-mt-20">Actualité des associations</h2>
         {% include "association/blogPosts_list.html.twig" %}
         {{ knp_pagination_render(blogPosts) }}
     </div>
@@ -14,6 +16,12 @@
 
 
 {% block aside %}
+<div class=" xs-py-10 xs-px-10">
+    <a href="{{ url('association_new') }}" class="button orange">
+        <svg class="plume"><use xlink:href="#plume"></use></svg>
+        <span>Nouvelle asso</span>
+    </a>
+</div>
     <div class=" xs-py-10 xs-px-10">
         <a href="{{ url('blog_post_new') }}" class="button orange">
             <svg class="plume"><use xlink:href="#plume"></use></svg>
