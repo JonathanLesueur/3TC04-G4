@@ -22,7 +22,7 @@ class UserType extends AbstractType
                 new NotBlank([
                     'message' => 'Veuillez indiquer votre prénom.'
                 ]),
-                new Length(['min' => 3, 'max' => 255])
+                new Length(['min' => 3, 'max' => 255,'minMessage' => 'Votre prénom doit contenir au moins 3 caractères.',])
             ]
         ])
         ->add('lastname', TextType::class, [
@@ -30,33 +30,29 @@ class UserType extends AbstractType
                 new NotBlank([
                     'message' => 'Veuillez indiquer votre nom de famille.'
                 ]),
-                new Length(['min' => 3, 'max' => 255])
+                new Length(['min' => 3, 'max' => 255,'minMessage' => 'Votre nom doit contenir au moins 3 caractères.',])
             ]
         ])
-            ->add('formation', TextType::class, [
-                'required' => true,
-                'constraints' => [
-                    new Length([
-                        'min' => 10,
-                        'max' => 255,
-                        'minMessage' => 'Veuillez indiquer un titre d\'au moins 10 caractères.'
-                        ]),
-                    new NotBlank([
-                        'message' => 'Veuillez indiquer un titre'
-                    ])
-                ]
-            ])
+        ->add('formation', TextType::class, [
+            'constraints' => [
+                new NotBlank([
+                    'message' => 'Veuillez indiquer le nom de votre formation.'
+                ]),
+                new Length(['min' => 5, 'max' => 255,'minMessage' => 'Le nom de votre formation doit contenir au moins 5 caractères.',])
+            ]
+        ])
             ->add('avatar', FileType::class, [
                 'mapped' => false,
                 'required' => false,
                 'data_class' => null,
                 'constraints' => [
                     new File([
+                        'maxSize' => '1024k',
                         'mimeTypes' => [
                             'image/jpeg',
                             'image/png',
                         ],
-                        'mimeTypesMessage' => 'Veuillez choisir une image à un format valide : PNG ou JPG.',
+                        'mimeTypesMessage' => 'Veuillez choisir une image à un format valide : PNG ou JPG, et de 1Mo de poids max.',
                     ])
                 ]
             ])

@@ -43,7 +43,7 @@ class OfferType extends AbstractType
                         'minMessage' => 'Veuillez indiquer un contenu d\'au moins 50 caractères.'
                         ]),
                     new NotBlank([
-                        'message' => 'Veuillez indiquer un titre'
+                        'message' => 'Veuillez indiquer un contenu'
                     ])
                 ]
             ])
@@ -68,7 +68,7 @@ class OfferType extends AbstractType
                             'image/jpeg',
                             'image/png',
                         ],
-                        'mimeTypesMessage' => 'Veuillez choisir une image à un format valide : PNG ou JPG.',
+                        'mimeTypesMessage' => 'Veuillez choisir une image à un format valide : PNG ou JPG, et de 1Mo de poids max.',
                     ])
                 ]
             ])

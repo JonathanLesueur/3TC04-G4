@@ -28,7 +28,7 @@ class RapidPostResponseType extends AbstractType
                     new NotBlank([
                         'message' => 'Veuillez spécifier un contenu.'
                     ]),
-                    new Length(['min' => 100, 'max' => 700, 'minMessage' => 'Veuillez indiquer un contenu d\'au moins 100 caractères.'])
+                    new Length(['min' => 50, 'max' => 700, 'minMessage' => 'Veuillez indiquer un contenu d\'au moins 50 caractères.'])
                 ]
             ])
         ;

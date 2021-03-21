@@ -51,7 +51,7 @@ class AssociationType extends AbstractType
                             'image/jpeg',
                             'image/png',
                         ],
-                        'mimeTypesMessage' => 'Veuillez choisir une image à un format valide : PNG ou JPG.',
+                        'mimeTypesMessage' => 'Veuillez choisir une image à un format valide : PNG ou JPG, et de 1Mo de poids.',
                     ])
                 ]
             ])
@@ -61,12 +61,12 @@ class AssociationType extends AbstractType
                 'data_class' => null,
                 'constraints' => [
                     new File([
-                        'maxSize' => '1024k',
+                        'maxSize' => '2048k',
                         'mimeTypes' => [
                             'image/jpeg',
                             'image/png',
                         ],
-                        'mimeTypesMessage' => 'Veuillez choisir une image à un format valide : PNG ou JPG.',
+                        'mimeTypesMessage' => 'Veuillez choisir une image à un format valide : PNG ou JPG, et de 2Mo de poids.',
                     ])
                 ]
             ])

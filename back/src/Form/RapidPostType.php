@@ -31,7 +31,7 @@ class RapidPostType extends AbstractType
                     new NotBlank([
                         'message' => 'Veuillez spécifier un contenu.'
                     ]),
-                    new Length(['min' => 20, 'max' => 700, 'minMessage' => 'Veuillez indiquer un contenu d\'au moins 100 caractères.'])
+                    new Length(['min' => 50, 'max' => 700, 'minMessage' => 'Veuillez indiquer un contenu d\'au moins 50 caractères.'])
                 ]
             ])
             ->add('channels', TextType::class, [
@@ -39,7 +39,7 @@ class RapidPostType extends AbstractType
                 'mapped' => false,
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Veuillez indiquer au moins un thème.'
+                        'message' => 'Veuillez indiquer au moins une thématique.'
                     ]),
                     new Length(['min' => 5, 'max' => 255, 'minMessage' => 'Veuillez indiquer une thématique d\'au moins 5 caractères.'])
                 ]

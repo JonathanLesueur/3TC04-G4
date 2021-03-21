@@ -22,7 +22,7 @@ class RegistrationFormType extends AbstractType
             ->add('email', EmailType::class, [
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Veuillez indiquer une adresse email valide.'
+                        'message' => 'Veuillez indiquer une adresse email.'
                     ]),
                     new Length(['min' => 5, 'max' => 255])
                 ]
@@ -31,7 +31,7 @@ class RegistrationFormType extends AbstractType
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
-                        'message' => 'Vos devez valider nos conditions.',
+                        'message' => 'Vos devez valider ce champ pour continuer.',
                     ]),
                 ],
             ])
@@ -45,7 +45,7 @@ class RegistrationFormType extends AbstractType
                     ]),
                     new Length([
                         'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+                        'minMessage' => 'Votre mot de passe doit contenir au moins 6 caractères.',
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),
@@ -56,7 +56,7 @@ class RegistrationFormType extends AbstractType
                     new NotBlank([
                         'message' => 'Veuillez indiquer votre prénom.'
                     ]),
-                    new Length(['min' => 3, 'max' => 255])
+                    new Length(['min' => 3, 'max' => 255,'minMessage' => 'Votre prénom doit contenir au moins 3 caractères.',])
                 ]
             ])
             ->add('lastname', TextType::class, [
@@ -64,7 +64,7 @@ class RegistrationFormType extends AbstractType
                     new NotBlank([
                         'message' => 'Veuillez indiquer votre nom de famille.'
                     ]),
-                    new Length(['min' => 3, 'max' => 255])
+                    new Length(['min' => 3, 'max' => 255,'minMessage' => 'Votre nom doit contenir au moins 3 caractères.',])
                 ]
             ])
             ->add('university', TextType::class, [
@@ -72,7 +72,7 @@ class RegistrationFormType extends AbstractType
                     new NotBlank([
                         'message' => 'Veuillez indiquer le nom de votre Université.'
                     ]),
-                    new Length(['min' => 5, 'max' => 255])
+                    new Length(['min' => 5, 'max' => 255,'minMessage' => 'Le nom de votre université doit contenir au moins 5 caractères.',])
                 ]
             ])
             ->add('formation', TextType::class, [
@@ -80,7 +80,7 @@ class RegistrationFormType extends AbstractType
                     new NotBlank([
                         'message' => 'Veuillez indiquer le nom de votre formation.'
                     ]),
-                    new Length(['min' => 5, 'max' => 255])
+                    new Length(['min' => 5, 'max' => 255,'minMessage' => 'Le nom de votre formation doit contenir au moins 5 caractères.',])
                 ]
             ])
         ;
