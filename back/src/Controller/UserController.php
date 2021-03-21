@@ -106,15 +106,4 @@ class UserController extends AbstractController
             'blogPosts' => $_blogPosts
         ]);
     }
-
-    /**
-     * @Route("/profil", name="user_profile_default", methods={"GET"})
-     */
-    public function showDefault(): Response
-    {  
-        $user = $this->getUser();
-        return $this->render('user/show.html.twig', [
-            'user' => $user,
-        ]);
-    }
 }

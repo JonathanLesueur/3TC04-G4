@@ -52,6 +52,7 @@ class SearchController extends AbstractController
         $form->handleRequest($request);
         $search_result = false;
         $search_type = false;
+        
         if ($form->isSubmitted() && $form->isValid()) {
             $searchValue = strtolower($form->get('searchtext')->getData());
             $search_type = $form->get('contenttype')->getData();

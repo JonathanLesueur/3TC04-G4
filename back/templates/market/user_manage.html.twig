@@ -19,9 +19,15 @@
 
 {% block aside %}
 <div class=" xs-py-10 xs-px-10">
-    <a href="{{ path('blog_posts_user', {'id': user.id }) }}" class="button orange">
+    <a href="{{ path('market_index') }}" class="button orange">
         <svg class="back"><use xlink:href="#back"></use></svg>
-        <span>Retour au blog</span>
+        <span>Retour aux offres</span>
+    </a>
+</div>
+<div class=" xs-py-10 xs-px-10">
+    <a href="{{ url('market_new_offer') }}" class="button orange">
+        <svg class="plume"><use xlink:href="#plume"></use></svg>
+        <span>Nouvelle offre</span>
     </a>
 </div>
 {% endblock %}

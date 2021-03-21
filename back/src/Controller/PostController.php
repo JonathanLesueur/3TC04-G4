@@ -142,50 +142,6 @@ class PostController extends AbstractController
     }
 
     /**
-     * @Route("/post/edit/{id}", name="post_edit", methods={"GET","POST"})
-     */
-    public function edit(Request $request, int $id): Response
-    {
-        $rapidPost = $this->rapidPostRepository->findOneBy(array('id' => $id));
-        if(!$rapidPost) {
-            return $this->redirectToRoute('posts_index');
-        }
-
-        $form = $this->createForm(RapidPostType::class, $rapidPost);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('posts_index');
-        }
-
-        return $this->render('post/edit.html.twig', [
-            'rapid_post' => $rapidPost,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/post/delete/{id}", name="post_delete", methods={"DELETE"})
-     */
-    public function delete(Request $request, int $id): Response
-    {
-        $rapidPost = $this->rapidPostRepository->findOneBy(array('id' => $id));
-        if(!$rapidPost) {
-            return $this->redirectToRoute('posts_index');
-        }
-
-        if ($this->isCsrfTokenValid('delete'.$rapidPost->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($rapidPost);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('posts_index');
-    }
-
-    /**
      * @Route("/post/like/{id}", name="post_like", methods={"GET"})
      */
     public function rep(int $id): Response

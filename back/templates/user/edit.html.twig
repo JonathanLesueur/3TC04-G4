@@ -34,7 +34,7 @@
 
 {% block aside %}
         <div class=" xs-py-10 xs-px-10">
-            <a href="{{ url('user_profile_default') }}" class="button orange">
+            <a href="{{ url('user_profile', {'id': user.id }) }}" class="button orange">
                 <svg class="back"><use xlink:href="#back"></use></svg>
                 <span>Retour au profil</span>
             </a>
