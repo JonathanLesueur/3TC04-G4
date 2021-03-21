@@ -1,0 +1,38 @@
+.error-container {
+    display: block;
+    width: 100%;
+    
+    .error-code {
+        display: block;
+        text-align: center;
+        color: color(bgMainColor);
+        font-family: 'Roboto Black', sans-serif;
+        font-size: 95px;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+    }
+    .error-info {
+        display: block;
+        text-align: center;
+        color: color(textGreyDark);
+        font-family: 'Roboto Medium', sans-serif;
+        font-size: 65px;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+    }
+    .error-home {
+        display: block;
+        text-align: center;
+        color: color(textGreyDark);
+        text-decoration: none;
+        font-style: 35px;
+        font-family: 'Roboto Light', sans-serif;
+    }
+}
+
+@include for-breakpoint(md) {
+    .error-container {
+        margin: auto auto;
+        max-width: 1220px;
+    }
+}

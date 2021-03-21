@@ -36,6 +36,7 @@ class AssociationController extends AbstractController
      */
     public function index(PaginatorInterface $paginator, int $page): Response
     {
+        
         $_blogPosts = $this->blogPostRepository->findWithAssociation();
         $_pageBlogPosts = $paginator->paginate($_blogPosts, $page, 10);
 

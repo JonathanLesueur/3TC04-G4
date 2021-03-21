@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Erreur {{global_name}}{% endblock %}
+{% block header %}{% include 'header_guest.html.twig' %}{% endblock %}
+
+{% block body %}
+    <div class="error-container">
+        <h1 class="error-code">404</h1>
+        <p class="error-info">La page désirée n'a pas été trouvée.</p>
+        <a href="{{ url('home') }}" class="error-home">Retour à l'accueil</a>
+    </div>
+{% endblock %}
