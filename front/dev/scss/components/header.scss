@@ -191,9 +191,15 @@
                         }
                     }
                     .user-name {
+                        display: none;
                         span {
                             font-size: 18px;
                             color: color(textGreyLight);
+                        }
+                    }
+                    @include for-breakpoint(md) {
+                        .user-name {
+                            display: initial;
                         }
                     }
                 }

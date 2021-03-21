@@ -24,5 +24,11 @@
         <span>Retour à l'asso</span>
     </a>
 </div>
+<div class=" xs-py-10 xs-px-10">
+    <a href="{{ path('association_new_post', {'id': association.id }) }}" class="button orange">
+        <svg class="plume"><use xlink:href="#plume"></use></svg>
+        <span>Nouvel article</span>
+    </a>
+</div>
 {% endblock %}
 

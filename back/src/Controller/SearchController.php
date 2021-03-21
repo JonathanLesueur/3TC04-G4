@@ -203,9 +203,10 @@ class SearchController extends AbstractController
     }
     private function RapidPostToArray(RapidPost $rapidPost): Array
     {
+        $title = ($rapidPost->getTitle() == '')? 'Message sans titre' : $rapidPost->getTitle();
         $_element = [
             'type' => 'Message Thématique',
-            'title' => $rapidPost->getTitle(),
+            'title' => $title,
             'link' => $this->generateUrl('post_show', array('id' => $rapidPost->getId()))
         ];
 
