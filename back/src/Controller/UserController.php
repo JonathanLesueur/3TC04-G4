@@ -13,6 +13,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use App\Repository\UserRepository;
 use Knp\Component\Pager\PaginatorInterface;
+use Doctrine\Common\Collections\Criteria;
 
 /**
 * @IsGranted("ROLE_USER")
@@ -96,9 +97,13 @@ class UserController extends AbstractController
         if(!$user) {
             return $this->redirectToRoute('user_index');
         }
+        $criteria = Criteria::create();
+        $criteria->orderBy(['createdAt' => 'DESC']);
+        $_blogPosts = $user->getBlogPosts()->matching($criteria);
 
         return $this->render('user/show.html.twig', [
             'user' => $user,
+            'blogPosts' => $_blogPosts
         ]);
     }
 

@@ -18,7 +18,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use App\Repository\BlogPostRepository;
 use App\Repository\UserRepository;
-
+use Doctrine\Common\Collections\Criteria;
 
 /**
  * @IsGranted("ROLE_USER")
@@ -57,7 +57,10 @@ class BlogController extends AbstractController
             return $this->redirectToRoute('blog_index');
         }
 
-        $_blogPosts = $user->getBlogPosts();
+        $criteria = Criteria::create();
+        $criteria->orderBy(['createdAt' => 'DESC']);
+        $_blogPosts = $user->getBlogPosts()->matching($criteria);
+
         $_pageBlogPosts = $paginator->paginate($_blogPosts, $page, 10);
 
         return $this->render('blog/user_index.html.twig', [
@@ -270,8 +273,9 @@ class BlogController extends AbstractController
         $hasPreviouslyLike = false;
 
         foreach($_likes as $like) {
-            if ($like->getBlogPost() && $like->getBlogPost() == $blogPost) {
+            if ($like->getBlogPost()[0] && $like->getBlogPost()[0]->getId() == $blogPost->getId()) {
                 $hasPreviouslyLike = true;
+                break;
             }
         }
 

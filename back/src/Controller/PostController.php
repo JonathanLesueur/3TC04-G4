@@ -199,7 +199,7 @@ class PostController extends AbstractController
         $hasPreviouslyLike = false;
 
         foreach($_likes as $like) {
-            if ($like->getRapidPost() == $rapidPost) {
+            if ($like->getRapidPost()[0] && $like->getRapidPost()[0]->getId() == $rapidPost->getId()) {
                 $hasPreviouslyLike = true;
             }
         }
