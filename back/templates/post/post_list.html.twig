@@ -48,4 +48,9 @@
         </div>
     </div>
     {% endfor %}
+    {% if posts|length == 0 %}
+    <div class="alert alert-error">
+        Aucun article de blog ne semble exister pour cet utilisateur.
+    </div>
+    {% endif %}
 </div>

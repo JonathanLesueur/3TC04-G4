@@ -5,9 +5,9 @@
             <a href="{{ path('user_profile', {'id': response.author.id}) }}" class="user-box">
                 <div class="user-avatar">
                     {% if response.author.avatar == true %}
-                        <img src="{{ asset('/uploads/avatars/' ~ response.author.avatar) }}"/>
+                    <img src="{{ asset('/uploads/avatars/' ~ response.author.avatar) }}"/>
                     {% else %}
-                        <svg class="user"><use xlink:href="#user"></use></svg>
+                    <svg class="user"><use xlink:href="#user"></use></svg>
                     {% endif %}
                 </div>
                 <span class="user-name">{{ response.author.firstname ~ ' ' ~ response.author.lastname }}</span>
@@ -25,4 +25,9 @@
         </div>
     </div>
     {% endfor %}
+    {% if offer.offerComments|length == 0 %}
+    <div class="alert alert-error">
+        Aucun commentaire ne semble avoir été posté.
+    </div>
+    {% endif %}
 </div>

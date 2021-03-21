@@ -1,0 +1,141 @@
+.letter-choice {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-bottom: 5px;
+    .letter {
+        width: 30px;
+        height: 30px;
+        background-color: color(bgWhite);
+        a {
+            display: block;
+            height: 100%;
+            width: 100%;
+            line-height: 30px;
+            color: color(bgMainColor);
+            text-align: center;
+        }
+        &.current {
+            background-color: color(bgMainColor);
+            a {
+                color: color(textWhite);
+            }
+        }
+    }
+}
+.users-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    
+    .user-item {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 20px;
+        position: relative;
+        &::after {
+            content: '';
+            height: 1px;
+            width: 80%;
+            margin: 10px auto;
+            display: block;
+            position: absolute;
+            bottom: -15px;
+            background-color: color(bgGrey);        
+        }
+        .identity, .school, .stats {
+            flex: 1;
+        }
+        .identity {
+            .avatar {
+                display: inline-block;
+                vertical-align: middle;
+                border-radius: 50%;
+                background-color: color(bgSecondColor);
+                width: 50px;
+                height: 50px;
+                margin-right: 5px;
+                position: relative;
+                overflow: hidden;
+                svg {
+                    fill: color(bgWhite);
+                    width: 45px;
+                    height: 45px;
+                    position: absolute;
+                    bottom: 0;
+                    left: 50%;
+                    transform: translate(-50%, 0);
+                }
+                img {
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                    transform: translate(-50%, -50%);
+                }
+            }
+            .name {
+                display: inline-block;
+                vertical-align: middle;
+                font-size: 16px;
+                font-family: 'Roboto Medium', sans-serif;
+                color: color(textGreyDark);
+            }
+        }
+        .school {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            display: none;
+            .faculty {
+                font-family: 'Roboto Medium', sans-serif;
+            }
+            .formation {
+                font-family: 'Roboto Light', sans-serif;
+            }
+        }
+        .stats {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            .rapidposts, .blogposts, .offers {
+                display: flex;
+                flex-direction: column;
+                text-decoration: none;
+                justify-content: center;
+                align-items: center;
+                width: 50px;
+                svg {
+                    fill: color(bgMainColor);
+                    width: 30px;
+                    height: 30px;
+                }
+                span {
+                    color: color(bgMainColor);
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+    @include for-breakpoint(md) {
+        .user-item {
+            .school {
+                display: flex;
+            }
+            .stats {
+                width: auto;
+                .rapidposts, .blogposts, .offers {
+                    svg {
+                        width: 40px;
+                        height: 40px;
+                    }
+                    span {
+                        font-size: 16px;
+                    }
+                }
+            }
+        }
+    }
+}

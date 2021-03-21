@@ -25,7 +25,13 @@
         </div>
         {% endfor %}
     </div>
-    <div class="bloc-more xs-mt-10">
-        <a href="{{ url('channels_index') }}" class="button orange"><span>Voir plus de thématiques</span></a>
-    </div>
+    {% if channels|length == 0 %}
+        <div class="alert alert-error">
+            Aucun salon thématique ne semble avoir été créé.
+        </div>
+    {% else %}
+        <div class="bloc-more xs-mt-10">
+            <a href="{{ url('channels_index') }}" class="button orange"><span>Voir plus de thématiques</span></a>
+        </div>
+    {% endif %}
 </section>

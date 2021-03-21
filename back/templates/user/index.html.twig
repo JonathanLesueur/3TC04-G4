@@ -1,50 +1,19 @@
-{% extends 'base.html.twig' %}
+{% extends 'full-content.html.twig' %}
+{% block title %}Liste des utilisateurs {{global_name}}{% endblock %}
 
-{% block title %}User index{% endblock %}
-
-{% block body %}
-    <h1>User index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Email</th>
-                <th>Roles</th>
-                <th>Password</th>
-                <th>FirstName</th>
-                <th>LastName</th>
-                <th>University</th>
-                <th>Formation</th>
-                <th>CreatedAt</th>
-                <th>VisitedAt</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for user in users %}
-            <tr>
-                <td>{{ user.id }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-                <td>{{ user.password }}</td>
-                <td>{{ user.firstName }}</td>
-                <td>{{ user.lastName }}</td>
-                <td>{{ user.university }}</td>
-                <td>{{ user.formation }}</td>
-                <td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ user.visitedAt ? user.visitedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('user_profile', {'id': user.id}) }}">show</a>
-                    <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="11">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
+{% block content %} 
+<div class="col-xs-12">
+    <div class="xs-py-15 xs-px-15">
+        <div class="letter-choice">
+            {% set letters = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','T','Z'] %}
+            {% for letter in letters %}
+                <span class="letter {% if (letter == currentLetter) %}current{% endif %}"><a href="{{url('users_index', {'letter': letter}) }}" >{{ letter }}</a></span>
+            {% endfor %}
+        </div>
+        <h1 class="bloc-title">Liste des utilisateurs</h1>
+        {% include "user/users_list.html.twig" %}
+        {{ knp_pagination_render(users) }}
+    </div>
+</div>
 {% endblock %}
+

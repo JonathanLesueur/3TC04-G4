@@ -34,4 +34,9 @@
         </div>
     </div>
     {% endfor %}
+    {% if user.rapidPosts|length == 0 %}
+    <div class="alert alert-error">
+        Aucun message thématique ne semble exister pour cet utilisateur.
+    </div>
+    {% endif %}
 </div>

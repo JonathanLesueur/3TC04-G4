@@ -25,4 +25,9 @@
         </div>
     </div>
     {% endfor %}
+    {% if blogPost.blogPostComments|length == 0 %}
+        <div class="alert alert-error">
+            Aucune réponse ne semble avoir été postée.
+        </div>
+    {% endif %}
 </div>

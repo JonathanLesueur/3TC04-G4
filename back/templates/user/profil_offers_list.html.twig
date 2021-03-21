@@ -23,4 +23,9 @@
         </div>
     </div>
     {% endfor %}
+    {% if user.offers|length == 0 %}
+    <div class="alert alert-error">
+        Aucune offre ne semble exister pour cet utilisateur.
+    </div>
+    {% endif %}
 </div>

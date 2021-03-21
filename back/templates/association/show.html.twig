@@ -18,6 +18,13 @@
 
 
 {% block aside %}
-
+    {% if userIsAdmin %}
+        <div class=" xs-py-10 xs-px-10">
+            <a href="{{ path('association_manage', {'id': association.id}) }}" class="button orange">
+                <svg class="plume"><use xlink:href="#plume"></use></svg>
+                <span>Gérer l'asso</span>
+            </a>
+        </div>
+    {% endif %}
 {% endblock %}
 

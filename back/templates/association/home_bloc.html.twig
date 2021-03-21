@@ -13,7 +13,13 @@
         </div>
     {% endfor %}
     </div>
-    <div class="bloc-more">
-        <a href="{{ url('associations_index') }}" class="button orange"><span>Voir plus d'actualités associatives</span></a>
-    </div>
+    {% if associationsPosts|length == 0 %}
+        <div class="alert alert-error">
+            Aucun article associatif ne semble avoir été posté.
+        </div>
+    {% else %}
+        <div class="bloc-more">
+            <a href="{{ url('associations_index') }}" class="button orange"><span>Voir plus d'actualités associatives</span></a>
+        </div>
+    {% endif %}
 </section>

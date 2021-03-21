@@ -39,5 +39,10 @@
             </div>
         </div>
         {% endfor %}
+        {% if blogPosts|length == 0 %}
+            <div class="alert alert-error">
+                Aucun article associatif n'existe pour le moment.
+            </div>
+        {% endif %}
     </div>
 </section>

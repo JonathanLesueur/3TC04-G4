@@ -45,6 +45,28 @@ class AssociationController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/association/manage/{id}/{page}", defaults={"page"=1}, name="association_manage", methods={"GET"})
+     */
+    public function manage(PaginatorInterface $paginator, int $page, Association $association): Response
+    {
+        if(!$association) {
+            return $this->redirectToRoute('associations_index');
+        }
+        $isAdmin = $association->searchAdmin($this->getUser());
+        if(!$isAdmin) {
+            return $this->redirectToRoute('associations_index');
+        }
+
+        $_blogPosts = $association->getBlogPosts();
+        $_pageBlogPosts = $paginator->paginate($_blogPosts, $page, 20);
+
+        return $this->render('association/association_manage.html.twig', [
+            'association' => $association,
+            'blogPosts' => $_pageBlogPosts
+        ]);
+    }
+
 
     /**
      * @Route("/association/new", name="association_new", methods={"GET","POST"})

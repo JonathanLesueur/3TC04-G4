@@ -23,4 +23,9 @@
         </div>
     </div>
     {% endfor %}
+    {% if offers|length == 0 %}
+        <div class="alert alert-error">
+            Aucune offre ne semble avoir été posté.
+        </div>
+    {% endif %}
 </div>

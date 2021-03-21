@@ -18,4 +18,9 @@
         </a>
     </div>
     {% endfor %}
+    {% if associations|length == 0 %}
+        <div class="alert alert-error">
+            Aucune association n'existe actuellement.
+        </div>
+    {% endif %}
 </div>

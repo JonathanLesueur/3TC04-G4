@@ -23,5 +23,10 @@
             </a>
         </div>
         {% endfor %}
+        {% if channels|length == 0 %}
+            <div class="alert alert-error">
+                Aucune salon thématique ne semble avoir été créé.
+            </div>
+        {% endif %}
     </div>
 </section>

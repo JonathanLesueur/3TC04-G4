@@ -12,6 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use App\Repository\UserRepository;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
 * @IsGranted("ROLE_USER")
@@ -27,12 +28,22 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/profils", name="user_index", methods={"GET"})
+     * @Route("/profils/{letter}/{page}", defaults={"letter"="all", "page"=1}, name="users_index", methods={"GET"})
      */
-    public function index(): Response
+    public function index(String $letter, int $page, PaginatorInterface $paginator): Response
     {
+        if(strlen($letter) == 1) {
+            $_users = $this->userRepository->searchByFirstLetter(strtolower($letter));
+        } else {
+            $_users = $this->userRepository->findAll();
+        }
+        
+        $_pageUsers = $paginator->paginate($_users, $page, 20);
+        
+
         return $this->render('user/index.html.twig', [
-            'users' => $this->userRepository->findAll(),
+            'users' => $_pageUsers,
+            'currentLetter' => $letter
         ]);
     }
 
@@ -80,8 +91,12 @@ class UserController extends AbstractController
     /**
      * @Route("/profil/{id}", name="user_profile", methods={"GET"})
      */
-    public function show(User $user): Response
+    public function show(User $user = null): Response
     {
+        if(!$user) {
+            return $this->redirectToRoute('user_index');
+        }
+
         return $this->render('user/show.html.twig', [
             'user' => $user,
         ]);

@@ -162,14 +162,26 @@ class BlogController extends AbstractController
      */
     public function edit(Request $request, int $id): Response
     {
+
         $blogPost = $this->blogPostRepository->findOneBy(array('id' => $id));
         if(!$blogPost) {
             return $this->redirectToRoute('blog_index');
         }
 
-        if($this->getUser()->getId() != $blogPost->getAuthor()->getId()) {
-            return $this->redirectToRoute('blog_index');
+        $author = $blogPost->getAuthor();
+        $association = $blogPost->getAssociation();
+
+        if($author) {
+            if($this->getUser()->getId() != $author->getId()) {
+                return $this->redirectToRoute('blog_index');
+            }
+        } else if($association) {
+            $isAdmin = $association->searchAdmin($this->getUser());
+            if(!$isAdmin) {
+                return $this->redirectToRoute('associations_index');
+            }
         }
+        
 
         $form = $this->createForm(BlogPostType::class, $blogPost);
         $form->handleRequest($request);
@@ -194,8 +206,11 @@ class BlogController extends AbstractController
             }
 
             $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('blog_user_management');
+            if($author) {
+                return $this->redirectToRoute('blog_user_management');
+            } elseif($association) {
+                return $this->redirectToRoute('association_manage', array('id' => $association->getId()));
+            }
         }
 
         return $this->render('blog/edit.html.twig', [
@@ -214,15 +229,31 @@ class BlogController extends AbstractController
             return $this->redirectToRoute('blog_index');
         }
 
-        if($this->getUser()->getId() != $blogPost->getAuthor()->getId()) {
-            return $this->redirectToRoute('blog_index');
+        $author = $blogPost->getAuthor();
+        $association = $blogPost->getAssociation();
+
+        if($author) {
+            if($this->getUser()->getId() != $author->getId()) {
+                return $this->redirectToRoute('blog_index');
+            }
+        } else if($association) {
+            $isAdmin = $association->searchAdmin($this->getUser());
+            if(!$isAdmin) {
+                return $this->redirectToRoute('associations_index');
+            }
         }
+
 
         if ($this->isCsrfTokenValid('delete'.$blogPost->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($blogPost);
             $entityManager->flush();
-            return $this->redirectToRoute('blog_user_management');
+
+            if($author) {
+                return $this->redirectToRoute('blog_user_management');
+            } else if($association) {
+                return $this->redirectToRoute('association_manage', array('id' => $association->getId()));
+            }
         }
     }
 

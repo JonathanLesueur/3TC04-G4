@@ -30,4 +30,9 @@
         </div>
     </div>
     {% endfor %}
+    {% if user.blogPosts|length == 0 %}
+    <div class="alert alert-error">
+        Aucun article de blog ne semble exister pour cet utilisateur.
+    </div>
+    {% endif %}
 </div>

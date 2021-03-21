@@ -27,6 +27,10 @@
             {% else %}
                 Aucun résultat !            
             {% endif %}
+        {% elseif search_result == false %}
+            <div class="alert alert-error">
+                Aucun résultat ne correspond à votre recherche.
+            </div>
         {% endif %}
     </div>
 </div>

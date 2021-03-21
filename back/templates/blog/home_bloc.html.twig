@@ -42,7 +42,13 @@
         </div>
         {% endfor %}
     </div>
-    <div class="bloc-more">
-        <a href="{{ url('blog_index') }}" class="button orange"><span>Voir plus d'articles</span></a>
-    </div>
+    {% if blogPosts|length == 0 %}
+        <div class="alert alert-error">
+            Aucun article de blog ne semble avoir été posté.
+        </div>
+    {% else %}
+        <div class="bloc-more">
+            <a href="{{ url('blog_index') }}" class="button orange"><span>Voir plus d'articles</span></a>
+        </div>
+    {% endif %}
 </section>

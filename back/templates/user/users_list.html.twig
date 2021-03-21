@@ -1,5 +1,5 @@
 <div class="users-list">
-    {% for user in search_result %}
+    {% for user in users %}
     <div class="user-item col-xs-12">
         <a href="{{ path('user_profile', {'id': user.id}) }}" class="identity">
             <div class="avatar">
@@ -32,3 +32,8 @@
     </div>
     {% endfor %}
 </div>
+{% if users|length == 0 %}
+<div class="alert alert-error">
+    Aucun utilisateur ne correspond à votre recherche.
+</div>
+{% endif %}
