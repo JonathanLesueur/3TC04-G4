@@ -14,7 +14,7 @@
                     <label for="email">Adresse email</label>
                     <div class="input-box">
                         <div class="input-logo"><svg class="user"><use xlink:href="#user"></use></svg></div>
-                        <input type="email" name="email" id="inputEmail"/>
+                        <input required="required" type="email" name="email" id="inputEmail"/>
                     </div>
                 </div>
             </div>
@@ -23,13 +23,13 @@
                     <label for="password">Mot de passe</label>
                     <div class="input-box">
                         <div class="input-logo"><svg class="padlock"><use xlink:href="#padlock"></use></svg></div>
-                        <input type="password" name="password" id="inputPassword"/>
+                        <input required="required" type="password" name="password" id="inputPassword"/>
                     </div>
                 </div>
             </div>
             <div class="form-line">
                 <div class="button-block">
-                    <button class="submit" type="submit">Se connecter</button>
+                    <button onclick="submit()" class="submit" type="submit">Se connecter</button>
                     <a href="{{ url('app_register') }}">S'inscrire</a>
                 </div>
             </div>
