@@ -1,0 +1,336 @@
+ README.md                                          |   27 [32m+[m
+ back/.env                                          |   32 [32m+[m
+ back/.env.test                                     |    6 [32m+[m
+ back/.gitignore                                    |   21 [32m+[m
+ back/README.md                                     |    9 [32m+[m
+ back/bin/console                                   |   43 [32m+[m
+ back/bin/phpunit                                   |   13 [32m+[m
+ back/composer.json                                 |  102 [32m+[m
+ back/composer.lock                                 | 8014 [32m++++++++++++++++++++[m
+ back/config/bundles.php                            |   16 [32m+[m
+ back/config/packages/cache.yaml                    |   19 [32m+[m
+ back/config/packages/dev/debug.yaml                |    4 [32m+[m
+ back/config/packages/dev/monolog.yaml              |   19 [32m+[m
+ back/config/packages/dev/web_profiler.yaml         |    6 [32m+[m
+ back/config/packages/doctrine.yaml                 |   20 [32m+[m
+ back/config/packages/doctrine_migrations.yaml      |    5 [32m+[m
+ back/config/packages/framework.yaml                |   17 [32m+[m
+ back/config/packages/mailer.yaml                   |    3 [32m+[m
+ back/config/packages/notifier.yaml                 |   16 [32m+[m
+ back/config/packages/paginator.yaml                |   13 [32m+[m
+ back/config/packages/prod/deprecations.yaml        |    8 [32m+[m
+ back/config/packages/prod/doctrine.yaml            |   20 [32m+[m
+ back/config/packages/prod/monolog.yaml             |   16 [32m+[m
+ back/config/packages/prod/routing.yaml             |    3 [32m+[m
+ back/config/packages/routing.yaml                  |    7 [32m+[m
+ back/config/packages/security.yaml                 |   39 [32m+[m
+ back/config/packages/sensio_framework_extra.yaml   |    3 [32m+[m
+ back/config/packages/test/framework.yaml           |    4 [32m+[m
+ back/config/packages/test/monolog.yaml             |   12 [32m+[m
+ back/config/packages/test/twig.yaml                |    2 [32m+[m
+ back/config/packages/test/validator.yaml           |    3 [32m+[m
+ back/config/packages/test/web_profiler.yaml        |    6 [32m+[m
+ back/config/packages/translation.yaml              |    6 [32m+[m
+ back/config/packages/twig.yaml                     |   11 [32m+[m
+ back/config/packages/validator.yaml                |    8 [32m+[m
+ back/config/preload.php                            |    5 [32m+[m
+ back/config/routes.yaml                            |    3 [32m+[m
+ back/config/routes/annotations.yaml                |    7 [32m+[m
+ back/config/routes/dev/framework.yaml              |    3 [32m+[m
+ back/config/routes/dev/web_profiler.yaml           |    7 [32m+[m
+ back/config/services.yaml                          |   35 [32m+[m
+ back/migrations/.gitignore                         |    0
+ back/migrations/Version20210303124035.php          |   31 [32m+[m
+ back/migrations/Version20210303190720.php          |   31 [32m+[m
+ back/migrations/Version20210305191038.php          |   32 [32m+[m
+ back/migrations/Version20210305193757.php          |   31 [32m+[m
+ back/migrations/Version20210305214644.php          |   32 [32m+[m
+ back/migrations/Version20210305220103.php          |   35 [32m+[m
+ back/migrations/Version20210306184518.php          |   40 [32m+[m
+ back/migrations/Version20210306184621.php          |   31 [32m+[m
+ back/migrations/Version20210306221415.php          |   34 [32m+[m
+ back/migrations/Version20210306222325.php          |   39 [32m+[m
+ back/migrations/Version20210307125524.php          |   39 [32m+[m
+ back/migrations/Version20210307130156.php          |   39 [32m+[m
+ back/migrations/Version20210307141434.php          |   39 [32m+[m
+ back/migrations/Version20210307161557.php          |   41 [32m+[m
+ back/migrations/Version20210307193613.php          |   47 [32m+[m
+ back/migrations/Version20210312202838.php          |   42 [32m+[m
+ back/migrations/Version20210312203344.php          |   41 [32m+[m
+ back/migrations/Version20210313002303.php          |   35 [32m+[m
+ back/migrations/Version20210314234700.php          |   35 [32m+[m
+ back/migrations/Version20210316002949.php          |   35 [32m+[m
+ back/migrations/Version20210316010909.php          |   35 [32m+[m
+ back/migrations/Version20210316212419.php          |   39 [32m+[m
+ back/migrations/Version20210319002045.php          |   37 [32m+[m
+ back/phpunit.xml.dist                              |   40 [32m+[m
+ back/public/.htaccess                              |   63 [32m+[m
+ back/public/favicon.ico                            |  Bin [31m0[m -> [32m3782[m bytes
+ back/public/index.php                              |   22 [32m+[m
+ back/public/static/css/style.css                   |    2 [32m+[m
+ back/public/static/fonts/Roboto-Black-webfont.woff |  Bin [31m0[m -> [32m21452[m bytes
+ back/public/static/fonts/Roboto-Bold-webfont.woff  |  Bin [31m0[m -> [32m21320[m bytes
+ back/public/static/fonts/Roboto-Light-webfont.woff |  Bin [31m0[m -> [32m20904[m bytes
+ .../public/static/fonts/Roboto-Medium-webfont.woff |  Bin [31m0[m -> [32m21184[m bytes
+ .../static/fonts/Roboto-Regular-webfont.woff       |  Bin [31m0[m -> [32m20924[m bytes
+ back/public/static/fonts/Roboto-Thin-webfont.woff  |  Bin [31m0[m -> [32m20864[m bytes
+ .../fonts/RobotoCondensed-Regular-webfont.woff     |  Bin [31m0[m -> [32m21036[m bytes
+ back/public/static/imgs/icons/bg-profil.jpg        |  Bin [31m0[m -> [32m386979[m bytes
+ back/public/static/imgs/icons/coeur.png            |  Bin [31m0[m -> [32m447[m bytes
+ back/public/static/imgs/icons/cvtic.png            |  Bin [31m0[m -> [32m1595[m bytes
+ back/public/static/imgs/sprite.svg                 |  403 [32m+[m
+ back/public/static/js/script.js                    |    1 [32m+[m
+ ...nset-by-Xroulen-on-DeviantArt-6054f6a901c9b.jpg |  Bin [31m0[m -> [32m287405[m bytes
+ ...nset-by-Xroulen-on-DeviantArt-6054f6b7411b5.jpg |  Bin [31m0[m -> [32m287405[m bytes
+ .../uploads/associations/oof-6054f6a8f3f0c.png     |  Bin [31m0[m -> [32m808013[m bytes
+ .../uploads/associations/oof-6054f6b73f993.png     |  Bin [31m0[m -> [32m808013[m bytes
+ .../offers/EjjBZXjXcAAujs5-6050ff563ef3a.jpg       |  Bin [31m0[m -> [32m35364[m bytes
+ back/src/Controller/.gitignore                     |    0
+ back/src/Controller/AssociationController.php      |  199 [32m+[m
+ back/src/Controller/BlogController.php             |  293 [32m+[m
+ back/src/Controller/ChannelController.php          |  137 [32m+[m
+ back/src/Controller/HomeController.php             |   56 [32m+[m
+ back/src/Controller/MarketController.php           |  220 [32m+[m
+ back/src/Controller/PostController.php             |  174 [32m+[m
+ back/src/Controller/RegistrationController.php     |   52 [32m+[m
+ back/src/Controller/SearchController.php           |  216 [32m+[m
+ back/src/Controller/SecurityController.php         |   38 [32m+[m
+ back/src/Controller/UserController.php             |  109 [32m+[m
+ back/src/Entity/.gitignore                         |    0
+ back/src/Entity/Association.php                    |  196 [32m+[m
+ back/src/Entity/BlogPost.php                       |  240 [32m+[m
+ back/src/Entity/BlogPostComment.php                |  119 [32m+[m
+ back/src/Entity/Like.php                           |  128 [32m+[m
+ back/src/Entity/Offer.php                          |  211 [32m+[m
+ back/src/Entity/OfferComment.php                   |  115 [32m+[m
+ back/src/Entity/RapidPost.php                      |  239 [32m+[m
+ back/src/Entity/RapidPostChannel.php               |  173 [32m+[m
+ back/src/Entity/User.php                           |  476 [32m++[m
+ back/src/Form/AssociationType.php                  |   82 [32m+[m
+ back/src/Form/BlogPostCommentType.php              |   42 [32m+[m
+ back/src/Form/BlogPostType.php                     |   80 [32m+[m
+ back/src/Form/OfferCommentType.php                 |   42 [32m+[m
+ back/src/Form/OfferType.php                        |   88 [32m+[m
+ back/src/Form/RapidPostChannelType.php             |   66 [32m+[m
+ back/src/Form/RapidPostResponseType.php            |   43 [32m+[m
+ back/src/Form/RapidPostType.php                    |   56 [32m+[m
+ back/src/Form/RapidPostTypeWithoutChannel.php      |   46 [32m+[m
+ back/src/Form/RegistrationFormType.php             |   95 [32m+[m
+ back/src/Form/SearchOfferType.php                  |   44 [32m+[m
+ back/src/Form/SearchType.php                       |   42 [32m+[m
+ back/src/Form/UserType.php                         |   68 [32m+[m
+ back/src/Kernel.php                                |   38 [32m+[m
+ back/src/Repository/.gitignore                     |    0
+ back/src/Repository/AssociationRepository.php      |   31 [32m+[m
+ back/src/Repository/BlogPostCommentRepository.php  |   22 [32m+[m
+ back/src/Repository/BlogPostRepository.php         |   64 [32m+[m
+ back/src/Repository/LikeRepository.php             |   23 [32m+[m
+ back/src/Repository/OfferCommentRepository.php     |   23 [32m+[m
+ back/src/Repository/OfferRepository.php            |   46 [32m+[m
+ back/src/Repository/RapidPostChannelRepository.php |   31 [32m+[m
+ back/src/Repository/RapidPostRepository.php        |   31 [32m+[m
+ back/src/Repository/UserRepository.php             |   59 [32m+[m
+ back/src/Security/ESUAuthenticator.php             |  107 [32m+[m
+ back/start-serve.bat                               |    1 [32m+[m
+ back/symfony.lock                                  |  538 [32m++[m
+ back/templates/aside-left.html.twig                |   18 [32m+[m
+ back/templates/aside-right.html.twig               |   19 [32m+[m
+ back/templates/association/_form.html.twig         |   47 [32m+[m
+ .../association/association_headerBox.html.twig    |   21 [32m+[m
+ .../association/association_manage.html.twig       |   34 [32m+[m
+ .../association/associations_list.html.twig        |   26 [32m+[m
+ .../templates/association/blogPosts_list.html.twig |   48 [32m+[m
+ back/templates/association/home_bloc.html.twig     |   25 [32m+[m
+ back/templates/association/index.html.twig         |   32 [32m+[m
+ back/templates/association/new.html.twig           |   23 [32m+[m
+ .../association/profil_blogposts_list.html.twig    |   33 [32m+[m
+ back/templates/association/show.html.twig          |   30 [32m+[m
+ back/templates/base.html.twig                      |   16 [32m+[m
+ back/templates/blog/_delete_form.html.twig         |    5 [32m+[m
+ back/templates/blog/_form.html.twig                |   48 [32m+[m
+ back/templates/blog/_form_reponse.html.twig        |   27 [32m+[m
+ back/templates/blog/blogPost_full.html.twig        |   22 [32m+[m
+ .../blog/blogPost_responses_list.html.twig         |   33 [32m+[m
+ back/templates/blog/blogPosts_list.html.twig       |   49 [32m+[m
+ back/templates/blog/blogPosts_manageList.html.twig |   24 [32m+[m
+ back/templates/blog/edit.html.twig                 |   25 [32m+[m
+ back/templates/blog/home_bloc.html.twig            |   54 [32m+[m
+ back/templates/blog/index.html.twig                |   29 [32m+[m
+ back/templates/blog/new.html.twig                  |   25 [32m+[m
+ back/templates/blog/show.html.twig                 |   58 [32m+[m
+ back/templates/blog/user_index.html.twig           |   42 [32m+[m
+ back/templates/blog/user_manage.html.twig          |   28 [32m+[m
+ .../TwigBundle/Exception/error403.html.twig        |   12 [32m+[m
+ .../TwigBundle/Exception/error404.html.twig        |   12 [32m+[m
+ .../TwigBundle/Exception/error500.html.twig        |   12 [32m+[m
+ .../TwigBundle/Exception/error503.html.twig        |   12 [32m+[m
+ back/templates/channel/_delete_form.html.twig      |    5 [32m+[m
+ back/templates/channel/_form.html.twig             |   37 [32m+[m
+ back/templates/channel/_formNewPost.html.twig      |   27 [32m+[m
+ back/templates/channel/channels_list.html.twig     |   32 [32m+[m
+ back/templates/channel/home_bloc.html.twig         |   37 [32m+[m
+ back/templates/channel/index.html.twig             |   34 [32m+[m
+ back/templates/channel/new.html.twig               |   25 [32m+[m
+ back/templates/channel/newPost.html.twig           |   25 [32m+[m
+ back/templates/channel/show.html.twig              |   26 [32m+[m
+ back/templates/footer.html.twig                    |   16 [32m+[m
+ back/templates/full-content.html.twig              |   13 [32m+[m
+ back/templates/header.html.twig                    |   65 [32m+[m
+ back/templates/header_guest.html.twig              |    4 [32m+[m
+ back/templates/home-model.html.twig                |   17 [32m+[m
+ back/templates/home/index.html.twig                |   22 [32m+[m
+ back/templates/market/_delete_form.html.twig       |    5 [32m+[m
+ back/templates/market/_form.html.twig              |   55 [32m+[m
+ back/templates/market/_form_reponse.html.twig      |   27 [32m+[m
+ back/templates/market/_search_form.html.twig       |   35 [32m+[m
+ back/templates/market/edit.html.twig               |   25 [32m+[m
+ back/templates/market/index.html.twig              |   36 [32m+[m
+ back/templates/market/new.html.twig                |   23 [32m+[m
+ back/templates/market/offer_full.html.twig         |   18 [32m+[m
+ .../market/offer_responses_list.html.twig          |   33 [32m+[m
+ back/templates/market/offers_list.html.twig        |   31 [32m+[m
+ back/templates/market/offers_manageList.html.twig  |   24 [32m+[m
+ back/templates/market/show.html.twig               |   44 [32m+[m
+ back/templates/market/user_index.html.twig         |   42 [32m+[m
+ back/templates/market/user_manage.html.twig        |   34 [32m+[m
+ back/templates/nav/nav-menu.html.twig              |   36 [32m+[m
+ back/templates/post/_delete_form.html.twig         |    5 [32m+[m
+ back/templates/post/_form.html.twig                |   38 [32m+[m
+ back/templates/post/_form_reponse.html.twig        |   27 [32m+[m
+ back/templates/post/edit.html.twig                 |   25 [32m+[m
+ back/templates/post/index.html.twig                |   25 [32m+[m
+ back/templates/post/new.html.twig                  |   25 [32m+[m
+ back/templates/post/post_list.html.twig            |   56 [32m+[m
+ back/templates/post/responses_list.html.twig       |   29 [32m+[m
+ back/templates/post/show.html.twig                 |   57 [32m+[m
+ back/templates/post/user_index.html.twig           |   42 [32m+[m
+ back/templates/registration/register.html.twig     |   85 [32m+[m
+ back/templates/search/_form.html.twig              |   29 [32m+[m
+ back/templates/search/associations_list.html.twig  |   21 [32m+[m
+ back/templates/search/blogposts_list.html.twig     |   47 [32m+[m
+ back/templates/search/channels_list.html.twig      |   30 [32m+[m
+ back/templates/search/index.html.twig              |   37 [32m+[m
+ back/templates/search/offers_list.html.twig        |   26 [32m+[m
+ back/templates/search/rapidposts_list.html.twig    |   52 [32m+[m
+ back/templates/search/users_list.html.twig         |   34 [32m+[m
+ back/templates/security/login.html.twig            |   39 [32m+[m
+ back/templates/sprite.svg                          |  456 [32m++[m
+ back/templates/user/_form.html.twig                |   46 [32m+[m
+ back/templates/user/edit.html.twig                 |   42 [32m+[m
+ back/templates/user/index.html.twig                |   19 [32m+[m
+ .../templates/user/profil_blogposts_list.html.twig |   38 [32m+[m
+ back/templates/user/profil_offers_list.html.twig   |   31 [32m+[m
+ .../user/profil_rapidposts_list.html.twig          |   42 [32m+[m
+ back/templates/user/show.html.twig                 |   79 [32m+[m
+ back/templates/user/user_headerBox.html.twig       |   18 [32m+[m
+ back/templates/user/users_list.html.twig           |   39 [32m+[m
+ back/tests/bootstrap.php                           |   11 [32m+[m
+ back/translations/.gitignore                       |    0
+ front/.gitignore                                   |    2 [32m+[m
+ front/README.md                                    |   10 [32m+[m
+ front/dev/fonts/roboto/Roboto-Black-webfont.woff   |  Bin [31m0[m -> [32m21452[m bytes
+ front/dev/fonts/roboto/Roboto-Bold-webfont.woff    |  Bin [31m0[m -> [32m21320[m bytes
+ front/dev/fonts/roboto/Roboto-Light-webfont.woff   |  Bin [31m0[m -> [32m20904[m bytes
+ front/dev/fonts/roboto/Roboto-Medium-webfont.woff  |  Bin [31m0[m -> [32m21184[m bytes
+ front/dev/fonts/roboto/Roboto-Regular-webfont.woff |  Bin [31m0[m -> [32m20924[m bytes
+ front/dev/fonts/roboto/Roboto-Thin-webfont.woff    |  Bin [31m0[m -> [32m20864[m bytes
+ .../roboto/RobotoCondensed-Regular-webfont.woff    |  Bin [31m0[m -> [32m21036[m bytes
+ front/dev/imgs/bg-profil.jpg                       |  Bin [31m0[m -> [32m386979[m bytes
+ front/dev/imgs/coeur.png                           |  Bin [31m0[m -> [32m447[m bytes
+ front/dev/imgs/cvtic.png                           |  Bin [31m0[m -> [32m1595[m bytes
+ front/dev/imgs/icons/association.svg               |   18 [32m+[m
+ front/dev/imgs/icons/back.svg                      |    1 [32m+[m
+ front/dev/imgs/icons/blogpost.svg                  |   10 [32m+[m
+ front/dev/imgs/icons/burger-menu.svg               |    5 [32m+[m
+ front/dev/imgs/icons/certificat.svg                |   10 [32m+[m
+ front/dev/imgs/icons/chevron-right.svg             |   36 [32m+[m
+ front/dev/imgs/icons/comment.svg                   |   10 [32m+[m
+ front/dev/imgs/icons/cvtic.svg                     |    9 [32m+[m
+ front/dev/imgs/icons/email.svg                     |    3 [32m+[m
+ front/dev/imgs/icons/enveloppe.svg                 |   10 [32m+[m
+ front/dev/imgs/icons/esu-logo-dark.svg             |   86 [32m+[m
+ front/dev/imgs/icons/esu-logo-light.svg            |   86 [32m+[m
+ front/dev/imgs/icons/euro.svg                      |    1 [32m+[m
+ front/dev/imgs/icons/export.svg                    |   10 [32m+[m
+ front/dev/imgs/icons/hash-tag.svg                  |   39 [32m+[m
+ front/dev/imgs/icons/heart.svg                     |   44 [32m+[m
+ front/dev/imgs/icons/help.svg                      |    5 [32m+[m
+ front/dev/imgs/icons/image.svg                     |   48 [32m+[m
+ front/dev/imgs/icons/like.svg                      |   11 [32m+[m
+ front/dev/imgs/icons/list.svg                      |    1 [32m+[m
+ front/dev/imgs/icons/loupe.svg                     |   10 [32m+[m
+ front/dev/imgs/icons/market.svg                    |   13 [32m+[m
+ front/dev/imgs/icons/mortar.svg                    |   11 [32m+[m
+ front/dev/imgs/icons/padlock.svg                   |    3 [32m+[m
+ front/dev/imgs/icons/plume.svg                     |   10 [32m+[m
+ front/dev/imgs/icons/rapidpost.svg                 |   13 [32m+[m
+ front/dev/imgs/icons/user.svg                      |    4 [32m+[m
+ front/dev/index.js                                 |   11 [32m+[m
+ front/dev/js/ajax.js                               |  155 [32m+[m
+ front/dev/js/burger-menu.js                        |   21 [32m+[m
+ front/dev/js/tabs.js                               |   45 [32m+[m
+ front/dev/scss/base/alerts.scss                    |   20 [32m+[m
+ front/dev/scss/base/buttons.scss                   |   74 [32m+[m
+ front/dev/scss/base/colors.scss                    |   31 [32m+[m
+ front/dev/scss/base/containers.scss                |   75 [32m+[m
+ front/dev/scss/base/fonts.scss                     |   48 [32m+[m
+ front/dev/scss/base/forms-inputs.scss              |  107 [32m+[m
+ front/dev/scss/base/grid.scss                      |   84 [32m+[m
+ front/dev/scss/base/reset.scss                     |   67 [32m+[m
+ front/dev/scss/base/table.scss                     |   33 [32m+[m
+ front/dev/scss/base/tabs.scss                      |   66 [32m+[m
+ front/dev/scss/base/titles.scss                    |   34 [32m+[m
+ front/dev/scss/components/associations-list.scss   |   66 [32m+[m
+ front/dev/scss/components/blog-feed.scss           |  175 [32m+[m
+ front/dev/scss/components/blog-post-full.scss      |  125 [32m+[m
+ front/dev/scss/components/custom-text-content.scss |   51 [32m+[m
+ front/dev/scss/components/errors.scss              |   38 [32m+[m
+ front/dev/scss/components/footer.scss              |   29 [32m+[m
+ front/dev/scss/components/header-box.scss          |  109 [32m+[m
+ front/dev/scss/components/header.scss              |  263 [32m+[m
+ front/dev/scss/components/home-bloc-asso.scss      |   71 [32m+[m
+ front/dev/scss/components/initial-post.scss        |  115 [32m+[m
+ front/dev/scss/components/login-page.scss          |   20 [32m+[m
+ front/dev/scss/components/nav-menu.scss            |  113 [32m+[m
+ front/dev/scss/components/offer-full.scss          |   85 [32m+[m
+ front/dev/scss/components/offers-list.scss         |  116 [32m+[m
+ front/dev/scss/components/pagination.scss          |   31 [32m+[m
+ front/dev/scss/components/posts-list.scss          |  166 [32m+[m
+ front/dev/scss/components/thematiques-feed.scss    |   92 [32m+[m
+ front/dev/scss/components/users-list.scss          |  141 [32m+[m
+ front/dev/scss/styles.scss                         |   33 [32m+[m
+ front/integration/index.php                        |    7 [32m+[m
+ front/integration/login.php                        |    7 [32m+[m
+ front/integration/profil.php                       |    6 [32m+[m
+ front/integration/register.php                     |    6 [32m+[m
+ front/integration/static/css/style.css             |    2 [32m+[m
+ .../static/fonts/Roboto-Black-webfont.woff         |  Bin [31m0[m -> [32m21452[m bytes
+ .../static/fonts/Roboto-Bold-webfont.woff          |  Bin [31m0[m -> [32m21320[m bytes
+ .../static/fonts/Roboto-Light-webfont.woff         |  Bin [31m0[m -> [32m20904[m bytes
+ .../static/fonts/Roboto-Medium-webfont.woff        |  Bin [31m0[m -> [32m21184[m bytes
+ .../static/fonts/Roboto-Regular-webfont.woff       |  Bin [31m0[m -> [32m20924[m bytes
+ .../static/fonts/Roboto-Thin-webfont.woff          |  Bin [31m0[m -> [32m20864[m bytes
+ .../fonts/RobotoCondensed-Regular-webfont.woff     |  Bin [31m0[m -> [32m21036[m bytes
+ front/integration/static/imgs/bg-profil.jpg        |  Bin [31m0[m -> [32m386979[m bytes
+ front/integration/static/imgs/coeur.png            |  Bin [31m0[m -> [32m447[m bytes
+ front/integration/static/imgs/cvtic.png            |  Bin [31m0[m -> [32m1595[m bytes
+ front/integration/static/imgs/sprite.svg           |  412 [32m+[m
+ front/integration/static/js/script.js              |    1 [32m+[m
+ front/integration/tpl/home/aside.php               |   72 [32m+[m
+ front/integration/tpl/home/home.php                |   94 [32m+[m
+ front/integration/tpl/login/content.php            |   31 [32m+[m
+ front/integration/tpl/main/footer.php              |    8 [32m+[m
+ front/integration/tpl/main/header.php              |   98 [32m+[m
+ front/integration/tpl/main/header_guest.php        |   11 [32m+[m
+ front/integration/tpl/profil/blogposts_list.php    |   32 [32m+[m
+ front/integration/tpl/profil/content.php           |   64 [32m+[m
+ front/integration/tpl/profil/offers_list.php       |    0
+ front/integration/tpl/profil/rapidposts_list.php   |    0
+ front/integration/tpl/register/content.php         |   64 [32m+[m
+ front/package-lock.json                            | 5427 [32m+++++++++++++[m
+ front/package.json                                 |   24 [32m+[m
+ front/start-serve.bat                              |    1 [32m+[m
+ front/webpack.config.integration.js                |   79 [32m+[m
+ front/webpack.config.js                            |    3 [32m+[m
+ front/webpack.config.symfony.js                    |   79 [32m+[m
+ 335 files changed, 28232 insertions(+)
