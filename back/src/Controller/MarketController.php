@@ -51,7 +51,7 @@ class MarketController extends AbstractController
             $_pageOffers = $this->offerRepository->searchCustom($name, $type, $price);
             $hasPage = false;
         } else {
-            $_offers = $this->offerRepository->findAll();
+            $_offers = $this->offerRepository->findBy(array(), array('id' => 'DESC'));
             $_pageOffers = $paginator->paginate($_offers, $page, 10);
         }
 
