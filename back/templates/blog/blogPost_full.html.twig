@@ -1,6 +1,6 @@
 <div class="blog-post-full">
     <h1 class="main-title">{{ blogPost.title|striptags }}</h1>
-    {% if blogPost.picture != '' %}
+    {% if blogPost.picture != '' and blogPost.picture != 'no' %}
         <div class="blog-post-picture">
             <div class="picture-bloc">
                 <img src="{{ asset('/uploads/blog/' ~ blogPost.picture) }}" title="{{ blogPost.title|striptags }}"/>

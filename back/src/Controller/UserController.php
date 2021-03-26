@@ -36,7 +36,7 @@ class UserController extends AbstractController
         if(strlen($letter) == 1) {
             $_users = $this->userRepository->searchByFirstLetter(strtolower($letter));
         } else {
-            $_users = $this->userRepository->findAll();
+            $_users = $this->userRepository->findBy(array(), array('lastName' => 'ASC'));
         }
         
         $_pageUsers = $paginator->paginate($_users, $page, 20);
